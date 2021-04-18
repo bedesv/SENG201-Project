@@ -42,6 +42,10 @@ public class Item{
 		return String.format("Item: %s\nDescription: %s\nType: %s\nSize: %d\nPrice: %d", itemName, itemDescription, itemType, itemSize, itemPrice);
 	}
 	
+	public boolean equals(Item item) {
+		return item.getName().equals(this.getName());
+	}
+	
 	public static void main(String[] args) {
 		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
 		System.out.println(Banana.getName());

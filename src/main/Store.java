@@ -16,7 +16,14 @@ public class Store {
 	}
 	
 	public void viewItemsBought() {
+		System.out.println(String.format("Items bought at %s:\n", storeName));
 		for (Item i : itemsBought) {
+			System.out.println(String.format("%s\n", i));
+		}
+	}
+	public void viewItemsSold() {
+		System.out.println(String.format("Items sold at %s:\n", storeName));
+		for (Item i : itemsSold) {
 			System.out.println(String.format("%s\n", i));
 		}
 	}
