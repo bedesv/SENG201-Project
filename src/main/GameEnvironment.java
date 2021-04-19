@@ -29,6 +29,26 @@ public class GameEnvironment {
 		
 	}
 	
+	
+	public void startGame() {
+		// to do: call functions to set up islands, routes ...
+		
+		boolean gameCont = true;
+		
+		while (gameCont) {
+			// options to play...
+			
+			// if pirates
+				// gameCont = pirateBattle (func in Pirates)
+		}
+	}
+	
+	public void finishGame() {
+		
+	}
+
+	
+	
 	public static void main(String[] args) {
 		
 		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 10);
@@ -38,7 +58,7 @@ public class GameEnvironment {
 		initItems();
 		initStores();
 		JollyNut.viewItemsBought();
-		Ship.buyItem(Apple, 5000);
+		Ship.buyItem(Apple, 50);
 		Ship.viewShipProperties();
 		Ship.sellItem(Apple, 40);
 		Ship.viewShipProperties();

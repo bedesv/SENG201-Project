@@ -1,4 +1,4 @@
-package tradergame;
+package main;
 
 import java.util.ArrayList;
 

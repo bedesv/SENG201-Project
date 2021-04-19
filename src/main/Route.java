@@ -1,4 +1,4 @@
-package tradergame;
+package main;
 
 public class Route {
 	
