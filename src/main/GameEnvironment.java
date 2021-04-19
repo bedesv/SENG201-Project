@@ -32,11 +32,18 @@ public class GameEnvironment {
 	public static void main(String[] args) {
 		
 		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 10);
-		Item Apple = new Item("Banana", "A round fruit", "Food", 1, 2);
+		Item Apple = new Item("Banana", "A round fruit", "Food", 4, 2);
+		Ship Ship = new Ship("Ship", 4, 5);
 		
 		initItems();
 		initStores();
 		JollyNut.viewItemsBought();
-		System.out.println(Banana.equals(Apple));
+		Ship.buyItem(Apple, 5000);
+		Ship.viewShipProperties();
+		Ship.sellItem(Apple, 40);
+		Ship.viewShipProperties();
+		
+		
+		
 	}
 }

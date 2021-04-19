@@ -44,11 +44,42 @@ public class Ship {
 		System.out.println("Crew: " + shipCrew);
 		//System.out.println("Current Location: " + Location.getName());
 		System.out.println("Coins: " + coins);
-		
+		System.out.println();
+	}
+	
+	public void buyItem(Item item, int price) {
+		if (coins < price) {
+			throw new InsufficientCoinsException("Not enough coins to buy " + item.getName() + ", sell some items to get more.");
+		} else {
+			coins -= price;
+			shipInventory.add(item);
+			currCapacity += item.getSize();
+			System.out.println(item.getName() + " purchased successfully\n");
+		}
+	}
+	
+	public boolean removeItem(Item item) {
+		for (Item i:shipInventory) {
+			if (item.equals(i)) {
+				shipInventory.remove(i);
+				currCapacity -= item.getSize();
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void sellItem(Item item, int price) {
+		if (this.removeItem(item)) {
+			coins += price;
+			System.out.println(item.getName() + " sold successfully\n");
+		} else {
+			throw new ItemNotOwnedException(item.getName() + " not in inventory.");
+		}
 	}
 	
 	public static void main(String[] args) {
-		Ship ship = new Ship("ship", 4, 5);
+		Ship ship = new Ship("Ship", 4, 5);
 		ship.currCapacity = 4;
 		ship.viewShipProperties();
 	}
