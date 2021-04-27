@@ -33,6 +33,10 @@ public class Store {
 		itemsSold.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * soldMultiplier)));
 	}
 	
+	public String getStoreName() {
+		return storeName;
+	}
+	
 	public static void main(String[] args) {
 		Store Random = new Store("Random", 5);
 		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);

@@ -28,6 +28,14 @@ public class Ship {
 		}
 	}
 	
+	public ArrayList<Item> getItems(){
+		return shipInventory;
+	}
+	
+	public int getCoins() {
+		return coins;
+	}
+	
 	public void viewInventory() {
 		System.out.println("Items in Inventory:\n");
 		for (Item i : shipInventory) {

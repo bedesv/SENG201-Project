@@ -39,7 +39,7 @@ public class Item{
 	}
 	
 	public String toString() {
-		return String.format("Item: %s\nDescription: %s\nType: %s\nSize: %d\nPrice: %d", itemName, itemDescription, itemType, itemSize, itemPrice);
+		return String.format("\tItem: %s\n\tDescription: %s\n\tType: %s\n\tSize: %d\n\tPrice: %d", itemName, itemDescription, itemType, itemSize, itemPrice);
 	}
 	
 	public boolean equals(Item item) {

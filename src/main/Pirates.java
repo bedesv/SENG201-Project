@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 public class Pirates extends RandomEvents{
 	
 	
@@ -10,8 +12,8 @@ public class Pirates extends RandomEvents{
 	public boolean pirateBattle(Ship shipName) {
 		int shipMultiplier = shipName.getShipMultiplier();
 		int bound = 20 * (int) shipMultiplier;
-		ArrayList<Items> listOfItems = shipName.viewItems();
-		int coins = shipName.viewCoins();
+		ArrayList<Item> listOfItems = shipName.getItems();
+		int coins = shipName.getCoins();
 		
 		System.out.println("Oh no! You encounter pirates. They will try to board your ship and steal your goods.\n"
 				+ "Please accept the battle challenge and roll your dice\nYour number need to be greater than " + bound + " to win the pirates and secure your goods.");
@@ -36,7 +38,7 @@ public class Pirates extends RandomEvents{
 			
 			if (coins >= pirateWants) {
 				// create a method to delete all of the items on the ship in Ship class
-				listOfItems = shipName.viewItems();
+				listOfItems = shipName.getItems();
 				System.out.println("Your goods satisfy the pirate.\nHe will let you go now.");	
 			}
 			else {
