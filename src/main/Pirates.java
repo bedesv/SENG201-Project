@@ -10,8 +10,8 @@ public class Pirates extends RandomEvents{
 	}
 	
 	public boolean pirateBattle(Ship shipName) {
-		int shipMultiplier = shipName.getShipMultiplier();
-		int bound = 20 * (int) shipMultiplier;
+		int shipAttackMultiplier = shipName.getAttackMultiplier();
+		int bound = 20 * (int) shipAttackMultiplier;
 		ArrayList<Item> listOfItems = shipName.getItems();
 		int coins = shipName.getCoins();
 		

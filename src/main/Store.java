@@ -11,8 +11,8 @@ public class Store {
 	
 	public Store(String name, int multiplier) {
 		storeName = name;
-		boughtMultiplier = multiplier;
-		soldMultiplier = multiplier - 2;
+		boughtMultiplier = multiplier - 2;
+		soldMultiplier = multiplier;
 	}
 	
 	public void viewItemsBought() {

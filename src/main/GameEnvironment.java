@@ -1,9 +1,17 @@
 package main;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class GameEnvironment {
 	private static ArrayList<Item> foodItems = new ArrayList<Item>();
+	private static ArrayList<Ship> ships = new ArrayList<Ship>();
+	
+	//create ships
+	private static Ship Delight = new Ship("Delight", 10, 100, 12, 8);
+	private static Ship Defender = new Ship("Defender", 10, 100, 6, 18);
+	private static Ship Mantis = new Ship("Mantis", 10, 100, 17, 5);
+	private static Ship Pioneer = new Ship("Pioneer", 10, 100, 10, 10);
+	
 	
 	
 	//create stores
@@ -103,19 +111,75 @@ public class GameEnvironment {
 		ArborlandIslet.addRoute(TheGraveSea);
 	}
 	
+	public static void initShips() {
+		ships.add(Delight);
+		ships.add(Defender);
+		ships.add(Mantis);
+		ships.add(Pioneer);
+	}
+	
 	
 	public static void initItems() {
+		
 		foodItems.add(new Item("Banana", "A yummy fruit", "Food", 1, 5));
 		foodItems.add(new Item("Apple", "A round fruit", "Food", 1, 2));
 		foodItems.add(new Item("Orange", "An orange fruit", "Food", 1, 3));
 		foodItems.add(new Item("Pear", "A weird looking fruit", "Food", 1, 7));
+		
+		VelvetKnife.addItem(new Item("Single Cannon", "A single cannon, used to shoot at enemies. Adds 5 to the ships damage multiplier.", "Weapon", 7, 60));
+		EducatedMonkey.addItem(new Item("Double Cannon", "A double cannon, used to shoot at enemies. Adds 9 to the ships damage multiplier.", "Weapon", 16, 70));
+		IronBear.addItem(new Item("Grappling Hook", "A grappling hook, used to gain access to an enemies ship. Adds 3 to the ships damage multiplier.", "Weapon", 5, 35));
+		ViciousKettle.addItem(new Item("Prow Armour", "Armour for the front of the ship, allows the ship to be used as a battering ram. Adds 10 to the ships damage multiplier.", "Weapon", 0, 85));
+		JollyNut.addItem(new Item("Triple Cannon", "A triple cannon, used to shoot at enemies. Adds 15 to the ships damage multiplier.", "Weapon", 35, 95));
 	}
 	
 	public static void initStores() {
 		
 		for (Item i:foodItems) {
 			JollyNut.addItem(i);
+			ViciousKettle.addItem(i);
+			IronBear.addItem(i);
+			EducatedMonkey.addItem(i);
+			VelvetKnife.addItem(i);
 		}
+		
+		
+	}
+	
+	public static Ship selectShip() {
+		System.out.println("Please select the ship you want to use from the following:");
+		for (Ship s : ships) {
+			s.shipInfo();
+		}
+		
+		Scanner input = new Scanner(System.in);
+		int selectedShip = 0;
+		char answer = 'p';
+		while (answer != 'y') {
+			System.out.println("Enter 1 for Delight, 2 for Defender, 3 for Mantis, 4 for Pioneer.");
+			selectedShip = input.nextInt();
+			System.out.println(selectedShip);
+		
+			while (selectedShip < 1 || selectedShip > 4) {
+				System.out.println("Error: Invalid selection.");
+				System.out.println("Enter 1 for Delight, 2 for Defender, 3 for Mantis, 4 for Pioneer.");
+				selectedShip = input.nextInt();
+			}
+		
+			System.out.println("You've selected " + ships.get(selectedShip-1).getName() + ". Is this correct? y/n");
+		
+			
+			answer = input.next().charAt(0);
+			while (answer != 'y' && answer != 'n') {
+				
+				System.out.println("Please enter a valid answer (y/n).");
+				answer = input.next().charAt(0);
+			}
+		
+		}
+		input.close();
+		
+		return ships.get(selectedShip-1);
 		
 		
 	}
@@ -132,7 +196,7 @@ public class GameEnvironment {
 				// gameCont = pirateBattle (func in Pirates)
 		}
 	}
-	
+	 
 	public void finishGame() {
 		
 	}
@@ -141,20 +205,23 @@ public class GameEnvironment {
 	
 	public static void main(String[] args) {
 		
-		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 10);
-		Item Apple = new Item("Banana", "A round fruit", "Food", 4, 2);
-		Ship Ship = new Ship("Ship", 4, 5);
-		
 		initItems();
 		initStores();
-		JollyNut.viewItemsBought();
-		Ship.buyItem(Apple, 50);
-		Ship.viewShipProperties();
-		Ship.sellItem(Apple, 40);
-		Ship.viewShipProperties();
+		initShips();
 		
-		initIslands();
-		CrosserPeninsula.viewPropertyIsland();
+		
+		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 10);
+		Item Apple = new Item("Banana", "A round fruit", "Food", 4, 2);
+		Ship Ship = selectShip();
+		
+		//JollyNut.viewItemsBought();
+		//Ship.buyItem(Apple, 50);
+		//Ship.viewShipProperties();
+		//Ship.sellItem(Apple, 40);
+		//Ship.viewShipProperties();
+		
+		//initIslands();
+		//CrosserPeninsula.viewPropertyIsland();
 		
 		
 	}
