@@ -1,1 +1,7 @@
 Exceptions for ship selection if enter char instead of int for eg in GameEnvironment.java
+
+in SHIP make methods as follow:
+- addCoin(): add coin with a given amount of coin
+- remove all inventory in the event of pirates
+
+travel method in Route??

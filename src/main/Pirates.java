@@ -12,7 +12,6 @@ public class Pirates extends RandomEvents{
 	public boolean pirateBattle(Ship shipName) {
 		int shipAttackMultiplier = shipName.getAttackMultiplier();
 		int bound = 20 * (int) shipAttackMultiplier;
-		ArrayList<Item> listOfItems = shipName.getItems();
 		int coins = shipName.getCoins();
 		
 		System.out.println("Oh no! You encounter pirates. They will try to board your ship and steal your goods.\n"
@@ -25,6 +24,8 @@ public class Pirates extends RandomEvents{
 		int randomNum = (int) (Math.random() * (big - small + 1) + small);
 		
 		// for generic case, need to be over 20 out of 30
+		
+		
 		if (randomNum > bound) {
 			System.out.println("Congratulations! You've got a " + randomNum + " from your dice battle with the pirate and WON!!!");
 			System.out.println("You can keep all of your inventories and continue with your journey. Good luck!");
@@ -38,7 +39,8 @@ public class Pirates extends RandomEvents{
 			
 			if (coins >= pirateWants) {
 				// create a method to delete all of the items on the ship in Ship class
-				listOfItems = shipName.getItems();
+				shipName.removeAllItems();
+				shipName.getItems();
 				System.out.println("Your goods satisfy the pirate.\nHe will let you go now.");	
 			}
 			else {
@@ -46,10 +48,12 @@ public class Pirates extends RandomEvents{
 						+ "He'll take your ship and your money and make you and your crew walk the plank.\n"
 						+ "Unfortunately, the game is over.");
 				return false;
+				// go to GE to end game
 				
 			}
 		}
 		return true;
+		// keep playing
 	}
 
 }

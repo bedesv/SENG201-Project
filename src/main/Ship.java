@@ -13,13 +13,16 @@ public class Ship {
 	private int attackMultiplier;
 	private int damageMultiplier;
 	private ArrayList<Item> shipInventory = new ArrayList<Item>();
+	private int shipSpeed;
 	
-	public Ship(String name, int crew, int capacity, int attack, int damage) {
+	public Ship(String name, int crew, int capacity, int attack, int damage, int speed) {
 		shipCrew = crew;
 		shipName = name;
 		maxCapacity = capacity;
 		attackMultiplier = attack;
 		damageMultiplier = damage;
+		shipSpeed = speed;
+		
 	}
 	
 	public void repairShip() {
@@ -38,6 +41,10 @@ public class Ship {
 	
 	public int getCoins() {
 		return coins;
+	}
+	
+	public int getSpeed() {
+		return shipSpeed;
 	}
 	
 	public void viewInventory() {
@@ -121,9 +128,19 @@ public class Ship {
 	}
 	
 	public static void main(String[] args) {
-		Ship ship = new Ship("Ship", 4, 5);
+		Ship ship = new Ship("Ship", 4, 5, 2, 6, 45);
 		ship.currCapacity = 4;
 		ship.viewShipProperties();
+	}
+
+	public void addCoin(int coin) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void removeAllItems() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

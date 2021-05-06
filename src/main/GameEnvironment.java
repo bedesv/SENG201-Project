@@ -7,10 +7,10 @@ public class GameEnvironment {
 	private static ArrayList<Ship> ships = new ArrayList<Ship>();
 	
 	//create ships
-	private static Ship Delight = new Ship("Delight", 10, 100, 12, 8);
-	private static Ship Defender = new Ship("Defender", 10, 100, 6, 18);
-	private static Ship Mantis = new Ship("Mantis", 10, 100, 17, 5);
-	private static Ship Pioneer = new Ship("Pioneer", 10, 100, 10, 10);
+	private static Ship Delight = new Ship("Delight", 10, 100, 12, 8, 40);
+	private static Ship Defender = new Ship("Defender", 10, 100, 6, 18, 50);
+	private static Ship Mantis = new Ship("Mantis", 10, 100, 17, 5, 37);
+	private static Ship Pioneer = new Ship("Pioneer", 10, 100, 10, 10, 89);
 	
 	
 	
@@ -30,30 +30,30 @@ public class GameEnvironment {
 	private static Island ArborlandIslet = new Island("Arborland Islet", IronBear);
 	
 	//create routes
-	//Route(int days, int distance, Island island1, Island island2, String description, int eventMultiplier)
-	private static Route AridTrail = new Route(6, 10000, RemoteRefuge, RainingArchipelago, "Arid Trail", 20);
-	private static Route DragonfireRoute = new Route(3, 4000, RemoteRefuge, RainingArchipelago, "Dragonfire Route", 60);
-	private static Route TrepidationPass = new Route(4, 4600, RemoteRefuge, BrightwichIsland, "Trepidation Pass", 40);
-	private static Route TheGlisteningDeep = new Route(7, 1100, RemoteRefuge, BrightwichIsland, "The Glistening Deep", 20);
-	private static Route TerrenrontoWaters = new Route(5, 5200, RemoteRefuge, CrosserPeninsula, "Terrenronto Waters", 40);
-	private static Route SalfilWaters = new Route(10, 18000, RemoteRefuge, CrosserPeninsula, "Salfil Waters", 10);
-	private static Route TheBurstingWaves = new Route(2, 2500, RemoteRefuge, ArborlandIslet, "The Bursting Waves", 50);
-	private static Route TheEmptyBay = new Route(11, 19500, RemoteRefuge, ArborlandIslet, "The Empty Bay", 10);
+	//Route(int distance, Island island1, Island island2, String description, int eventMultiplier)
+	private static Route AridTrail = new Route(10000, RemoteRefuge, RainingArchipelago, "Arid Trail", 20);
+	private static Route DragonfireRoute = new Route(4000, RemoteRefuge, RainingArchipelago, "Dragonfire Route", 60);
+	private static Route TrepidationPass = new Route(4600, RemoteRefuge, BrightwichIsland, "Trepidation Pass", 40);
+	private static Route TheGlisteningDeep = new Route(1100, RemoteRefuge, BrightwichIsland, "The Glistening Deep", 20);
+	private static Route TerrenrontoWaters = new Route(5200, RemoteRefuge, CrosserPeninsula, "Terrenronto Waters", 40);
+	private static Route SalfilWaters = new Route(18000, RemoteRefuge, CrosserPeninsula, "Salfil Waters", 10);
+	private static Route TheBurstingWaves = new Route(2500, RemoteRefuge, ArborlandIslet, "The Bursting Waves", 50);
+	private static Route TheEmptyBay = new Route(19500, RemoteRefuge, ArborlandIslet, "The Empty Bay", 10);
 	
-	private static Route ChilwaterSea = new Route(10, 18200, RainingArchipelago, BrightwichIsland, "Chilwater Sea", 30);
-	private static Route TheDarkestDepths = new Route(5, 5150, RainingArchipelago, BrightwichIsland, "The Darkest Depths", 40);
-	private static Route CartvonsBay = new Route(7, 1230, RainingArchipelago, CrosserPeninsula, "Cartvons Bay", 20);
-	private static Route TheTroubledOcean = new Route(3, 4130, RainingArchipelago, CrosserPeninsula, "The Troubled Ocean", 50);
-	private static Route TheNarrowGulf = new Route(8, 15000, RainingArchipelago, ArborlandIslet, "The Narrow Gulf", 20);
-	private static Route TheOceanOfWoodbourg = new Route(6, 10050, RainingArchipelago, ArborlandIslet, "The Ocean of Woodbourg", 30);
+	private static Route ChilwaterSea = new Route(18200, RainingArchipelago, BrightwichIsland, "Chilwater Sea", 30);
+	private static Route TheDarkestDepths = new Route(5150, RainingArchipelago, BrightwichIsland, "The Darkest Depths", 40);
+	private static Route CartvonsBay = new Route(1230, RainingArchipelago, CrosserPeninsula, "Cartvons Bay", 20);
+	private static Route TheTroubledOcean = new Route(4130, RainingArchipelago, CrosserPeninsula, "The Troubled Ocean", 50);
+	private static Route TheNarrowGulf = new Route(15000, RainingArchipelago, ArborlandIslet, "The Narrow Gulf", 20);
+	private static Route TheOceanOfWoodbourg = new Route(10050, RainingArchipelago, ArborlandIslet, "The Ocean of Woodbourg", 30);
 	
-	private static Route TheSunnyDomain = new Route(9, 17000, BrightwichIsland, CrosserPeninsula, "The Sunny Domain", 10);
-	private static Route TheDarkOcean = new Route(3, 5300, BrightwichIsland, CrosserPeninsula, "The Dark Ocean", 50);
-	private static Route TheCoralOcean = new Route(10, 17050, BrightwichIsland, ArborlandIslet, "The Coral Ocean", 10);
-	private static Route TheHungryDepths = new Route(2, 3500, BrightwichIsland, ArborlandIslet, "The Hungry Depths", 70);
+	private static Route TheSunnyDomain = new Route(17000, BrightwichIsland, CrosserPeninsula, "The Sunny Domain", 10);
+	private static Route TheDarkOcean = new Route(5300, BrightwichIsland, CrosserPeninsula, "The Dark Ocean", 50);
+	private static Route TheCoralOcean = new Route(17050, BrightwichIsland, ArborlandIslet, "The Coral Ocean", 10);
+	private static Route TheHungryDepths = new Route(3500, BrightwichIsland, ArborlandIslet, "The Hungry Depths", 70);
 	
-	private static Route TheWastingBay = new Route(12, 20000, CrosserPeninsula, ArborlandIslet, "The Wasting Bay", 10);
-	private static Route TheGraveSea = new Route(2, 4000, CrosserPeninsula, ArborlandIslet, "The Grave Sea", 100);
+	private static Route TheWastingBay = new Route(20000, CrosserPeninsula, ArborlandIslet, "The Wasting Bay", 10);
+	private static Route TheGraveSea = new Route(4000, CrosserPeninsula, ArborlandIslet, "The Grave Sea", 100);
 			
 	
 	
@@ -210,13 +210,13 @@ public class GameEnvironment {
 		initShips();
 		
 		
-		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 10);
+		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
 		Item Apple = new Item("Banana", "A round fruit", "Food", 4, 2);
 		Ship Ship = selectShip();
 		
 		//JollyNut.viewItemsBought();
-		//Ship.buyItem(Apple, 50);
-		//Ship.viewShipProperties();
+		Ship.buyItem(Apple, 5);
+		Ship.viewShipProperties();
 		//Ship.sellItem(Apple, 40);
 		//Ship.viewShipProperties();
 		
