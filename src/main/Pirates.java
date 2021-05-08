@@ -1,6 +1,5 @@
 package main;
 
-import java.util.ArrayList;
 
 public class Pirates extends RandomEvents{
 	
@@ -39,7 +38,7 @@ public class Pirates extends RandomEvents{
 			
 			if (coins >= pirateWants) {
 				// create a method to delete all of the items on the ship in Ship class
-				shipName.removeAllItems();
+				shipName.clearInventory();
 				shipName.getItems();
 				System.out.println("Your goods satisfy the pirate.\nHe will let you go now.");	
 			}

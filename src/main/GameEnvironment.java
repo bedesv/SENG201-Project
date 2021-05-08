@@ -5,6 +5,8 @@ import java.util.*;
 public class GameEnvironment {
 	private static ArrayList<Item> foodItems = new ArrayList<Item>();
 	private static ArrayList<Ship> ships = new ArrayList<Ship>();
+	private static ArrayList<Island> islands = new ArrayList<Island>();
+	private static ArrayList<String> activities = new ArrayList<String>();
 	
 	//create ships
 	private static Ship Delight = new Ship("Delight", 10, 100, 12, 8, 40);
@@ -12,8 +14,7 @@ public class GameEnvironment {
 	private static Ship Mantis = new Ship("Mantis", 10, 100, 17, 5, 37);
 	private static Ship Pioneer = new Ship("Pioneer", 10, 100, 10, 10, 89);
 	
-	
-	
+
 	//create stores
 	private static Store VelvetKnife = new Store("Velvet Knife", 10);
 	private static Store EducatedMonkey = new Store("Educated Monkey", 15);
@@ -33,8 +34,8 @@ public class GameEnvironment {
 	//Route(int distance, Island island1, Island island2, String description, int eventMultiplier)
 	private static Route AridTrail = new Route(10000, RemoteRefuge, RainingArchipelago, "Arid Trail", 20);
 	private static Route DragonfireRoute = new Route(4000, RemoteRefuge, RainingArchipelago, "Dragonfire Route", 60);
-	private static Route TrepidationPass = new Route(4600, RemoteRefuge, BrightwichIsland, "Trepidation Pass", 40);
-	private static Route TheGlisteningDeep = new Route(1100, RemoteRefuge, BrightwichIsland, "The Glistening Deep", 20);
+	private static Route TrepidationPass = new Route(4600, RemoteRefuge, BrightwichIsland, "Trepidation Pass", 20);
+	private static Route TheGlisteningDeep = new Route(1100, RemoteRefuge, BrightwichIsland, "The Glistening Deep", 40);
 	private static Route TerrenrontoWaters = new Route(5200, RemoteRefuge, CrosserPeninsula, "Terrenronto Waters", 40);
 	private static Route SalfilWaters = new Route(18000, RemoteRefuge, CrosserPeninsula, "Salfil Waters", 10);
 	private static Route TheBurstingWaves = new Route(2500, RemoteRefuge, ArborlandIslet, "The Bursting Waves", 50);
@@ -42,8 +43,8 @@ public class GameEnvironment {
 	
 	private static Route ChilwaterSea = new Route(18200, RainingArchipelago, BrightwichIsland, "Chilwater Sea", 30);
 	private static Route TheDarkestDepths = new Route(5150, RainingArchipelago, BrightwichIsland, "The Darkest Depths", 40);
-	private static Route CartvonsBay = new Route(1230, RainingArchipelago, CrosserPeninsula, "Cartvons Bay", 20);
-	private static Route TheTroubledOcean = new Route(4130, RainingArchipelago, CrosserPeninsula, "The Troubled Ocean", 50);
+	private static Route CartvonsBay = new Route(1230, RainingArchipelago, CrosserPeninsula, "Cartvons Bay", 50);
+	private static Route TheTroubledOcean = new Route(4130, RainingArchipelago, CrosserPeninsula, "The Troubled Ocean", 20);
 	private static Route TheNarrowGulf = new Route(15000, RainingArchipelago, ArborlandIslet, "The Narrow Gulf", 20);
 	private static Route TheOceanOfWoodbourg = new Route(10050, RainingArchipelago, ArborlandIslet, "The Ocean of Woodbourg", 30);
 	
@@ -58,6 +59,13 @@ public class GameEnvironment {
 	
 	
 	public static void initIslands() {
+		
+		// Add Islands to array
+		islands.add(ArborlandIslet);
+		islands.add(CrosserPeninsula);
+		islands.add(RainingArchipelago);
+		islands.add(RemoteRefuge);
+		islands.add(BrightwichIsland);
 		// add routes
 		
 		//RemoteRefuge
@@ -146,19 +154,27 @@ public class GameEnvironment {
 		
 	}
 	
-	public static Ship selectShip() {
+	public static void initActivities() {
+		activities.add("Enter Shop");
+		activities.add("Repair Ship");
+		activities.add("Set Sail");
+		activities.add("View Coin Balance");
+		activities.add("View Ship Details");
+		activities.add("End Game");
+	}
+	
+	public static Ship selectShip(Scanner input) {
 		System.out.println("Please select the ship you want to use from the following:");
 		for (Ship s : ships) {
 			s.shipInfo();
 		}
 		
-		Scanner input = new Scanner(System.in);
+		
 		int selectedShip = 0;
 		char answer = 'p';
 		while (answer != 'y') {
 			System.out.println("Enter 1 for Delight, 2 for Defender, 3 for Mantis, 4 for Pioneer.");
 			selectedShip = input.nextInt();
-			System.out.println(selectedShip);
 		
 			while (selectedShip < 1 || selectedShip > 4) {
 				System.out.println("Error: Invalid selection.");
@@ -177,9 +193,90 @@ public class GameEnvironment {
 			}
 		
 		}
-		input.close();
 		
 		return ships.get(selectedShip-1);
+		
+		
+	}
+	
+	public static Island selectStartingIsland(Scanner input) {
+		System.out.println("Please select the island you want to start at from the following:");
+		int i = 1;
+		for (Island s : islands) {
+			System.out.println(i++ + ": " + s.getName());
+		}
+		
+		int selectedIsland = 0;
+		char answer = 'p';
+		while (answer != 'y') {
+			selectedIsland = input.nextInt();
+		
+			while (selectedIsland < 1 || selectedIsland > 5) {
+				System.out.println("Error: Invalid selection.");
+				selectedIsland = input.nextInt();
+			}
+		
+			System.out.println("You've selected " + islands.get(selectedIsland-1).getName() + ". Is this correct? y/n");
+		
+			
+			answer = input.next().charAt(0);
+			while (answer != 'y' && answer != 'n') {
+				
+				System.out.println("Please enter a valid answer (y/n).");
+				answer = input.next().charAt(0);
+			}
+			if (answer == 'n') {
+				System.out.println("Please select the island you want to start at from the following:");
+				i = 1;
+				for (Island s : islands) {
+					System.out.println(i++ + ": " + s.getName());
+				}
+			}
+		
+		}
+		
+		return islands.get(selectedIsland-1);
+		
+		
+	}
+	
+	public static int selectActivity(Scanner input) {
+		System.out.println();
+		System.out.println("Please select the desired activity from the following:");
+		int i = 1;
+		for (String s : activities) {
+			System.out.println(i++ + ": " + s);
+		}
+		
+		int selectedActivity = 0;
+		char answer = 'p';
+		while (answer != 'y') {
+			selectedActivity = input.nextInt();
+		
+			while (selectedActivity < 1 || selectedActivity > 6) {
+				System.out.println("Error: Invalid selection.");
+				selectedActivity = input.nextInt();
+			}
+			
+			System.out.println("You've selected " + activities.get(selectedActivity-1) + ". Is this correct? y/n");
+		
+			
+			answer = input.next().charAt(0);
+			while (answer != 'y' && answer != 'n') {
+				
+				System.out.println("Please enter a valid answer (y/n).");
+				answer = input.next().charAt(0);
+			}
+			if (answer == 'n') {
+				System.out.println("Please select the desired activity from the following:");
+				i = 1;
+				for (String s : activities) {
+					System.out.println(i++ + ": " + s);
+				}
+			}
+		
+		}
+		return selectedActivity;
 		
 		
 	}
@@ -208,12 +305,40 @@ public class GameEnvironment {
 		initItems();
 		initStores();
 		initShips();
+		initIslands();
+		initActivities();
 		
+		Scanner input = new Scanner(System.in);
 		
 		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
-		Item Apple = new Item("Banana", "A round fruit", "Food", 4, 2);
-		Ship Ship = selectShip();
+		Item Apple = new Item("Apple", "A round fruit", "Food", 4, 2);
+		Ship Ship = selectShip(input);
+		Ship.setLocation(selectStartingIsland(input));
+		CrosserPeninsula.viewPropertyIsland();
+		Ship.buyItem(Apple, 5);
+		Ship.takeDamage(50);
+		Ship.repairShip(input);
 		
+		boolean gameCont = true;
+		
+		while (gameCont) {
+			int activity = selectActivity(input);
+			if (activity == 1) {
+				Ship.getLocation().getStore().enterStore(input, Ship);
+			} else if (activity == 2) {
+				Ship.repairShip(input);
+			} else if (activity == 3) {
+				Ship.travel(input, islands);
+			} else if (activity == 4) {
+				Ship.printCoins();
+			} else if (activity == 5) {
+				//view ship details
+				continue;
+			}	else if (activity == 6) {
+				gameCont = false;
+			}
+				
+		}
 		//JollyNut.viewItemsBought();
 		Ship.buyItem(Apple, 5);
 		Ship.viewShipProperties();
@@ -221,7 +346,7 @@ public class GameEnvironment {
 		//Ship.viewShipProperties();
 		
 		//initIslands();
-		//CrosserPeninsula.viewPropertyIsland();
+		CrosserPeninsula.viewPropertyIsland();
 		
 		
 	}

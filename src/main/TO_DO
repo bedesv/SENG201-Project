@@ -5,3 +5,6 @@ in SHIP make methods as follow:
 - remove all inventory in the event of pirates
 
 travel method in Route??
+
+Change ship capacities and crew numbers
+Finalise travel along route method in ship class
