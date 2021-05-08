@@ -1,6 +1,6 @@
 package main;
 
-public class RescueSailors extends RandomEvents{
+public class RescueSailors extends RandomEvent{
 	
 	public RescueSailors() {
 		super("Rescue a sailor");
@@ -11,7 +11,7 @@ public class RescueSailors extends RandomEvents{
 		// receive between 50 and 300 coins
 		int randomCoinRecieved = (int) (Math.random() * (300 - 50 + 1) + 50);
 		
-		shipName.addCoin(randomCoinRecieved);
+		shipName.addCoins(randomCoinRecieved);
 		
 	}
 

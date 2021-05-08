@@ -74,7 +74,7 @@ public class Store {
 					if (selectedItem == index - 1) {
 						break;
 					}
-					System.out.println(selectedItem);
+					ship.printCoins();
 					System.out.println("Are you sure you want to buy a " + itemsSold.get(selectedItem-1).getName() + " for " + itemsSold.get(selectedItem-1).getPrice() + " coins? y/n");
 			
 				
@@ -126,7 +126,7 @@ public class Store {
 						if (selectedItem == index - 1) {
 							break;
 						}
-						System.out.println(selectedItem);
+						ship.printCoins();
 						System.out.println("Are you sure you want to sell a " + itemsInCommon.get(selectedItem-1).getName() + " for " + itemsInCommon.get(selectedItem-1).getPrice() + " coins? y/n");
 				
 					

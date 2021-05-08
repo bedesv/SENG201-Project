@@ -15,6 +15,10 @@ public class Ship {
 	private ArrayList<Item> shipInventory = new ArrayList<Item>();
 	private int shipSpeed;
 	private int costPerCrew = 50;
+	private int daysPlayed = 0;
+	private Pirates encounterPirates = new Pirates();
+	private RandomEvent unfortunateWeather = new RandomEvent("Unfortunate Weather");
+	private RandomEvent rescueSailors = new RandomEvent("Rescue Sailors");
 	
 	public Ship(String name, int crew, int capacity, int attack, int damage, int speed) {
 		shipCrew = crew;
@@ -28,9 +32,10 @@ public class Ship {
 	
 	public void repairShip(Scanner input) {
 		if (coins < (shipDamage * 10)) {
-			System.out.println("Current coin balance: " + this.coins + " coins.");
+			this.printCoins();
 			System.out.println("Coins required for repairs: " + this.coins * this.shipDamage + " coins.");
 		} else {
+			this.printCoins();
 			System.out.println("Ship repairs will cost " + (shipDamage * 10) + " coins, do you want to proceed with repairs? y/n");
 			char answer =  'p';
 			answer = input.next().charAt(0);
@@ -44,7 +49,7 @@ public class Ship {
 				coins -= shipDamage * 10;
 				shipDamage = 0;
 				System.out.println("Ship repaired successfully");
-				System.out.println("Current coin balance: " + this.coins + " coins.");
+				this.printCoins();
 			}
 		}
 	}
@@ -83,6 +88,14 @@ public class Ship {
 	
 	public ArrayList<Item> getInventory() {
 		return this.shipInventory;
+	}
+	
+	public int inventoryTotal() {
+		int sum = 0;
+		for (Item i:this.shipInventory) {
+			sum += i.getPrice();
+		}
+		return sum;
 	}
 	
 	public boolean inventoryContains(Item i) {
@@ -165,7 +178,7 @@ public class Ship {
 		this.shipInventory.clear();
 	}
 	
-	public void travel(Scanner input, ArrayList<Island> islands) {
+	public boolean travel(Scanner input, ArrayList<Island> islands) {
 		ArrayList<Island> destinations = new ArrayList<Island>();
 		for (Island i:islands) {
 			if (i != this.Location) {
@@ -176,6 +189,7 @@ public class Ship {
 		int selectedIsland = 0;
 		int selectedRoute = 0;
 		char answer = 'p';
+		boolean gameCont = true;
 		
 		index = 1;
 		System.out.println("Select an island to travel to:");
@@ -243,6 +257,8 @@ public class Ship {
 								System.out.println(index + ": " + "Cancel");
 								break selectRoute;
 							}
+							this.printCoins();
+							System.out.println("Travelling along " + possibleRoutes.get(selectedRoute-1).getName() + " will take " + possibleRoutes.get(selectedRoute-1).getDays(this) + " days and your crews wages will cost " + possibleRoutes.get(selectedRoute-1).getDays(this) * this.costPerCrew * this.shipCrew + " coins.");
 							System.out.println("Are you sure you want to travel via " + possibleRoutes.get(selectedRoute-1).getName() + "? y/n");
 							
 							
@@ -252,25 +268,63 @@ public class Ship {
 								System.out.println("Please enter a valid answer (y/n).");
 								answer = input.next().charAt(0);
 							}
-							if (answer == 'n') {
+							if (answer == 'y' && possibleRoutes.get(selectedRoute-1).getDays(this) * this.costPerCrew * this.shipCrew <= this.coins) {
+								this.useRoute(possibleRoutes.get(selectedRoute-1), destinations.get(selectedIsland-1));
+								break selectIsland;
+								
+							} else {
+								if (possibleRoutes.get(selectedRoute-1).getDays(this) * this.costPerCrew * this.shipCrew > this.coins) {
+									System.out.println("You don't have enough coins to take this route. Select a different one or sell some items to get more coins.\n");
+								}
 								index = 1;
 								System.out.println("Select a route to take:");
 								for (Route r: possibleRoutes) {
 									r.getDescriptionNumbered(this.Location.getName(), index++);
 								}
 								System.out.println(index + " Cancel");
-							} else {
-								this.useRoute(possibleRoutes.get(selectedRoute-1));
-								break selectIsland;
 							}
 						}
 				}
 			}
+		return gameCont;
 		
 	}
 	
-	public void useRoute(Route route) {
+	public boolean useRoute(Route route, Island destination) {
 		Island oldLocation = this.Location;
+		int daysTaken = route.getDays(this);
+		int wagesCost = daysTaken * this.costPerCrew * this.shipCrew;
+		int event;
+		int pirates = 1;
+		int weather = 2;
+		int sailors = 3;
+		boolean gameCont = true;
+		if ((int) (Math.random() * 100) <= route.getMultiplier()) {
+			//event = (int) (Math.random() * 3) + 1;
+			event = 1;
+			if (event == pirates) {
+				gameCont = encounterPirates.pirateBattle(this);
+			} else if (event == weather) {
+				//weather
+				System.out.println("Weather");
+			} else if (event == sailors) {
+				//sailor things
+				System.out.println("Sailors");
+			}
+		}
+		
+		if (gameCont) {
+			System.out.println("Successfully traveled from " + oldLocation.getName() + " to " + destination.getName() + ".\n");
+			this.coins -= wagesCost;
+			this.daysPlayed += daysTaken;
+			this.Location = destination;
+		}
+		return gameCont;
+		
+	}
+	
+	public int getCurrentDamage() {
+		return this.shipDamage;
 	}
 	
 	public void shipInfo() {
@@ -292,7 +346,9 @@ public class Ship {
 	public static void main(String[] args) {
 		Ship ship = new Ship("Ship", 4, 5, 2, 6, 45);
 		ship.currCapacity = 4;
-		ship.viewShipProperties();
+		for (int i=0;i<1000;i++) {
+			System.out.println((int) (Math.random() * 100));
+		}
 	}
 	
 }

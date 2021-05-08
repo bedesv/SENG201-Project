@@ -240,7 +240,7 @@ public class GameEnvironment {
 		
 	}
 	
-	public static int selectActivity(Scanner input) {
+	public static int selectActivity(Scanner input, Ship ship) {
 		System.out.println();
 		System.out.println("Please select the desired activity from the following:");
 		int i = 1;
@@ -257,17 +257,23 @@ public class GameEnvironment {
 				System.out.println("Error: Invalid selection.");
 				selectedActivity = input.nextInt();
 			}
-			
-			System.out.println("You've selected " + activities.get(selectedActivity-1) + ". Is this correct? y/n");
+			if (selectedActivity == 3 && ship.getCurrentDamage() != 0) {
+				System.out.println("Please repair your ship before setting sail\n");
+				
+			} else if (selectedActivity == 2 && ship.getCurrentDamage() == 0)  {
+				System.out.println("No repairs needed, your ship isn't damaged\n");
+			} else {
+				System.out.println("You've selected " + activities.get(selectedActivity-1) + ". Is this correct? y/n");
 		
 			
-			answer = input.next().charAt(0);
-			while (answer != 'y' && answer != 'n') {
-				
-				System.out.println("Please enter a valid answer (y/n).");
 				answer = input.next().charAt(0);
+				while (answer != 'y' && answer != 'n') {
+				
+					System.out.println("Please enter a valid answer (y/n).");
+					answer = input.next().charAt(0);
+				}
 			}
-			if (answer == 'n') {
+			if (answer == 'n' || (selectedActivity == 3 && ship.getCurrentDamage() != 0) || (selectedActivity == 2 && ship.getCurrentDamage() == 0)) {
 				System.out.println("Please select the desired activity from the following:");
 				i = 1;
 				for (String s : activities) {
@@ -317,18 +323,18 @@ public class GameEnvironment {
 		CrosserPeninsula.viewPropertyIsland();
 		Ship.buyItem(Apple, 5);
 		Ship.takeDamage(50);
-		Ship.repairShip(input);
+		Ship.addCoins(500000000);
 		
 		boolean gameCont = true;
 		
 		while (gameCont) {
-			int activity = selectActivity(input);
+			int activity = selectActivity(input, Ship);
 			if (activity == 1) {
 				Ship.getLocation().getStore().enterStore(input, Ship);
 			} else if (activity == 2) {
 				Ship.repairShip(input);
 			} else if (activity == 3) {
-				Ship.travel(input, islands);
+				gameCont = Ship.travel(input, islands);
 			} else if (activity == 4) {
 				Ship.printCoins();
 			} else if (activity == 5) {

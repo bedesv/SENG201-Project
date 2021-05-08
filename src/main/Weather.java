@@ -1,6 +1,6 @@
 package main;
 
-public class Weather extends RandomEvents{
+public class Weather extends RandomEvent{
 	
 	public Weather() {
 		super("Storm coming");
@@ -14,7 +14,6 @@ public class Weather extends RandomEvents{
 		int damage = (int) (Math.random() * (big - small + 1) + small);
 		System.out.println("The storm has damaged " + damage + "% of your ship.\nPlease repair it upon your arrival to the new island");
 		
-		shipName.repairShip();
 	}
 
 }
