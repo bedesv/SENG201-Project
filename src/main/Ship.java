@@ -16,6 +16,7 @@ public class Ship {
 	private int shipSpeed;
 	private int costPerCrew = 50;
 	private int daysPlayed = 0;
+	
 	private Pirates encounterPirates = new Pirates();
 	private RandomEvent unfortunateWeather = new RandomEvent("Unfortunate Weather");
 	private RandomEvent rescueSailors = new RandomEvent("Rescue Sailors");
@@ -269,7 +270,7 @@ public class Ship {
 								answer = input.next().charAt(0);
 							}
 							if (answer == 'y' && possibleRoutes.get(selectedRoute-1).getDays(this) * this.costPerCrew * this.shipCrew <= this.coins) {
-								this.useRoute(possibleRoutes.get(selectedRoute-1), destinations.get(selectedIsland-1));
+								gameCont = this.useRoute(possibleRoutes.get(selectedRoute-1), destinations.get(selectedIsland-1));
 								break selectIsland;
 								
 							} else {
@@ -341,6 +342,10 @@ public class Ship {
 		System.out.println("Max Inventory Capacity: " + maxCapacity);
 		System.out.println();
 		System.out.println();
+	}
+	
+	public int getDays() {
+		return this.daysPlayed;
 	}
 	
 	public static void main(String[] args) {

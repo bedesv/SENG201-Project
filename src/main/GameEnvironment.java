@@ -316,7 +316,7 @@ public class GameEnvironment {
 		
 		Scanner input = new Scanner(System.in);
 		
-		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
+		//Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
 		Item Apple = new Item("Apple", "A round fruit", "Food", 4, 2);
 		Ship Ship = selectShip(input);
 		Ship.setLocation(selectStartingIsland(input));
@@ -345,14 +345,18 @@ public class GameEnvironment {
 			}
 				
 		}
+		
+		System.out.println("Game Over");
+		System.out.println("You lasted for " + Ship.getDays() + " days and amassed " + Ship.getCoins() + " coins.");
+		
 		//JollyNut.viewItemsBought();
-		Ship.buyItem(Apple, 5);
-		Ship.viewShipProperties();
+		//Ship.buyItem(Apple, 5);
+		//Ship.viewShipProperties();
 		//Ship.sellItem(Apple, 40);
 		//Ship.viewShipProperties();
 		
 		//initIslands();
-		CrosserPeninsula.viewPropertyIsland();
+		//CrosserPeninsula.viewPropertyIsland();
 		
 		
 	}

@@ -10,7 +10,7 @@ public class Pirates extends RandomEvent{
 	
 	public boolean pirateBattle(Ship shipName) {
 		int shipAttackMultiplier = shipName.getAttackMultiplier();
-		int bound = (int) (20 / shipAttackMultiplier);
+		int bound = 25 - shipAttackMultiplier;
 		int coins = shipName.getCoins();
 		
 		System.out.println("Oh no! You encounter pirates. They will try to board your ship and steal your goods.\n"
