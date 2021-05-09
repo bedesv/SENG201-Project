@@ -160,6 +160,7 @@ public class GameEnvironment {
 		activities.add("Set Sail");
 		activities.add("View Coin Balance");
 		activities.add("View Ship Details");
+		activities.add("View purchased items");
 		activities.add("End Game");
 	}
 	
@@ -253,7 +254,7 @@ public class GameEnvironment {
 		while (answer != 'y') {
 			selectedActivity = input.nextInt();
 		
-			while (selectedActivity < 1 || selectedActivity > 6) {
+			while (selectedActivity < 1 || selectedActivity > 7) {
 				System.out.println("Error: Invalid selection.");
 				selectedActivity = input.nextInt();
 			}
@@ -317,12 +318,8 @@ public class GameEnvironment {
 		Scanner input = new Scanner(System.in);
 		
 		//Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
-		Item Apple = new Item("Apple", "A round fruit", "Food", 4, 2);
 		Ship Ship = selectShip(input);
 		Ship.setLocation(selectStartingIsland(input));
-		CrosserPeninsula.viewPropertyIsland();
-		Ship.buyItem(Apple, 5);
-		Ship.takeDamage(50);
 		Ship.addCoins(500000000);
 		
 		boolean gameCont = true;
@@ -340,7 +337,10 @@ public class GameEnvironment {
 			} else if (activity == 5) {
 				//view ship details
 				continue;
-			}	else if (activity == 6) {
+			} else if (activity == 6) {
+				Ship.viewPurchasedItems();
+			}	else if (activity == 7) {
+			
 				gameCont = false;
 			}
 				

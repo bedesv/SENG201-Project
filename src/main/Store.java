@@ -28,6 +28,16 @@ public class Store {
 		}
 	}
 	
+	public boolean buysItem(Item i) {
+		
+		for (Item j: this.itemsBought) {
+			if (j.equals(i)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	public void addItem(Item item) {
 		itemsBought.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * boughtMultiplier)));
 		itemsSold.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * soldMultiplier)));
@@ -37,12 +47,22 @@ public class Store {
 		return storeName;
 	}
 	
+	public int getPurchasePrice(Item i) {
+		for (Item j: this.itemsBought) {
+			if (i.equals(j)) {
+				return j.getPrice();
+			}
+		}
+		return 0;
+	}
+	
 	public void enterStore(Scanner input, Ship ship) {
 		int selectedActivity = 0;
 		int selectedItem;
 		char answer = 'p';
 		int index;
 		while (selectedActivity != 3) {
+			System.out.println("Welcome to The " + this.getStoreName());
 			System.out.println("Select an option from the following:");
 			System.out.println("1: View items to buy");
 			System.out.println("2: View items to sell");
@@ -99,11 +119,10 @@ public class Store {
 					ship.buyItem(itemsSold.get(selectedItem-1), itemsSold.get(selectedItem-1).getPrice());
 				}
 			} else if (selectedActivity == 2) {
-				
 				ArrayList<Item> itemsInCommon = new ArrayList<Item>();
-				for (Item i:this.itemsBought) {
-					if (ship.inventoryContains(i)) {
-						itemsInCommon.add(i); 
+				for (Item i:ship.getInventory()) {
+					if (this.buysItem(i)) {
+						itemsInCommon.add(new Item(i.getName(), i.getDescription(), i.getType(), i.getSize(), this.getPurchasePrice(i))); 
 					}
 				}
 				if (itemsInCommon.size() > 0) {
@@ -148,7 +167,7 @@ public class Store {
 				
 					}
 					if (selectedItem != index - 1) {
-						ship.sellItem(itemsInCommon.get(selectedItem-1), itemsInCommon.get(selectedItem-1).getPrice());
+						ship.sellItem(ship.getItem(itemsInCommon.get(selectedItem-1)), itemsInCommon.get(selectedItem-1).getPrice());
 					}
 					
 				} else {

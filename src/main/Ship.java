@@ -13,6 +13,7 @@ public class Ship {
 	private int attackMultiplier;
 	private int damageMultiplier;
 	private ArrayList<Item> shipInventory = new ArrayList<Item>();
+	private ArrayList<Item> soldItems = new ArrayList<Item>();
 	private int shipSpeed;
 	private int costPerCrew = 50;
 	private int daysPlayed = 0;
@@ -126,7 +127,10 @@ public class Ship {
 		} else if (maxCapacity < currCapacity + item.getSize()) { 
 			throw new InsufficientInventorySpaceException("Not enough inventory space to buy" + item.getName() + ", sell some items to free some up.");
 		} else {
+			item.buyItem(price);
 			coins -= price;
+			System.out.println(price);
+			item.buyItem(price);
 			shipInventory.add(item);
 			currCapacity += item.getSize();
 			System.out.println(item.getName() + " purchased successfully\n");
@@ -147,12 +151,43 @@ public class Ship {
 	
 	public void sellItem(Item item, int price) {
 		if (this.removeItem(item)) {
+			soldItems.add(item);
+			soldItems.get(soldItems.size()-1).sellItem(Location, price);
 			coins += price;
 			System.out.println(item.getName() + " sold successfully\n");
 			System.out.println("Current coin balance: " + this.coins + " coins.");
 		} else {
 			throw new ItemNotOwnedException(item.getName() + " not in inventory.");
 		}
+	}
+	
+	public void viewPurchasedItems() {
+		System.out.println("Items currently in inventory:");
+		for (Item i: this.shipInventory) {
+			System.out.println("\tItem: " + i.getName());
+			System.out.println("\tPurchased for: " + i.getPurchasedPrice() + " coins");
+			System.out.println();
+		}
+		System.out.println();
+		
+		System.out.println("Items that have been sold:");
+		for (Item j: this.soldItems) {
+			System.out.println("\tItem: " + j.getName());
+			System.out.println("\tPurchased for: " + j.getPurchasedPrice() + " coins");
+			System.out.println("\tSold for: " + j.getSoldPrice() + " coins");
+			System.out.println("\tSold at: The " + j.getIslandSoldOn().getStore().getStoreName() + " on " + j.getIslandSoldOn().getName());
+			System.out.println();
+		}
+		System.out.println();
+	}
+	
+	public Item getItem(Item i) {
+		for (Item j: shipInventory) {
+			if (i.equals(j)) {
+				return j;
+			}
+		}
+		return i;
 	}
 	
 	public int getDamageMultiplier() {

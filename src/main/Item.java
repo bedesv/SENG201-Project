@@ -6,6 +6,9 @@ public class Item{
 	private String itemType;
 	private int itemSize;
 	private int itemPrice;
+	private int itemPurchasedPrice;
+	private int itemSoldPrice;
+	private Island islandSoldOn;
 	
 	
 	
@@ -26,6 +29,10 @@ public class Item{
 		return itemPrice;
 	}
 	
+	public void updatePrice(int price) {
+		this.itemPrice = price;
+	}
+	
 	public String getType() {
 		return itemType;
 	}
@@ -40,6 +47,27 @@ public class Item{
 	
 	public String toString() {
 		return String.format("\tItem: %s\n\tDescription: %s\n\tType: %s\n\tSize: %d\n\tPrice: %d", itemName, itemDescription, itemType, itemSize, itemPrice);
+	}
+	
+	public void sellItem(Island island, int price) {
+		this.islandSoldOn = island;
+		this.itemSoldPrice = price;
+	}
+	
+	public int getPurchasedPrice() {
+		return this.itemPurchasedPrice;
+	}
+	
+	public int getSoldPrice() {
+		return this.itemSoldPrice;
+	}
+	
+	public void buyItem(int price) {
+		this.itemPurchasedPrice = price;
+	}
+	
+	public Island getIslandSoldOn() {
+		return this.islandSoldOn;
 	}
 	
 	public boolean equals(Item item) {
