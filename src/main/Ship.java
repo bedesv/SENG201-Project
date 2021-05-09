@@ -19,8 +19,8 @@ public class Ship {
 	private int daysPlayed = 0;
 	
 	private Pirates encounterPirates = new Pirates();
-	private RandomEvent unfortunateWeather = new RandomEvent("Unfortunate Weather");
-	private RandomEvent rescueSailors = new RandomEvent("Rescue Sailors");
+	private Weather unfortunateWeather = new Weather();
+	private RescueSailors rescueSailors = new RescueSailors();
 	
 	public Ship(String name, int crew, int capacity, int attack, int damage, int speed) {
 		shipCrew = crew;
@@ -134,7 +134,7 @@ public class Ship {
 			shipInventory.add(item);
 			currCapacity += item.getSize();
 			System.out.println(item.getName() + " purchased successfully\n");
-			System.out.println("Current coin balance: " + this.coins + " coins.");
+			this.printCoins();
 		}
 	}
 	
@@ -151,11 +151,11 @@ public class Ship {
 	
 	public void sellItem(Item item, int price) {
 		if (this.removeItem(item)) {
+			item.sellItem(Location, price);
 			soldItems.add(item);
-			soldItems.get(soldItems.size()-1).sellItem(Location, price);
 			coins += price;
 			System.out.println(item.getName() + " sold successfully\n");
-			System.out.println("Current coin balance: " + this.coins + " coins.");
+			this.printCoins();
 		} else {
 			throw new ItemNotOwnedException(item.getName() + " not in inventory.");
 		}
@@ -334,24 +334,21 @@ public class Ship {
 		int pirates = 1;
 		int weather = 2;
 		int sailors = 3;
+		this.coins -= wagesCost;
 		boolean gameCont = true;
 		if ((int) (Math.random() * 100) <= route.getMultiplier()) {
-			//event = (int) (Math.random() * 3) + 1;
-			event = 1;
+			event = (int) (Math.random() * 3) + 1;
 			if (event == pirates) {
 				gameCont = encounterPirates.pirateBattle(this);
 			} else if (event == weather) {
-				//weather
-				System.out.println("Weather");
+				gameCont = unfortunateWeather.storm(this);
 			} else if (event == sailors) {
-				//sailor things
-				System.out.println("Sailors");
+				rescueSailors.findSailors(this);
 			}
 		}
 		
 		if (gameCont) {
 			System.out.println("Successfully traveled from " + oldLocation.getName() + " to " + destination.getName() + ".\n");
-			this.coins -= wagesCost;
 			this.daysPlayed += daysTaken;
 			this.Location = destination;
 		}
@@ -387,7 +384,7 @@ public class Ship {
 		Ship ship = new Ship("Ship", 4, 5, 2, 6, 45);
 		ship.currCapacity = 4;
 		for (int i=0;i<1000;i++) {
-			System.out.println((int) (Math.random() * 100));
+			System.out.println((int) (Math.random() * 3) + 1);
 		}
 	}
 	

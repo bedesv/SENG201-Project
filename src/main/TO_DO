@@ -1,6 +1,4 @@
 Change ship capacities and crew numbers
 Change route cost and (distance or ship speed)
 
-Finalise travel along route method in ship class
-
-Keep track of sold items - access from in store?? Done
+Figure out why solditems values are changing - must be because they point to the same object

@@ -5,7 +5,6 @@ public class Pirates extends RandomEvent{
 	
 	
 	public Pirates() {
-		super("Encounter Pirates");
 	}
 	
 	public boolean pirateBattle(Ship shipName) {

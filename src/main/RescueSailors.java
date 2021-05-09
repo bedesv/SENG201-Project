@@ -3,15 +3,19 @@ package main;
 public class RescueSailors extends RandomEvent{
 	
 	public RescueSailors() {
-		super("Rescue a sailor");
 	}
 	
-	public void sailorReward(Ship shipName) {
+	public void findSailors(Ship ship) {
 		
-		// receive between 50 and 300 coins
-		int randomCoinRecieved = (int) (Math.random() * (300 - 50 + 1) + 50);
+		System.out.println("You come across the floating wreckage of another ship. It looks like a storm ripped it apart");
+		System.out.println("You see some survivors waving from a part of the wreckage and rescue them");
+		System.out.println("They have a chest of coins with them and give it to you for saving them");
+		int randomCoinReceived = (int) (Math.random() * (2000 - 500 + 1) + 500);
+		System.out.println("The chest contains " + randomCoinReceived + " coins");
+		ship.addCoins(randomCoinReceived);
+		ship.printCoins();
 		
-		shipName.addCoins(randomCoinRecieved);
+		
 		
 	}
 
