@@ -377,8 +377,7 @@ public class Ship {
 	}
 	
 	public String toString() {
-		String mess = shipName + " Properties:";
-		mess += "\nDamage Multiplier: " + damageMultiplier;
+		String mess = "Damage Multiplier: " + damageMultiplier;
 		mess += "\nAll damage received is multiplied by this before being applied (lower is better).";
 		mess += "\nAttack Multiplier: " + attackMultiplier;
 		mess += "\nAll damage given is multiplied by this before being applied (higher is better).";

@@ -138,6 +138,8 @@ public class GameEnvironment {
 			ships.add(Pioneer); 
 		} 
 	} 
+	
+	
 	 
 	public static void initItems() { 
 		 

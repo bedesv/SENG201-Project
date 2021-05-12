@@ -13,6 +13,7 @@ import main.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.JLabel;
 
 public class MainWindow {
 
@@ -82,16 +83,26 @@ public class MainWindow {
 		btnViewShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ship ship = GameEnvironment.ships.get(0);
-				JOptionPane.showMessageDialog(null, ship, "Title", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(null, ship, ship.getName() + "'s property", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
+		
+		JLabel lblShipSelected = new JLabel("You have not selected a ship.");
 		
 		JButton btnSelectShip = new JButton("Select Ship");
 		btnSelectShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Ship ship = GameEnvironment.ships.get(0);
+				int selectConfirm = JOptionPane.showInternalConfirmDialog(null, "You've selected " + ship.getName() + ". Is this correct?");
+				if (selectConfirm == 0) {
+					JOptionPane.showMessageDialog(null, ship.getName() + " is selected.", "Title", JOptionPane.PLAIN_MESSAGE);
+					lblShipSelected.setText("You have selected: " + ship.getName());
+				}
+				}
 				
-			}
 		});
+		
+		
 		
 		
 		
@@ -99,22 +110,25 @@ public class MainWindow {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGap(22)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnship1)
-								.addComponent(btnship3))
-							.addGap(38)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnship4)
-								.addComponent(btnship2)))
-						.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnship1)
+										.addComponent(btnship3))
+									.addGap(38)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnship4)
+										.addComponent(btnship2)))
+								.addComponent(lblShipSelected, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
 							.addGap(72)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addComponent(btnSelectShip, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnViewShip))))
-					.addContainerGap(224, Short.MAX_VALUE))
+					.addContainerGap(202, GroupLayout.PREFERRED_SIZE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
@@ -131,7 +145,9 @@ public class MainWindow {
 					.addComponent(btnViewShip)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnSelectShip)
-					.addContainerGap(94, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(lblShipSelected, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(55, Short.MAX_VALUE))
 		);
 		frame.getContentPane().setLayout(groupLayout);
 	}
