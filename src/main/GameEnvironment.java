@@ -7,7 +7,6 @@ public class GameEnvironment {
 	private static ArrayList<Ship> ships = new ArrayList<Ship>();
 	private static ArrayList<Island> islands = new ArrayList<Island>();
 	private static ArrayList<String> activities = new ArrayList<String>();
-	private static ArrayList<Store> stores = new ArrayList<Store>();
 	
 	//create ships
 	private static Ship Delight = new Ship("Delight", 10, 100, 12, 8, 40);
@@ -130,13 +129,10 @@ public class GameEnvironment {
 	
 	public static void initItems() {
 		
-		
-		for (Store s:stores) {
-			s.addItem(new Item("Banana", "A yummy fruit", "Food", 1, 5));
-			s.addItem(new Item("Apple", "A round fruit", "Food", 1, 2));
-			s.addItem(new Item("Orange", "An orange fruit", "Food", 1, 3));
-			s.addItem(new Item("Pear", "A weird looking fruit", "Food", 1, 7));
-		}
+		foodItems.add(new Item("Banana", "A yummy fruit", "Food", 1, 5));
+		foodItems.add(new Item("Apple", "A round fruit", "Food", 1, 2));
+		foodItems.add(new Item("Orange", "An orange fruit", "Food", 1, 3));
+		foodItems.add(new Item("Pear", "A weird looking fruit", "Food", 1, 7));
 		
 		VelvetKnife.addItem(new Item("Single Cannon", "A single cannon, used to shoot at enemies. Adds 5 to the ships damage multiplier.", "Weapon", 7, 60));
 		EducatedMonkey.addItem(new Item("Double Cannon", "A double cannon, used to shoot at enemies. Adds 9 to the ships damage multiplier.", "Weapon", 16, 70));
@@ -147,11 +143,13 @@ public class GameEnvironment {
 	
 	public static void initStores() {
 		
-		stores.add(EducatedMonkey);
-		stores.add(IronBear);
-		stores.add(VelvetKnife);
-		stores.add(ViciousKettle);
-		stores.add(JollyNut);
+		for (Item i:foodItems) {
+			JollyNut.addItem(i);
+			ViciousKettle.addItem(i);
+			IronBear.addItem(i);
+			EducatedMonkey.addItem(i);
+			VelvetKnife.addItem(i);
+		}
 		
 		
 	}
@@ -162,7 +160,6 @@ public class GameEnvironment {
 		activities.add("Set Sail");
 		activities.add("View Coin Balance");
 		activities.add("View Ship Details");
-		activities.add("View purchased items");
 		activities.add("End Game");
 	}
 	
@@ -256,7 +253,7 @@ public class GameEnvironment {
 		while (answer != 'y') {
 			selectedActivity = input.nextInt();
 		
-			while (selectedActivity < 1 || selectedActivity > 7) {
+			while (selectedActivity < 1 || selectedActivity > 6) {
 				System.out.println("Error: Invalid selection.");
 				selectedActivity = input.nextInt();
 			}
@@ -291,23 +288,41 @@ public class GameEnvironment {
 	}
 	
 	
+	public void startGame() {
+
+		boolean gameCont = true;
+		
+		while (gameCont) {
+			// options to play...
+			
+			// if pirates
+				// gameCont = pirateBattle (func in Pirates)
+		}
+	}
+	 
+	public void finishGame() {
+		
+	}
 
 	
 	
 	public static void main(String[] args) {
 		
-		
-		initStores();
 		initItems();
+		initStores();
 		initShips();
 		initIslands();
 		initActivities();
 		
 		Scanner input = new Scanner(System.in);
 		
-		//Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
+		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
+		Item Apple = new Item("Apple", "A round fruit", "Food", 4, 2);
 		Ship Ship = selectShip(input);
 		Ship.setLocation(selectStartingIsland(input));
+		CrosserPeninsula.viewPropertyIsland();
+		Ship.buyItem(Apple, 5);
+		Ship.takeDamage(50);
 		Ship.addCoins(500000000);
 		
 		boolean gameCont = true;
@@ -325,26 +340,19 @@ public class GameEnvironment {
 			} else if (activity == 5) {
 				//view ship details
 				continue;
-			} else if (activity == 6) {
-				Ship.viewPurchasedItems();
-			}	else if (activity == 7) {
-			
+			}	else if (activity == 6) {
 				gameCont = false;
 			}
 				
 		}
-		
-		System.out.println("Game Over");
-		System.out.println("You lasted for " + Ship.getDays() + " days and amassed " + Ship.getCoins() + " coins.");
-		
 		//JollyNut.viewItemsBought();
-		//Ship.buyItem(Apple, 5);
-		//Ship.viewShipProperties();
+		Ship.buyItem(Apple, 5);
+		Ship.viewShipProperties();
 		//Ship.sellItem(Apple, 40);
 		//Ship.viewShipProperties();
 		
 		//initIslands();
-		//CrosserPeninsula.viewPropertyIsland();
+		CrosserPeninsula.viewPropertyIsland();
 		
 		
 	}
