@@ -56,6 +56,17 @@ public class Island {
 		store.viewItemsSold();
 	}
 	
+	public String toString() {
+		String mess = "Possible routes from " + islandName + ":\n";
+		for (Route route : routeList) {
+			mess += route.getDescription(islandName);
+		}
+		String storeName = store.getStoreName();
+		mess += "Store: " + storeName + "\n";
+		mess += store;
+		return mess;
+	}
+	
 	
 
 }

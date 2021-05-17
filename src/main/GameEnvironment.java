@@ -288,21 +288,6 @@ public class GameEnvironment {
 	}
 	
 	
-	public void startGame() {
-
-		boolean gameCont = true;
-		
-		while (gameCont) {
-			// options to play...
-			
-			// if pirates
-				// gameCont = pirateBattle (func in Pirates)
-		}
-	}
-	 
-	public void finishGame() {
-		
-	}
 
 	
 	
@@ -346,13 +331,13 @@ public class GameEnvironment {
 				
 		}
 		//JollyNut.viewItemsBought();
-		Ship.buyItem(Apple, 5);
-		Ship.viewShipProperties();
+		//Ship.buyItem(Apple, 5);
+		//Ship.viewShipProperties();
 		//Ship.sellItem(Apple, 40);
 		//Ship.viewShipProperties();
 		
 		//initIslands();
-		CrosserPeninsula.viewPropertyIsland();
+		//CrosserPeninsula.viewPropertyIsland();
 		
 		
 	}

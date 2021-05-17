@@ -28,6 +28,19 @@ public class Store {
 		}
 	}
 	
+	public String toString() {
+		String mess = "Items bought at " + storeName + ": \n";
+		for (Item i : itemsBought) {
+			mess += String.format("%s\n", i);
+		}
+		mess += String.format("Items sold at %s:\n", storeName);
+		for (Item i : itemsSold) {
+			mess += String.format("%s\n", i);
+		}
+		return mess;
+		
+	}
+	
 	public boolean buysItem(Item i) {
 		
 		for (Item j: this.itemsBought) {

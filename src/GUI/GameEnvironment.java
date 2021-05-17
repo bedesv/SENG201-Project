@@ -177,45 +177,21 @@ public class GameEnvironment {
 		activities.add("End Game"); 
 	} 
 	 
-	public static Island selectStartingIsland(Scanner input) { 
-		System.out.println("Please select the island you want to start at from the following:"); 
-		int i = 1; 
-		for (Island s : islands) { 
-			System.out.println(i++ + ": " + s.getName()); 
+	public static void selectStartingIsland(int island) { 
+		ships.clear(); 
+		switch(island) { 
+		case 1: 
+			islands.add(ArborlandIslet); 
+		case 2: 
+			islands.add(CrosserPeninsula); 
+		case 3: 
+			islands.add(RainingArchipelago); 
+		case 4: 
+			islands.add(RemoteRefuge); 
+		case 5: 
+			islands.add(BrightwichIsland);
 		} 
-		 
-		int selectedIsland = 0; 
-		char answer = 'p'; 
-		while (answer != 'y') { 
-			selectedIsland = input.nextInt(); 
-		 
-			while (selectedIsland < 1 || selectedIsland > 5) { 
-				System.out.println("Error: Invalid selection."); 
-				selectedIsland = input.nextInt(); 
-			} 
-		 
-			System.out.println("You've selected " + islands.get(selectedIsland-1).getName() + ". Is this correct? y/n"); 
-		 
-			 
-			answer = input.next().charAt(0); 
-			while (answer != 'y' && answer != 'n') { 
-				 
-				System.out.println("Please enter a valid answer (y/n)."); 
-				answer = input.next().charAt(0); 
-			} 
-			if (answer == 'n') { 
-				System.out.println("Please select the island you want to start at from the following:"); 
-				i = 1; 
-				for (Island s : islands) { 
-					System.out.println(i++ + ": " + s.getName()); 
-				} 
-			} 
-		 
-		} 
-		 
-		return islands.get(selectedIsland-1); 
-		 
-		 
+	 
 	} 
 	 
 	public static int selectActivity(Scanner input, Ship ship) { 

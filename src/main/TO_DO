@@ -4,14 +4,6 @@ Change route cost and (distance or ship speed)
 Figure out why solditems values are changing - must be because they point to the same object
 
 
-public String toString() {
-		String mess = shipName + " Properties:";
-		mess += "\nDamage Multiplier: " + damageMultiplier;
-		mess += "\nAll damage received is multiplied by this before being applied (lower is better).";
-		mess += "\nAttack Multiplier: " + attackMultiplier;
-		mess += "\nAll damage given is multiplied by this before being applied (higher is better).";
-		mess += "\nCrew Size: " + shipCrew;
-		mess += "\nMax Inventory Capacity: " + maxCapacity;
-		
-		return mess;
-	}
+view ship detail is not working
+add view islands & view inventory in activities
+add enter name and days

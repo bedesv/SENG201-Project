@@ -41,7 +41,7 @@ public class Route {
 	}
 	
 
-	public void getDescription(String islandName) {
+	public String getDescription(String islandName) {
 		Island destination;
 		Island island1 = this.getIsland1();
 		Island island2 = this.getIsland2();
@@ -53,9 +53,10 @@ public class Route {
 		}
 		String destinationName = destination.getName();
 		
-		System.out.println("\t" + this.name);
-		System.out.println("\tDestination: " + destinationName + " (" + this.distance + "km)");
-		System.out.println("\tThis route has " + this.eventMultiplier + "% chance of random events occurring\n");
+		String mess = "\t" + this.name;
+		mess += "\tDestination: " + destinationName + " (" + this.distance + "km)";
+		mess += "\tThis route has " + this.eventMultiplier + "% chance of random events occurring\n";
+		return mess;
 	}
 	
 	public void getDescriptionNumbered(String islandName, int i) {
@@ -87,8 +88,6 @@ public class Route {
 		return island2;
 	}
 	
-	public void travel(Ship shipName) {
-		
-	}
+	
 
 }
