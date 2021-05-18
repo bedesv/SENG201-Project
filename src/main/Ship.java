@@ -375,17 +375,6 @@ public class Ship {
 		System.out.println();
 	}
 	
-	public String toString() {
-		String mess = "Damage Multiplier: " + damageMultiplier;
-		mess += "\nAll damage received is multiplied by this before being applied (lower is better).";
-		mess += "\nAttack Multiplier: " + attackMultiplier;
-		mess += "\nAll damage given is multiplied by this before being applied (higher is better).";
-		mess += "\nCrew Size: " + shipCrew;
-		mess += "\nMax Inventory Capacity: " + maxCapacity;
-		
-		return mess;
-	}
-	
 	public int getDays() {
 		return this.daysPlayed;
 	}
