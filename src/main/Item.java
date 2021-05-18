@@ -25,6 +25,10 @@ public class Item{
 		return itemName;
 	}
 	
+	public Item copy() {
+		return new Item(this.getName(), this.getDescription(), this.getType(), this.getSize(), this.getPrice());
+	}
+	
 	public int getPrice() {
 		return itemPrice;
 	}
