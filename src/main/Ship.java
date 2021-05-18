@@ -127,10 +127,9 @@ public class Ship {
 		} else if (maxCapacity < currCapacity + item.getSize()) { 
 			throw new InsufficientInventorySpaceException("Not enough inventory space to buy" + item.getName() + ", sell some items to free some up.");
 		} else {
+			item = item.copy();
 			item.buyItem(price);
 			coins -= price;
-			System.out.println(price);
-			item.buyItem(price);
 			shipInventory.add(item);
 			currCapacity += item.getSize();
 			System.out.println(item.getName() + " purchased successfully\n");
@@ -138,27 +137,27 @@ public class Ship {
 		}
 	}
 	
-	public boolean removeItem(Item item) {
+	public Item removeItem(Item item) {
+		Item j = item;;
 		for (Item i:shipInventory) {
 			if (item.equals(i)) {
-				shipInventory.remove(i);
-				currCapacity -= item.getSize();
-				return true;
+				
+				j = i;
+				currCapacity -= i.getSize();
 			}
 		}
-		return false;
+		shipInventory.remove(j);
+		return j;
 	}
 	
 	public void sellItem(Item item, int price) {
-		if (this.removeItem(item)) {
-			item.sellItem(Location, price);
-			soldItems.add(item);
-			coins += price;
-			System.out.println(item.getName() + " sold successfully\n");
-			this.printCoins();
-		} else {
-			throw new ItemNotOwnedException(item.getName() + " not in inventory.");
-		}
+		item = this.removeItem(item);
+		item.sellItem(Location, price);
+		soldItems.add(item);
+		coins += price;
+		System.out.println(item.getName() + " sold successfully\n");
+		this.printCoins();
+
 	}
 	
 	public void viewPurchasedItems() {

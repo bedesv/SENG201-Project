@@ -1,7 +1,7 @@
 package main;
 
 import java.util.*;
-
+/** Class the game is run from */
 public class GameEnvironment {
 	private static ArrayList<Item> foodItems = new ArrayList<Item>();
 	private static ArrayList<Ship> ships = new ArrayList<Ship>();
@@ -126,7 +126,7 @@ public class GameEnvironment {
 		ships.add(Pioneer);
 	}
 	
-	
+	/** Initialises items */
 	public static void initItems() {
 		
 		foodItems.add(new Item("Banana", "A yummy fruit", "Food", 1, 5));
