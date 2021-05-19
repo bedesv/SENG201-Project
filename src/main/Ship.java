@@ -35,7 +35,7 @@ public class Ship {
 	public void repairShip(Scanner input) {
 		if (coins < (shipDamage * 10)) {
 			this.printCoins();
-			System.out.println("Coins required for repairs: " + this.coins * this.shipDamage + " coins.");
+			System.out.println("Coins required for repairs: " + 10 * this.shipDamage + " coins.");
 		} else {
 			this.printCoins();
 			System.out.println("Ship repairs will cost " + (shipDamage * 10) + " coins, do you want to proceed with repairs? y/n");
@@ -54,10 +54,6 @@ public class Ship {
 				this.printCoins();
 			}
 		}
-	}
-	
-	public ArrayList<Item> getItems(){
-		return shipInventory;
 	}
 	
 	public int getCoins() {
@@ -123,9 +119,9 @@ public class Ship {
 	
 	public void buyItem(Item item, int price) {
 		if (coins < price) {
-			throw new InsufficientCoinsException("Not enough coins to buy " + item.getName() + ", sell some items to get more.");
+			System.out.println("Not enough coins to buy " + item.getName() + ", sell some items to get more.");
 		} else if (maxCapacity < currCapacity + item.getSize()) { 
-			throw new InsufficientInventorySpaceException("Not enough inventory space to buy" + item.getName() + ", sell some items to free some up.");
+			System.out.println("Not enough inventory space to buy" + item.getName() + ", sell some items to free some up.");
 		} else {
 			item = item.copy();
 			item.buyItem(price);
@@ -275,6 +271,7 @@ public class Ship {
 					}
 					System.out.println(index + " Cancel");
 					
+					selectedRoute = 0;
 					answer = 'p';
 					selectRoute:
 						while (selectedRoute != 3) {
@@ -317,6 +314,7 @@ public class Ship {
 									r.getDescriptionNumbered(this.Location.getName(), index++);
 								}
 								System.out.println(index + " Cancel");
+								
 							}
 						}
 				}
@@ -380,11 +378,7 @@ public class Ship {
 	}
 	
 	public static void main(String[] args) {
-		Ship ship = new Ship("Ship", 4, 5, 2, 6, 45);
-		ship.currCapacity = 4;
-		for (int i=0;i<1000;i++) {
-			System.out.println((int) (Math.random() * 3) + 1);
-		}
+		
 	}
 	
 }
