@@ -40,12 +40,7 @@ class ShipTest {
 		testShip.takeDamage(50);
 		assertEquals(50, testShip.getCurrentDamage());
 	}
-	
-	@Test
-	public void rand() {
-		Ship testShip = new Ship("Test Ship", 10, 100, 10, 10, 5);
-		
-	}
+
 	
 	@Test
 	public void repairShipTest() {

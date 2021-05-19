@@ -61,7 +61,7 @@ public class Store {
 	}
 	
 	public int getPurchasePrice(Item i) {
-		for (Item j: this.itemsBought) {
+		for (Item j: this.itemsSold) {
 			if (i.equals(j)) {
 				return j.getPrice();
 			}
@@ -118,7 +118,7 @@ public class Store {
 						answer = input.next().charAt(0);
 					}
 					if (answer == 'n') {
-						System.out.println("Select an item to sell from the following:");
+						System.out.println("Select an item to buy from the following:");
 						index = 1;
 						for (Item i:itemsSold) {
 							System.out.println(String.format("%d %s\n", index++, i));
@@ -193,18 +193,4 @@ public class Store {
 		
 	}
 	
-	public static void main(String[] args) {
-		Store Random = new Store("Random", 5);
-		Item Banana = new Item("Banana", "A yummy fruit", "Food", 1, 5);
-		Item Apple = new Item("Apple", "A round fruit", "Food", 1, 2);
-		Item Orange = new Item("Orange", "An orange fruit", "Food", 1, 3);
-		Item Pear = new Item("Pear", "A weird looking fruit", "Food", 1, 7);
-		Random.itemsBought.add(Banana);
-		Random.itemsBought.add(Orange);
-		Random.itemsBought.add(Apple);
-		Random.itemsBought.add(Pear);
-		
-		Random.viewItemsBought();
-		
-	}
 }
