@@ -56,6 +56,9 @@ public class GameEnvironment {
 	 
 	private static Route TheWastingBay = new Route(20000, CrosserPeninsula, ArborlandIslet, "The Wasting Bay", 10); 
 	private static Route TheGraveSea = new Route(4000, CrosserPeninsula, ArborlandIslet, "The Grave Sea", 100); 
+	
+	public static String name = "";
+	public static int home = -1;
 			 
 	public static void initGame() { 
 		initItems(); 
@@ -65,13 +68,13 @@ public class GameEnvironment {
 	} 
 	 
 	public static void initIslands() { 
-		 
-		// Add Islands to array 
-		islands.add(ArborlandIslet); 
-		islands.add(CrosserPeninsula); 
-		islands.add(RainingArchipelago); 
-		islands.add(RemoteRefuge); 
+		// Add Islands to array
+		islands.add(ArborlandIslet);
+		islands.add(CrosserPeninsula);
+		islands.add(RainingArchipelago);
+		islands.add(RemoteRefuge);
 		islands.add(BrightwichIsland); 
+		
 		// add routes 
 		 
 		//RemoteRefuge 
@@ -177,23 +180,29 @@ public class GameEnvironment {
 		activities.add("End Game"); 
 	} 
 	 
-	public static void selectStartingIsland(int island) { 
-		ships.clear(); 
-		switch(island) { 
-		case 1: 
-			islands.add(ArborlandIslet); 
-		case 2: 
-			islands.add(CrosserPeninsula); 
-		case 3: 
-			islands.add(RainingArchipelago); 
-		case 4: 
-			islands.add(RemoteRefuge); 
-		case 5: 
-			islands.add(BrightwichIsland);
-		} 
-	 
+	public static void selectStartingIsland(int island_index) { 
+		//islands.remove(5); 
+//		switch(island_index) { 
+//		case 0: 
+//			islands.add(ArborlandIslet); 
+//		case 1: 
+//			islands.add(CrosserPeninsula); 
+//		case 2: 
+//			islands.add(RainingArchipelago); 
+//		case 3: 
+//			islands.add(RemoteRefuge); 
+//		case 4: 
+//			islands.add(BrightwichIsland);
+//		} 
+//		System.out.println(islands.size());
+		home = island_index;
 	} 
+	
+	public static Island getIsland() {
+		return islands.get(home);
+	}
 	 
+	
 	public static int selectActivity(Scanner input, Ship ship) { 
 		System.out.println(); 
 		System.out.println("Please select the desired activity from the following:"); 

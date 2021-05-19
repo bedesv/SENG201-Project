@@ -22,8 +22,6 @@ import javax.swing.JSlider;
 public class SetUpWindow {
 
 	private JFrame frmSetUp;
-	private JTextField textChooseName;
-	private JTextField textChooseDays;
 	private JTextField textYourName;
 
 	/**
@@ -48,6 +46,18 @@ public class SetUpWindow {
 	public SetUpWindow() {
 		initialize();
 	}
+	
+	private void setShip(int mode) {
+		GameEnvironment.initShips(mode);
+	}
+	
+	int island_index = -1;
+	private void viewIsland(int mode) {
+		//GameEnvironment.selectStartingIsland(island_index);
+		Island island = GameEnvironment.islands.get(mode);
+		JOptionPane.showMessageDialog(null, island, island.getName() + "'s property", JOptionPane.PLAIN_MESSAGE);
+		island_index = mode;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -55,41 +65,66 @@ public class SetUpWindow {
 	private void initialize() {
 		frmSetUp = new JFrame();
 		frmSetUp.setTitle("Set Up");
-		frmSetUp.setBounds(100, 100, 450, 300);
+		frmSetUp.setBounds(6, -31, 497, 348);
 		frmSetUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		GameEnvironment.initGame();
 		
+		JLabel lblYourName = new JLabel("Your Name:");
+		lblYourName.setBounds(6, 56, 73, 16);
+		
+		textYourName = new JTextField();
+		textYourName.setBounds(85, 51, 130, 26);
+		textYourName.setColumns(10);
+		
+		
+		JLabel lblDays = new JLabel("Days:");
+		lblDays.setBounds(233, 56, 35, 16);
+		
+		
+		JSlider sliderDays = new JSlider();
+		sliderDays.setBounds(274, 39, 217, 38);
+		sliderDays.setMajorTickSpacing(10);
+		sliderDays.setPaintTicks(true);
+		sliderDays.setSnapToTicks(true);
+		sliderDays.setMinorTickSpacing(1);
+		sliderDays.setMinimum(10);
+		
 		JRadioButton rdbtnShip1 = new JRadioButton("Delight");
+		rdbtnShip1.setBounds(28, 108, 78, 23);
 		rdbtnShip1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameEnvironment.initShips(1);
+				setShip(1);
 			}
 		});
 		
 		JRadioButton rdbtnShip2 = new JRadioButton("Defender");
+		rdbtnShip2.setBounds(141, 108, 98, 23);
 		rdbtnShip2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameEnvironment.initShips(2);
+				setShip(2);
 			}
 		});
 		
 		JRadioButton rdbtnShip3 = new JRadioButton("Mantis");
+		rdbtnShip3.setBounds(28, 143, 78, 23);
 		rdbtnShip3.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameEnvironment.initShips(3);
+				setShip(3);
 			}
 		});
 		
 		JRadioButton rdbtnShip4 = new JRadioButton("Pioneer");
+		rdbtnShip4.setBounds(141, 143, 98, 23);
 		rdbtnShip4.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameEnvironment.initShips(4);
+				setShip(4);
 			}
 		});
 		
 		JButton btnViewShip = new JButton("View Ship");
+		btnViewShip.setBounds(70, 178, 104, 29);
 		btnViewShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ship ship = GameEnvironment.ships.get(0);
@@ -98,8 +133,10 @@ public class SetUpWindow {
 		});
 		
 		JLabel lblShipSelected = new JLabel("You have not selected a ship.");
+		lblShipSelected.setBounds(28, 248, 211, 27);
 		
 		JButton btnSelectShip = new JButton("Select Ship");
+		btnSelectShip.setBounds(70, 213, 104, 29);
 		btnSelectShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Ship ship = GameEnvironment.ships.get(0);
@@ -112,136 +149,89 @@ public class SetUpWindow {
 				
 		});
 		
+		// Islands
+		
 		JRadioButton rdbtnHomeIsland1 = new JRadioButton("Arborland Islet");
+		rdbtnHomeIsland1.setBounds(273, 143, 125, 23);
 		rdbtnHomeIsland1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				GameEnvironment.selectStartingIsland(1);
-				Island island = GameEnvironment.islands.get(0);
-				JOptionPane.showMessageDialog(null, island, island.getName() + "'s property", JOptionPane.PLAIN_MESSAGE);
+				viewIsland(0);
 			}
 		});
 		
 		JRadioButton rdbtnHomeIsland2 = new JRadioButton("Crosser Peninsula");
+		rdbtnHomeIsland2.setBounds(273, 172, 144, 23);
+		rdbtnHomeIsland2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewIsland(1);
+			}
+		});
 		
 		JRadioButton rdbtnHomeIsland3 = new JRadioButton("Raining Archipelago");
+		rdbtnHomeIsland3.setBounds(273, 201, 158, 23);
+		rdbtnHomeIsland3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewIsland(2);
+			}
+		});
 		
 		JRadioButton rdbtnHomeIsland4 = new JRadioButton("Remote Refuge");
+		rdbtnHomeIsland4.setBounds(273, 230, 126, 23);
+		rdbtnHomeIsland4.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewIsland(3);
+			}
+		});
 		
 		JRadioButton rdbtnHomeIsland5 = new JRadioButton("Brightwich Island");
+		rdbtnHomeIsland5.setBounds(273, 259, 140, 23);
+		rdbtnHomeIsland5.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				viewIsland(4);
+			}
+		});
 		
 		JLabel lblChooseHomeIsland = new JLabel("Choose your Home Island below");
+		lblChooseHomeIsland.setBounds(273, 112, 203, 16);
 		
 		JButton btnToMain = new JButton("Play Game");
-		
-		JLabel lblYourName = new JLabel("Your Name:");
-		
-		textYourName = new JTextField();
-		textYourName.setColumns(10);
-		
-		JLabel lblDays = new JLabel("Days:");
-		
-		JSlider slider = new JSlider();
-		slider.setMajorTickSpacing(10);
-		slider.setPaintTicks(true);
-		slider.setSnapToTicks(true);
-		slider.setMinorTickSpacing(1);
-		slider.setMinimum(10);
-		
-		
-		
+		btnToMain.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String name = textYourName.getText();
+				int days = sliderDays.getValue();
+				System.out.println(island_index);
+				GameEnvironment.selectStartingIsland(island_index); 
+				GameEnvironment.name = name;
+				
+				MainGame game = new MainGame();
+				game.frmMainGame.setVisible(true);
+				
+				frmSetUp.dispose();
+			}
+		});
+		btnToMain.setBounds(181, 288, 108, 29);
 		
 		
 		
 		
-		
-		GroupLayout groupLayout = new GroupLayout(frmSetUp.getContentPane());
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(20)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(50)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnSelectShip, GroupLayout.PREFERRED_SIZE, 104, GroupLayout.PREFERRED_SIZE)
-								.addComponent(btnViewShip)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(8)
-							.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-								.addComponent(lblShipSelected, GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(rdbtnShip1)
-										.addComponent(rdbtnShip3, GroupLayout.PREFERRED_SIZE, 78, GroupLayout.PREFERRED_SIZE))
-									.addPreferredGap(ComponentPlacement.RELATED, 50, Short.MAX_VALUE)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(rdbtnShip4, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(rdbtnShip2, GroupLayout.DEFAULT_SIZE, 98, Short.MAX_VALUE))))
-							.addPreferredGap(ComponentPlacement.RELATED)))
-					.addGap(34)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(rdbtnHomeIsland1)
-						.addComponent(rdbtnHomeIsland2)
-						.addComponent(rdbtnHomeIsland3)
-						.addComponent(rdbtnHomeIsland4)
-						.addComponent(rdbtnHomeIsland5)
-						.addComponent(lblChooseHomeIsland))
-					.addGap(21))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addGap(165)
-					.addComponent(btnToMain)
-					.addContainerGap(168, Short.MAX_VALUE))
-				.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(lblYourName)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(textYourName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addGap(18)
-					.addComponent(lblDays)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(slider, GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-					.addContainerGap())
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblYourName)
-							.addComponent(textYourName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(lblDays))
-						.addComponent(slider, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(30)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(rdbtnShip1)
-						.addComponent(rdbtnShip2)
-						.addComponent(lblChooseHomeIsland))
-					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(rdbtnShip3)
-								.addComponent(rdbtnShip4)
-								.addComponent(rdbtnHomeIsland1))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(rdbtnHomeIsland2)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(rdbtnHomeIsland3)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(rdbtnHomeIsland4)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(rdbtnHomeIsland5))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(35)
-							.addComponent(btnViewShip)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnSelectShip)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(lblShipSelected, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)))
-					.addGap(15)
-					.addComponent(btnToMain))
-		);
-		frmSetUp.getContentPane().setLayout(groupLayout);
+		frmSetUp.getContentPane().setLayout(null);
+		frmSetUp.getContentPane().add(btnSelectShip);
+		frmSetUp.getContentPane().add(btnViewShip);
+		frmSetUp.getContentPane().add(lblShipSelected);
+		frmSetUp.getContentPane().add(rdbtnShip1);
+		frmSetUp.getContentPane().add(rdbtnShip3);
+		frmSetUp.getContentPane().add(rdbtnShip4);
+		frmSetUp.getContentPane().add(rdbtnShip2);
+		frmSetUp.getContentPane().add(rdbtnHomeIsland1);
+		frmSetUp.getContentPane().add(rdbtnHomeIsland2);
+		frmSetUp.getContentPane().add(rdbtnHomeIsland3);
+		frmSetUp.getContentPane().add(rdbtnHomeIsland4);
+		frmSetUp.getContentPane().add(rdbtnHomeIsland5);
+		frmSetUp.getContentPane().add(lblChooseHomeIsland);
+		frmSetUp.getContentPane().add(lblYourName);
+		frmSetUp.getContentPane().add(textYourName);
+		frmSetUp.getContentPane().add(lblDays);
+		frmSetUp.getContentPane().add(sliderDays);
+		frmSetUp.getContentPane().add(btnToMain);
 	}
 }

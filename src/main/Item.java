@@ -1,5 +1,11 @@
 package main;
 
+/**
+ * Items that are available to buy or sell by the player from/to a store when visiting the island
+ * <br> Items includes food and weapons
+ * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ *
+ */
 public class Item{
 	private String itemName;
 	private String itemDescription;

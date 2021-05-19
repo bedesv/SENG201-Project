@@ -55,8 +55,6 @@ public class GameEnvironment {
 	
 	private static Route TheWastingBay = new Route(20000, CrosserPeninsula, ArborlandIslet, "The Wasting Bay", 10);
 	private static Route TheGraveSea = new Route(4000, CrosserPeninsula, ArborlandIslet, "The Grave Sea", 100);
-			
-	
 	
 	public static void initIslands() {
 		

@@ -2,6 +2,13 @@ package main;
 
 import java.util.*;
 
+
+/**
+ * 
+ * @author haianh
+ *
+ */
+
 public class Ship {
 	private String shipName;
 	private int shipCrew;
@@ -22,14 +29,22 @@ public class Ship {
 	private Weather unfortunateWeather = new Weather();
 	private RescueSailors rescueSailors = new RescueSailors();
 	
+	/**
+	 * 
+	 * @param name 
+	 * @param crew
+	 * @param capacity
+	 * @param attack
+	 * @param damage
+	 * @param speed
+	 */
 	public Ship(String name, int crew, int capacity, int attack, int damage, int speed) {
 		shipCrew = crew;
 		shipName = name;
 		maxCapacity = capacity;
 		attackMultiplier = attack;
 		damageMultiplier = damage;
-		shipSpeed = speed;
-		
+		shipSpeed = speed;	
 	}
 	
 	public void repairShip(Scanner input) {

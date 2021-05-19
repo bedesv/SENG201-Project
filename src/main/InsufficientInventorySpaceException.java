@@ -1,5 +1,11 @@
 package main;
 
+/**
+ * This Exception class shows message when there is no more space for inventory
+ * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ *
+ */
+
 @SuppressWarnings("serial")
 public class InsufficientInventorySpaceException extends IllegalStateException {
 	
