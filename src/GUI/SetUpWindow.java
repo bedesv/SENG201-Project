@@ -8,11 +8,12 @@ import javax.swing.JButton;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 
-import main.*;
-
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
+
+import commandLineApplication.*;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
@@ -48,13 +49,13 @@ public class SetUpWindow {
 	}
 	
 	private void setShip(int mode) {
-		GameEnvironment.initShips(mode);
+		Player.initShips(mode);
 	}
 	
 	int island_index = -1;
 	private void viewIsland(int mode) {
 		//GameEnvironment.selectStartingIsland(island_index);
-		Island island = GameEnvironment.islands.get(mode);
+		Island island = Player.islands.get(mode);
 		JOptionPane.showMessageDialog(null, island, island.getName() + "'s property", JOptionPane.PLAIN_MESSAGE);
 		island_index = mode;
 	}
@@ -69,7 +70,7 @@ public class SetUpWindow {
 		frmSetUp.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
-		GameEnvironment.initGame();
+		Player.initGame();
 		
 		JLabel lblYourName = new JLabel("Your Name:");
 		lblYourName.setBounds(6, 56, 73, 16);
@@ -127,7 +128,7 @@ public class SetUpWindow {
 		btnViewShip.setBounds(70, 178, 104, 29);
 		btnViewShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Ship ship = GameEnvironment.ships.get(0);
+				Ship ship = Player.ships.get(0);
 				JOptionPane.showMessageDialog(null, ship, ship.getName() + "'s property", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
@@ -139,7 +140,7 @@ public class SetUpWindow {
 		btnSelectShip.setBounds(70, 213, 104, 29);
 		btnSelectShip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Ship ship = GameEnvironment.ships.get(0);
+				Ship ship = Player.ships.get(0);
 				int selectConfirm = JOptionPane.showInternalConfirmDialog(null, "You've selected " + ship.getName() + ". Is this correct?");
 				if (selectConfirm == 0) {
 					JOptionPane.showMessageDialog(null, ship.getName() + " is selected.", "", JOptionPane.PLAIN_MESSAGE);
@@ -200,8 +201,8 @@ public class SetUpWindow {
 				String name = textYourName.getText();
 				int days = sliderDays.getValue();
 				System.out.println(island_index);
-				GameEnvironment.selectStartingIsland(island_index); 
-				GameEnvironment.name = name;
+				Player.selectStartingIsland(island_index); 
+				Player.name = name;
 				
 				MainGame game = new MainGame();
 				game.frmMainGame.setVisible(true);

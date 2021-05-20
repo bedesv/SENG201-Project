@@ -58,10 +58,10 @@ public class MainGame {
 		JLabel lblCoin = new JLabel("Coins");
 		lblCoin.setBounds(22, 22, 36, 16);
 		
-		JLabel lblDayRemain = new JLabel(GameEnvironment.getIsland().getName());
+		JLabel lblDayRemain = new JLabel(Player.getIsland().getName());
 		lblDayRemain.setBounds(311, 27, 101, 16);
 		
-		JLabel lblDayNum = new JLabel(GameEnvironment.name + " in days");
+		JLabel lblDayNum = new JLabel(Player.name + " in days");
 		lblDayNum.setBounds(341, 47, 49, 16);
 		
 		textCoinNum = new JTextField();

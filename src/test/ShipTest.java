@@ -6,11 +6,11 @@ import java.util.*;
 
 import org.junit.jupiter.api.Test;
 
-import main.Island;
-import main.Route;
-import main.Ship;
-import main.Store;
-import main.Item;
+import commandLineApplication.Island;
+import commandLineApplication.Item;
+import commandLineApplication.Route;
+import commandLineApplication.Ship;
+import commandLineApplication.Store;
 
 class ShipTest {
 

@@ -3,12 +3,12 @@ package test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import java.util.*;
 
-import main.Island;
-import main.Item;
-import main.Ship;
-import main.Store;
+import commandLineApplication.Item;
+import commandLineApplication.Ship;
+import commandLineApplication.Store;
+
+import java.util.*;
 
 class StoreTest {
 
