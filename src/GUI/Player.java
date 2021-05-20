@@ -19,9 +19,9 @@ public class Player {
 		initShips();
 		
 		selectedShip = ships.get(2);
-		selectedShip.setLocation(islands.get(0));
+		selectedShip.setLocation(islands.get(2));
 		selectedShip.buyItem(items.get(0), 5);
-		selectedShip.buyWeapon(weapons.get(1), 100);
+		selectedShip.buyWeapon(weapons.get(2), 100);
 	}
 	 
 	 
@@ -164,11 +164,11 @@ public class Player {
 		items.add(new Item("Orange", "An orange fruit", "Food", 1, 3)); 
 		items.add(new Item("Pear", "A weird looking fruit", "Food", 1, 7)); 
 		
-		weapons.add(new Weapon("Single Cannon", "Adds 5 to the ships damage multiplier.", "Weapon", 7, 60, 5));
-		weapons.add(new Weapon("Double Cannon", "Adds 9 to the ships damage multiplier.", "Weapon", 16, 70, 9));
-		weapons.add(new Weapon("Grappling Hook", "Adds 3 to the ships damage multiplier.", "Weapon", 5, 35, 3));
-		weapons.add(new Weapon("Prow Armour", "Adds 10 to the ships damage multiplier.", "Weapon", 0, 85, 10));
-		weapons.add(new Weapon("Triple Cannon", "Adds 15 to the ships damage multiplier.", "Weapon", 35, 95, 15));
+		weapons.add(new Weapon("Single Cannon", "Adds 5 to the ships damage multiplier", "Weapon", 7, 60, 5));
+		weapons.add(new Weapon("Double Cannon", "Adds 9 to the ships damage multiplier", "Weapon", 16, 70, 9));
+		weapons.add(new Weapon("Grappling Hook", "Adds 3 to the ships damage multiplier", "Weapon", 5, 35, 3));
+		weapons.add(new Weapon("Prow Armour", "Adds 10 to the ships damage multiplier", "Weapon", 0, 85, 10));
+		weapons.add(new Weapon("Triple Cannon", "Adds 15 to the ships damage multiplier", "Weapon", 35, 95, 15));
 		 
 		
 	} 
@@ -217,6 +217,18 @@ public class Player {
 	
 	public static Island getIsland() {
 		return islands.get(home);
+	}
+	
+	public int getCoins() {
+		return selectedShip.getCoins();
+	}
+	
+	public String getShipCapacity() {
+		return selectedShip.getCurrCapacity() + "/" + selectedShip.getMaxCapacity();
+	}
+	
+	public void buyItem(Item item, int price) {
+		selectedShip.buyItem(item, price);
 	}
 	 
 	

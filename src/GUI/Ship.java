@@ -94,6 +94,14 @@ public class Ship {
 		this.shipDamage += damage;
 	}
 	
+	public int getCurrCapacity() {
+		return this.currCapacity;
+	}
+	
+	public int getMaxCapacity() {
+		return this.maxCapacity;
+	}
+	
 	public void viewInventory() {
 		System.out.println("Items in Inventory:\n");
 		for (Item i : shipInventory) {
