@@ -279,18 +279,6 @@ public class Player {
 		 
 	} 
 	 
-	 
-	public void startGame() { 
- 
-		boolean gameCont = true; 
-		 
-		while (gameCont) { 
-			// options to play... 
-			 
-			// if pirates 
-				// gameCont = pirateBattle (func in Pirates) 
-		} 
-	} 
 	  
 	public void finishGame() { 
 		

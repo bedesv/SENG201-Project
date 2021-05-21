@@ -9,9 +9,11 @@ import java.util.ArrayList;
  *
  */
 public class Island {
-
+	/** the name of the island */
 	private String islandName;
+	/** the store that is located on the island */
 	private Store store;
+	/** the list of the possible routes from the island */
 	private ArrayList<Route> routeList;
 	
 	/**
@@ -22,6 +24,7 @@ public class Island {
 	public Island(String name, Store store) {
 		this.islandName = name;
 		this.store = store;
+		// create an innitially empty list of routes from the island
 		this.routeList = new ArrayList<Route>();
 	}
 	
