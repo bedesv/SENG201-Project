@@ -23,7 +23,7 @@ public class Ship {
 	/** the amount (%) of damage the ship has received */
 	private int shipDamage;
 	/** the island where the ship is located on */
-	private Island Location;
+	private Island location;
 	/** the coins that the player owns, default at 1000 */
 	private int coins=1000;
 	/** the attack multiplier of the ship, the higher the mroe likely player will win a battle */
@@ -122,7 +122,7 @@ public class Ship {
 	 * @param location The island that we want to set as the home island of the ship
 	 */
 	public void setLocation(Island location) {
-		this.Location = location;
+		this.location = location;
 	}
 	
 	//getter
@@ -131,7 +131,7 @@ public class Ship {
 	 * @return island
 	 */
 	public Island getLocation() {
-		return this.Location;
+		return this.location;
 	}
 	
 	/**
@@ -279,7 +279,7 @@ public class Ship {
 	 */
 	public void sellWeapon(Weapon weapon, int price) {
 		weapon = this.removeWeapon(weapon);
-		weapon.sellItem(Location, price);
+		weapon.sellItem(location, price);
 		soldWeapons.add(weapon);
 		coins += price;
 		attackMultiplier -= weapon.getMultChanged();
@@ -329,7 +329,7 @@ public class Ship {
 	 */
 	public void sellItem(Item item, int price) {
 		item = this.removeItem(item);
-		item.sellItem(Location, price);
+		item.sellItem(location, price);
 		soldItems.add(item);
 		coins += price;
 		System.out.println(item.getName() + " sold successfully\n");
@@ -436,7 +436,7 @@ public class Ship {
 	public boolean travel(Scanner input, ArrayList<Island> islands) {
 		ArrayList<Island> destinations = new ArrayList<Island>();
 		for (Island i:islands) {
-			if (i != this.Location) {
+			if (i != this.location) {
 				destinations.add(i);
 			}
 		}
@@ -485,13 +485,13 @@ public class Ship {
 					System.out.println(index + ": " + "Cancel");
 				//confirm selection
 				} else {
-					ArrayList<Route> possibleRoutes = this.Location.getRoutes(destinations.get(selectedIsland-1));
+					ArrayList<Route> possibleRoutes = this.location.getRoutes(destinations.get(selectedIsland-1));
 					index = 1;
 					
 					// choose routes between 2 islands
 					System.out.println("Select a route to take:");
 					for (Route r: possibleRoutes) {
-						r.getDescriptionNumbered(this.Location.getName(), index++);
+						r.getDescriptionNumbered(this.location.getName(), index++);
 					}
 					System.out.println(index + " Cancel");
 					
@@ -536,7 +536,7 @@ public class Ship {
 								index = 1;
 								System.out.println("Select a route to take:");
 								for (Route r: possibleRoutes) {
-									r.getDescriptionNumbered(this.Location.getName(), index++);
+									r.getDescriptionNumbered(this.location.getName(), index++);
 								}
 								System.out.println(index + " Cancel");
 								
@@ -556,7 +556,7 @@ public class Ship {
 	 */
 	public boolean useRoute(Route route, Island destination) {
 		// identidy the island that the player is currently at
-		Island oldLocation = this.Location;
+		Island oldLocation = this.location;
 		int daysTaken = route.getDays(this);
 		int wagesCost = daysTaken * this.costPerCrew * this.shipCrew;
 		int event;
@@ -584,7 +584,7 @@ public class Ship {
 		if (gameCont) {
 			System.out.println("Successfully traveled from " + oldLocation.getName() + " to " + destination.getName() + ".\n");
 			this.daysPlayed += daysTaken;
-			this.Location = destination;
+			this.location = destination;
 		}
 		return gameCont;
 		
