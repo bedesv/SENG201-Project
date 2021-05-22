@@ -16,6 +16,7 @@ public class Game {
 	private SetupWindow setupWindow;
 	private MainMenuWindow mainMenuWindow;
 	private InventoryWindow inventoryWindow;
+	private SelectDestinationWindow selectDestinationWindow;
 	
 	private void initShips() {
 		// Create Ships
@@ -212,6 +213,11 @@ public class Game {
 	
 	public void openInventory() {
 		inventoryWindow = new InventoryWindow(this);
+		mainMenuWindow.exitMenu();
+	}
+	
+	public void setSail() {
+		selectDestinationWindow = new SelectDestinationWindow(this);
 		mainMenuWindow.exitMenu();
 	}
 	

@@ -69,7 +69,7 @@ public class SetupWindow {
 	private JRadioButton rdbtnRemoteRefuge;
 	private JRadioButton rdbtnBrightwichIsland;
 	
-	private JLabel lblNewLabel;
+	private JLabel lblMap;
 	private JPanel panelEnterName;
 	private JLabel lblYourName;
 	private JPanel panelSelectDays;
@@ -187,10 +187,10 @@ public class SetupWindow {
 		rdbtnBrightwichIsland.setOpaque(false);
 		IslandRadioButtonGroup.add(rdbtnBrightwichIsland);
 		
-		lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(0, 0, 600, 600);
-		panelMap.add(lblNewLabel);
-		lblNewLabel.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Base Map.png")));
+		lblMap = new JLabel("");
+		lblMap.setBounds(0, 0, 600, 600);
+		panelMap.add(lblMap);
+		lblMap.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Base Map.png")));
 		
 		panelEnterName = new JPanel();
 		panelEnterName.setBounds(241, 146, 209, 63);

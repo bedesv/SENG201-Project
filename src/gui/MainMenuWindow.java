@@ -1,16 +1,12 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
-import java.awt.FlowLayout;
+
 import javax.swing.JButton;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Font;
@@ -18,7 +14,7 @@ import javax.swing.JPanel;
 
 public class MainMenuWindow {
 
-	private JFrame frmMainGame;
+	private JFrame mainMenuWindowFrame;
 	
 	private JButton btnEnterShop;
 	private JButton btnRepairShip;
@@ -27,7 +23,9 @@ public class MainMenuWindow {
 	private JButton btnViewShipInfo;
 	private JButton btnViewIslandInfo;
 	private JButton btnEndGame;
-	private JLabel lblDayNum;
+	private JLabel lblCoins;
+	private JLabel lblWelcome;
+	private JLabel lblDays;
 	private JPanel panelMenuButtons;
 	private JFrame popup;
 	
@@ -41,11 +39,11 @@ public class MainMenuWindow {
 	}
 	
 	public void openMenu() {
-		frmMainGame.setVisible(true);
+		mainMenuWindowFrame.setVisible(true);
 	}
 	
 	public void exitMenu() {
-		frmMainGame.setVisible(false);
+		mainMenuWindowFrame.setVisible(false);
 	}
 
 	/**
@@ -54,16 +52,16 @@ public class MainMenuWindow {
 	private void initialize(Game game) {
 		
 		Player player = game.getPlayer();
-		frmMainGame = new JFrame();
-		frmMainGame.setTitle("Main Game");
-		frmMainGame.setBounds(100, 100, 1000, 800);
-		frmMainGame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainMenuWindowFrame = new JFrame();
+		mainMenuWindowFrame.setTitle("Main Game");
+		mainMenuWindowFrame.setBounds(100, 100, 1000, 800);
+		mainMenuWindowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		frmMainGame.getContentPane().setLayout(null);
+		mainMenuWindowFrame.getContentPane().setLayout(null);
 		
 		panelMenuButtons = new JPanel();
-		panelMenuButtons.setBounds(350, 50, 300, 521);
-		frmMainGame.getContentPane().add(panelMenuButtons);
+		panelMenuButtons.setBounds(235, 167, 300, 521);
+		mainMenuWindowFrame.getContentPane().add(panelMenuButtons);
 		panelMenuButtons.setLayout(null);
 		
 		btnEndGame = new JButton("END GAME");
@@ -91,7 +89,7 @@ public class MainMenuWindow {
 		panelMenuButtons.add(btnViewInventory);
 		btnViewInventory.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		btnViewShipInfo = new JButton("View Ship");
+		btnViewShipInfo = new JButton("View Ship Properties");
 		btnViewShipInfo.setBounds(0, 304, 300, 65);
 		panelMenuButtons.add(btnViewShipInfo);
 		btnViewShipInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -100,6 +98,28 @@ public class MainMenuWindow {
 		btnViewIslandInfo.setBounds(0, 380, 300, 65);
 		panelMenuButtons.add(btnViewIslandInfo);
 		btnViewIslandInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		
+		lblCoins = new JLabel("Coins: " + player.getCoins());
+		lblCoins.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblCoins.setBounds(817, 65, 142, 35);
+		mainMenuWindowFrame.getContentPane().add(lblCoins);
+		
+		lblWelcome = new JLabel("Hello " + player.getName() + ". Choose an activity");
+		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblWelcome.setBounds(42, 30, 351, 35);
+		mainMenuWindowFrame.getContentPane().add(lblWelcome);
+		
+		lblDays = new JLabel();
+		
+		if (player.unlimitedDays()) {
+			lblDays.setText("Day " + player.getCurrDay());
+		} else {
+			lblDays.setText("Day " + player.getCurrDay() + "/" + player.getMaxDays());
+		}
+		
+		lblDays.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		lblDays.setBounds(817, 30, 100, 35);
+		mainMenuWindowFrame.getContentPane().add(lblDays);
 		
 		btnEnterShop.addActionListener(new ActionListener() {
 			
@@ -131,6 +151,13 @@ public class MainMenuWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				game.openInventory();
+			}
+		});
+		
+		btnSetSail.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				game.setSail();
 			}
 		});
 	}

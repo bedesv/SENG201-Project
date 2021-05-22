@@ -54,6 +54,10 @@ public class Player {
 		return this.maxDays;
 	}
 	
+	public int getCurrDay() {
+		return selectedShip.getDays();
+	}
+	
 	public String getName() {
 		return this.name;
 	}
