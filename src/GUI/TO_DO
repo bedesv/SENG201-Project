@@ -7,3 +7,5 @@ Figure out why solditems values are changing - must be because they point to the
 view ship detail is not working
 add view islands & view inventory in activities
 add enter name and days
+
+In the store gui, the price shown on the screen and the amount of coins deducted are different

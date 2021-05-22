@@ -11,7 +11,7 @@ public class Item{
 	private String itemName;
 	/** the description of the item */
 	private String itemDescription;
-	/** the type of the item: Food or Weapon */
+	/** the type of the item */
 	private String itemType;
 	/** how much capacity the item takes */
 	private int itemSize;
@@ -70,7 +70,7 @@ public class Item{
 	
 	//getter
 	/**
-	 * Get the type of the item: Food or Weapon
+	 * Get the type of the item
 	 * @return item's type
 	 */
 	public String getType() {
