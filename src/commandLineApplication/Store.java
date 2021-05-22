@@ -2,26 +2,48 @@ package commandLineApplication;
 
 import java.util.*;
 
+/**
+ * Store is a place to trade good for player
+ * <br> There are 5 stores in total, each is situated in a unique island
+ * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ *
+ */
 public class Store {
+	/** The name of the store */
 	private String storeName;
+	/** The list of items that the store will buy */
 	private ArrayList<Item> itemsBought = new ArrayList<Item>();
+	/** The list of items that the store will sell */
 	private ArrayList<Item> itemsSold = new ArrayList<Item>();
-	
+	/** The price of the item or weapon when bought by the store will be multiplied with this */
 	private int boughtMultiplier;
+	/** The price of the item or weapon when sold by the store will be multiplied with this */
 	private int soldMultiplier;
 	
+	/**
+	 * Constructor of a store
+	 * @param name The name of the store
+	 * @param multiplier The price of the item or weapon when sold by the store will be multiplied with this
+	 */
 	public Store(String name, int multiplier) {
 		storeName = name;
 		boughtMultiplier = multiplier - 2;
 		soldMultiplier = multiplier;
 	}
 	
+	/**
+	 * To see what items the store will buy
+	 */
 	public void viewItemsBought() {
 		System.out.println(String.format("Items bought at %s:\n", storeName));
 		for (Item i : itemsBought) {
 			System.out.println(String.format("%s\n", i));
 		}
 	}
+	
+	/**
+	 * To see what items the store will sell
+	 */
 	public void viewItemsSold() {
 		System.out.println(String.format("Items sold at %s:\n", storeName));
 		for (Item i : itemsSold) {
@@ -29,6 +51,10 @@ public class Store {
 		}
 	}
 	
+	/**
+	 * To string method that will show what the store sells or buys
+	 * @return the message of the store's property
+	 */
 	public String toString() {
 		String mess = "Items bought at " + storeName + ": \n";
 		for (Item i : itemsBought) {
@@ -38,10 +64,14 @@ public class Store {
 		for (Item i : itemsSold) {
 			mess += String.format("%s\n", i);
 		}
-		return mess;
-		
+		return mess;	
 	}
 	
+	/**
+	 * Check if store can buy an item from the player
+	 * @param i The item that th eplayer wants to sell to the store
+	 * @return true (if the item can be bought by the store) or false (otherwise)
+	 */
 	public boolean buysItem(Item i) {
 		
 		for (Item j: this.itemsBought) {
@@ -52,16 +82,30 @@ public class Store {
 		return false;
 	}
 	
+	/**
+	 * Add an item to the store when it is bought by the store
+	 * @param item The item that the store bought
+	 */
 	public void addItem(Item item) {
 		itemsBought.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * boughtMultiplier)));
 		itemsSold.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * soldMultiplier)));
 	}
 	
-	
+	//getter
+	/**
+	 * Get the store's name
+	 * @return store's name
+	 */
 	public String getStoreName() {
 		return storeName;
 	}
 	
+	//getter
+	/**
+	 * Get the price that the player has to pay to buy the item
+	 * @param i
+	 * @return
+	 */
 	public int getPurchasePrice(Item i) {
 		for (Item j: this.itemsSold) {
 			if (i.equals(j)) {
@@ -71,6 +115,11 @@ public class Store {
 		return 0;
 	}
 	
+	/**
+	 * The player wants to go to the store
+	 * @param input What the player types in
+	 * @param ship The ship that the player is using
+	 */
 	public void enterStore(Scanner input, Ship ship) {
 		int selectedActivity = 0;
 		int selectedItem;
@@ -87,10 +136,11 @@ public class Store {
 				System.out.println("Error: Invalid selection.");
 				selectedActivity = input.nextInt();
 			}
-			
+			// player wants to buy an item
 			if (selectedActivity == 1) {
 				System.out.println("Select an item to purchase from the following:");
 				index = 1;
+				// list all the items that are sold in the store
 				for (Item i: this.itemsSold) {
 					System.out.println(String.format("%d %s\n", index++, i));
 				}
@@ -112,7 +162,7 @@ public class Store {
 					ship.printCoins();
 					System.out.println("Are you sure you want to buy a " + itemsSold.get(selectedItem-1).getName() + " for " + itemsSold.get(selectedItem-1).getPrice() + " coins? y/n");
 			
-				
+					// asking for confirmation of player buying an item
 					answer = input.next().charAt(0);
 					while (answer != 'y' && answer != 'n') {
 					
@@ -133,6 +183,8 @@ public class Store {
 				if (selectedItem != index - 1) {
 					ship.buyItem(itemsSold.get(selectedItem-1), itemsSold.get(selectedItem-1).getPrice());
 				}
+				
+			// player wants to sell to the store
 			} else if (selectedActivity == 2) {
 				ArrayList<Item> itemsInCommon = new ArrayList<Item>();
 				for (Item i:ship.getInventory()) {
@@ -140,10 +192,12 @@ public class Store {
 						itemsInCommon.add(new Item(i.getName(), i.getDescription(), i.getType(), i.getSize(), this.getPurchasePrice(i))); 
 					}
 				}
+				// if player has inventory to sell
 				if (itemsInCommon.size() > 0) {
 					System.out.println("Select an item to sell from the following:");
 					index = 1;
 					selectedItem = 0;
+					// list all the sellable items by the player
 					for (Item i:itemsInCommon) {
 						System.out.println(String.format("%d %s\n", index++, i));
 			
@@ -161,8 +215,10 @@ public class Store {
 							break;
 						}
 						ship.printCoins();
-						System.out.println("Are you sure you want to sell a " + itemsInCommon.get(selectedItem-1).getName() + " for " + itemsInCommon.get(selectedItem-1).getPrice() + " coins? y/n");
-				
+						// ask for permission to sell an item
+						System.out.println("Are you sure you want to sell a " 
+											+ itemsInCommon.get(selectedItem-1).getName() 
+											+ " for " + itemsInCommon.get(selectedItem-1).getPrice() + " coins? y/n");
 					
 						answer = input.next().charAt(0);
 						while (answer != 'y' && answer != 'n') {
@@ -182,9 +238,10 @@ public class Store {
 				
 					}
 					if (selectedItem != index - 1) {
-						ship.sellItem(ship.getItem(itemsInCommon.get(selectedItem-1)), itemsInCommon.get(selectedItem-1).getPrice());
+						ship.sellItem(ship.getItem(itemsInCommon.get(selectedItem-1)), 
+										itemsInCommon.get(selectedItem-1).getPrice());
 					}
-					
+				// if the player does not own any good	
 				} else {
 					System.out.println("Error: You don't have any items to sell.");
 					System.out.println();

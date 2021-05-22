@@ -71,7 +71,7 @@ public class Route {
 		return distance;
 	}
 	
-	//hgetter
+	//getter
 	/**
 	 * Get a list of islands that the route connects
 	 * @return island list

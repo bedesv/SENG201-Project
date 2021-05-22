@@ -22,7 +22,7 @@ public class Ship {
 	private int currCapacity=0;
 	/** the amount (%) of damage the ship has received */
 	private int shipDamage;
-	/** the isalnd where the ship is located on */
+	/** the island where the ship is located on */
 	private Island Location;
 	/** the coins that the player owns, default at 1000 */
 	private int coins=1000;

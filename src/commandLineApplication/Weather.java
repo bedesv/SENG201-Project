@@ -1,14 +1,25 @@
 package commandLineApplication;
 
+/**
+ * A type of the random events player may meet while sailing
+ * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ *
+ */
 public class Weather extends RandomEvent{
 	
 	public Weather() {
 	}
 	
+	/**
+	 * A storm hits the ship when the player is sailing
+	 * <br> This will add some damage to the ship and requires repair before sailing again
+	 * @param ship
+	 * @return true (if the game continues) or false (otherwise)
+	 */
 	public boolean storm(Ship ship) {
-		
 		System.out.println("A storm hits you unexpectedly, brace yourself.");
 		boolean gameCont = true;
+		// randomise the damage that will be caused to the ship
 		int damage = (int) (Math.random() * (6)) * ship.getDamageMultiplier();
 		if (damage == 0) {
 			System.out.println("You managed to pass through the storm unscathed");
