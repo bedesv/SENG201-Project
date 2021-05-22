@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 /**
  * This is a sub class os Item class, a type of item

@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 /**
  * A type of the random events player may meet while sailing

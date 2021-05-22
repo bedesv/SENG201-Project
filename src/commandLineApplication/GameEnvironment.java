@@ -10,7 +10,7 @@ public class GameEnvironment {
 	
 	//create ships
 	private static Ship Delight = new Ship("Delight", 10, 100, 12, 8, 40);
-	private static Ship Defender = new Ship("Defender", 10, 100, 6, 18, 50);
+	private static Ship Defender = new Ship("Defender", 10, 100, 6, 18, 1);
 	private static Ship Mantis = new Ship("Mantis", 10, 100, 17, 5, 37);
 	private static Ship Pioneer = new Ship("Pioneer", 10, 100, 10, 10, 89);
 	

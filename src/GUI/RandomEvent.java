@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 /**
  * Super class of random events that can heppen during a sail

@@ -1,7 +1,5 @@
 package commandLineApplication;
 
-import GUI.Island;
-
 /**
  * Items that are available to buy or sell by the player from/to a store when visiting the island
  * <br> Items includes food and weapons

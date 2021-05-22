@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 /**
  * Items that are available to buy or sell by the player from/to a store when visiting the island
