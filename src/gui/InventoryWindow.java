@@ -2,7 +2,6 @@ package GUI;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -24,7 +23,7 @@ import java.util.ArrayList;
 
 public class InventoryWindow {
 
-	private JFrame inventoryWindowFrame;
+	private JFrame frmInventoryWindow;
 	
 	private JTable itemsBoughtTable;
 	private JTable itemsSoldTable;
@@ -39,7 +38,6 @@ public class InventoryWindow {
 	private JButton btnMainMenu;
 	private JLabel lblCapacity;
 	private JLabel lblCoins;
-	private JFrame popup;
 	
 	private ArrayList<Item> itemsBoughtArray = new ArrayList<Item>();
 	private ArrayList<Item> itemsSoldArray = new ArrayList<Item>();
@@ -54,7 +52,7 @@ public class InventoryWindow {
 //			public void run() {
 //				try {
 //					InventoryWindow window = new InventoryWindow();
-//					window.inventoryWindowFrame.setVisible(true);
+//					window.frmInventoryWindow.setVisible(true);
 //				} catch (Exception e) {
 //					e.printStackTrace();
 //				}
@@ -65,30 +63,35 @@ public class InventoryWindow {
 	/**
 	 * Create the application.
 	 */
-	public InventoryWindow(Game game) {
-		initialize(game);
-		inventoryWindowFrame.setVisible(true);
-		
+	public InventoryWindow() {
+	
 	}
 	
-	public void exitInventory() {
-		inventoryWindowFrame.setVisible(false);
+	public void close() {
+		frmInventoryWindow.setVisible(false);
+	}
+	
+	public void open(Game game) {
+		initialize(game);
+		frmInventoryWindow.setVisible(true);
 	}
 	
 
 	/**
-	 * Initialize the contents of the inventoryWindowFrame.
+	 * Initialize the contents of the frmInventoryWindow.
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize(Game game) {
-		inventoryWindowFrame = new JFrame();
-		inventoryWindowFrame.setBounds(100, 100, 1000, 800);
-		inventoryWindowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		inventoryWindowFrame.getContentPane().setLayout(null);
+		frmInventoryWindow = new JFrame();
+		frmInventoryWindow.setBounds(100, 100, 1000, 800);
+		frmInventoryWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmInventoryWindow.getContentPane().setLayout(null);
+		frmInventoryWindow.setLocationRelativeTo(null);
 		
 		Player player = game.getPlayer();
 		Ship playersShip = player.getSelectedShip();
 		
-		inventoryWindowFrame.setTitle(playersShip.getName() + " Inventory");
+		frmInventoryWindow.setTitle(playersShip.getName() + " Inventory");
 		
 		String[] itemsBoughtTableHeader = {"Item", "Purchased For"};
 		String[] itemsSoldTableHeader = {"Item", "Purchased For", "Sold For", "Sold At"};
@@ -103,7 +106,7 @@ public class InventoryWindow {
 		weaponsSoldPanel = new JPanel();
 		weaponsSoldPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Sold", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsSoldPanel.setBounds(509, 387, 450, 250);
-		inventoryWindowFrame.getContentPane().add(weaponsSoldPanel);
+		frmInventoryWindow.getContentPane().add(weaponsSoldPanel);
 		
 		weaponsSoldScrollPane = new JScrollPane();
 		GroupLayout gl_weaponsSoldPanel = new GroupLayout(weaponsSoldPanel);
@@ -133,7 +136,7 @@ public class InventoryWindow {
 		weaponsBoughtPanel = new JPanel();
 		weaponsBoughtPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Bought", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsBoughtPanel.setBounds(509, 76, 450, 250);
-		inventoryWindowFrame.getContentPane().add(weaponsBoughtPanel);
+		frmInventoryWindow.getContentPane().add(weaponsBoughtPanel);
 		
 		weaponsBoughtScrollPane = new JScrollPane();
 		GroupLayout gl_weaponsBoughtPanel = new GroupLayout(weaponsBoughtPanel);
@@ -162,7 +165,7 @@ public class InventoryWindow {
 		itemsSoldPanel = new JPanel();
 		itemsSoldPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Items Sold", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		itemsSoldPanel.setBounds(24, 387, 450, 250);
-		inventoryWindowFrame.getContentPane().add(itemsSoldPanel);
+		frmInventoryWindow.getContentPane().add(itemsSoldPanel);
 		
 		itemsSoldScrollPane = new JScrollPane();
 		GroupLayout gl_itemsSoldPanel = new GroupLayout(itemsSoldPanel);
@@ -191,7 +194,7 @@ public class InventoryWindow {
 		JPanel itemsBoughtPanel = new JPanel();
 		itemsBoughtPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Items Bought", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		itemsBoughtPanel.setBounds(24, 76, 450, 250);
-		inventoryWindowFrame.getContentPane().add(itemsBoughtPanel);
+		frmInventoryWindow.getContentPane().add(itemsBoughtPanel);
 		
 		JScrollPane itemsBoughtScrollPane = new JScrollPane();
 		GroupLayout gl_itemsBoughtPanel = new GroupLayout(itemsBoughtPanel);
@@ -218,28 +221,22 @@ public class InventoryWindow {
 		lblCoins = new JLabel("Coins: " + player.getCoins());
 		lblCoins.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCoins.setBounds(817, 30, 142, 35);
-		inventoryWindowFrame.getContentPane().add(lblCoins);
+		frmInventoryWindow.getContentPane().add(lblCoins);
 		
 		lblCapacity = new JLabel("Ship Capacity: " + player.getShipCapacity());
 		lblCapacity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCapacity.setBounds(509, 30, 285, 35);
-		inventoryWindowFrame.getContentPane().add(lblCapacity);
+		frmInventoryWindow.getContentPane().add(lblCapacity);
 		
 		btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.setBounds(434, 710, 120, 40);
-		inventoryWindowFrame.getContentPane().add(btnMainMenu);
+		frmInventoryWindow.getContentPane().add(btnMainMenu);
 		
 		btnMainMenu.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Ask the player if they're sure they want to exit the store
-				int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to return to the main menu?", "Exit Confirmation",JOptionPane.YES_NO_OPTION);
-			
-				// If the player confirms they want to exit the store
-				if (choice == JOptionPane.YES_OPTION) {
 					game.exitInventory();
-				}
 			}
 		});
 		

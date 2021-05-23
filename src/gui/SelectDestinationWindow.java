@@ -1,20 +1,24 @@
 package GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.SwingConstants;
 import javax.swing.JRadioButton;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 
 public class SelectDestinationWindow {
 
-	private JFrame selectDestinationFrame;
+	private JFrame frmSelectDestination;
 	private JRadioButton rdbtnCrosserPeninsula;
 	private JPanel panelSelectIsland;
 	private JLabel lblChooseAnIsland;
@@ -25,35 +29,43 @@ public class SelectDestinationWindow {
 	private JRadioButton rdbtnBrightwichIsland;
 	private JLabel lblMap;
 	private final ButtonGroup islandButtonGroup = new ButtonGroup();
+	private JFrame popup;
 
 	/**
 	 * Create the application.
+	 * 
 	 */
-	public SelectDestinationWindow(Game game) {
-		initialize(game);
-		selectDestinationFrame.setVisible(true);
+	public SelectDestinationWindow() {
 	}
 	
 	public void close() {
-		selectDestinationFrame.setVisible(false);
+		frmSelectDestination.setVisible(false);
+	}
+	
+	public void open(Game game) {
+		initialize(game);
+		frmSelectDestination.setVisible(true);
 	}
 
 	/**
-	 * Initialize the contents of the selectDestinationFrame.
+	 * Initialize the contents of the frmSelectDestination.
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize(Game game) {
 		
 		Player player = game.getPlayer();
 		String currentLocation = player.getSelectedShip().getLocation().getName();
-		selectDestinationFrame = new JFrame();
-		selectDestinationFrame.setBounds(100, 100, 1172, 771);
-		selectDestinationFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		selectDestinationFrame.getContentPane().setLayout(null);
+		frmSelectDestination = new JFrame();
+		frmSelectDestination.setTitle("Select Destination");
+		frmSelectDestination.setBounds(100, 100, 616, 722);
+		frmSelectDestination.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmSelectDestination.getContentPane().setLayout(null);
+		frmSelectDestination.setLocationRelativeTo(null);
 		
 		panelSelectIsland = new JPanel();
 		panelSelectIsland.setLayout(null);
-		panelSelectIsland.setBounds(23, 31, 600, 633);
-		selectDestinationFrame.getContentPane().add(panelSelectIsland);
+		panelSelectIsland.setBounds(0, 0, 600, 633);
+		frmSelectDestination.getContentPane().add(panelSelectIsland);
 		
 		lblChooseAnIsland = new JLabel("Choose an island to sail to");
 		lblChooseAnIsland.setHorizontalAlignment(SwingConstants.CENTER);
@@ -68,6 +80,7 @@ public class SelectDestinationWindow {
 		
 		rdbtnArborlandIslet = new JRadioButton("Arborland Islet");
 		islandButtonGroup.add(rdbtnArborlandIslet);
+		rdbtnArborlandIslet.setToolTipText("Items are cheap here");
 		rdbtnArborlandIslet.setOpaque(false);
 		rdbtnArborlandIslet.setForeground(Color.WHITE);
 		rdbtnArborlandIslet.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -86,6 +99,7 @@ public class SelectDestinationWindow {
 		
 		rdbtnRainingArchipelago = new JRadioButton("Raining Archipelago");
 		islandButtonGroup.add(rdbtnRainingArchipelago);
+		rdbtnRainingArchipelago.setToolTipText("Items are reasonably priced here");
 		rdbtnRainingArchipelago.setOpaque(false);
 		rdbtnRainingArchipelago.setForeground(Color.WHITE);
 		rdbtnRainingArchipelago.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -94,6 +108,7 @@ public class SelectDestinationWindow {
 		
 		rdbtnRemoteRefuge = new JRadioButton("Remote Refuge");
 		islandButtonGroup.add(rdbtnRemoteRefuge);
+		rdbtnRemoteRefuge.setToolTipText("Items are cheapest here");
 		rdbtnRemoteRefuge.setOpaque(false);
 		rdbtnRemoteRefuge.setForeground(Color.WHITE);
 		rdbtnRemoteRefuge.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -102,6 +117,7 @@ public class SelectDestinationWindow {
 		
 		rdbtnBrightwichIsland = new JRadioButton("Brightwich Island");
 		islandButtonGroup.add(rdbtnBrightwichIsland);
+		rdbtnBrightwichIsland.setToolTipText("Items are most expensive here");
 		rdbtnBrightwichIsland.setOpaque(false);
 		rdbtnBrightwichIsland.setForeground(Color.WHITE);
 		rdbtnBrightwichIsland.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -111,18 +127,23 @@ public class SelectDestinationWindow {
 		switch (currentLocation) {
 		case "Arborland Islet":
 			rdbtnArborlandIslet.setEnabled(false);
+			rdbtnArborlandIslet.setToolTipText("You are currently on this island");
 			break;
 		case "Crosser Peninsula":
 			rdbtnCrosserPeninsula.setEnabled(false);
+			rdbtnCrosserPeninsula.setToolTipText("You are currently on this island");
 			break;
 		case "Raining Archipelago":
 			rdbtnRainingArchipelago.setEnabled(false);
+			rdbtnRainingArchipelago.setToolTipText("You are currently on this island");
 			break;
 		case "Remote Refuge":
 			rdbtnRemoteRefuge.setEnabled(false);
+			rdbtnRemoteRefuge.setToolTipText("You are currently on this island");
 			break;
 		case "Brightwich Island":
 			rdbtnBrightwichIsland.setEnabled(false);
+			rdbtnBrightwichIsland.setToolTipText("You are currently on this island");
 			break;
 		}
 		
@@ -130,6 +151,67 @@ public class SelectDestinationWindow {
 		lblMap.setIcon(new ImageIcon(SelectDestinationWindow.class.getResource("/Images/Base Map.png")));
 		lblMap.setBounds(0, 0, 600, 600);
 		panelMap.add(lblMap);
+		
+		JButton btnSelectRoute = new JButton("Select a Route");
+		btnSelectRoute.setBounds(407, 644, 183, 29);
+		frmSelectDestination.getContentPane().add(btnSelectRoute);
+		
+		JButton btnMainMenu = new JButton("Return to the Main Menu");
+		btnMainMenu.setBounds(10, 644, 183, 29);
+		frmSelectDestination.getContentPane().add(btnMainMenu);
+		
+		btnMainMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					game.exitSelectDestination();
+			}
+		});
+		
+		btnSelectRoute.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Island destination = game.getIslands().get(0);
+				boolean selectSuccess = true;
+				if (rdbtnArborlandIslet.isSelected()) {
+					for (Island i:game.getIslands()) {
+						if (i.getName() == "Arborland Islet") {
+							destination = i;
+						}
+					}
+				} else if (rdbtnCrosserPeninsula.isSelected()) {
+					for (Island i:game.getIslands()) {
+						if (i.getName() == "Crosser Peninsula") {
+							destination = i;
+						}
+					}
+				} else if (rdbtnRainingArchipelago.isSelected()) {
+					for (Island i:game.getIslands()) {
+						if (i.getName() == "Raining Archipelago") {
+							destination = i;
+						}
+					}
+				} else if (rdbtnRemoteRefuge.isSelected()) {
+					for (Island i:game.getIslands()) {
+						if (i.getName() == "Remote Refuge") {
+							destination = i;
+						}
+					}
+				} else if (rdbtnBrightwichIsland.isSelected()) {
+					for (Island i:game.getIslands()) {
+						if (i.getName() == "Brightwich Island") {
+							destination = i;
+						}
+					}
+				} else {
+					JOptionPane.showMessageDialog(popup, "Please select a destination");
+					selectSuccess = false;
+				}
+				
+				if (selectSuccess) {
+					game.openSelectRoute(destination);
+				}
+			}
+		});
 		
 		
 	}

@@ -34,20 +34,36 @@ public class Player {
 		return selectedShip.getCurrCapacity() + "/" + selectedShip.getMaxCapacity();
 	}
 	
-	public void buyItem(Item item, int price) {
-		selectedShip.buyItem(item, price);
+	public boolean buyItem(Item item, int price, StoreWindow storeWindow) {
+		return selectedShip.buyItem(item, price, storeWindow);
 	}
 	
-	public void buyWeapon(Weapon weapon, int price) {
-		selectedShip.buyWeapon(weapon, price);
+	public boolean buyWeapon(Weapon weapon, int price, StoreWindow storeWindow) {
+		return selectedShip.buyWeapon(weapon, price, storeWindow);
 	}
 	
-	public void sellItem(Item item, int price) {
-		selectedShip.sellItem(item, price);
+	public boolean sellItem(Item item, int price, StoreWindow storeWindow) {
+		return selectedShip.sellItem(item, price, storeWindow);
+	}
+	
+	public boolean sellWeapon(Weapon weapon, int price, StoreWindow storeWindow) {
+		return selectedShip.sellWeapon(weapon, price, storeWindow);
 	}
 	
 	public boolean unlimitedDays() {
 		return this.unlimitedDays;
+	}
+	
+	public int getInventoryValue() {
+		return selectedShip.inventoryValue();
+	}
+	
+	public Island getCurrLocation() {
+		return selectedShip.getLocation();
+	}
+	
+	public int setSail(Route route, Island destination, SelectRouteWindow selectRouteWindow) {
+		return selectedShip.useRoute(route, destination, selectRouteWindow, this);
 	}
 	
 	public int getMaxDays() {
@@ -64,10 +80,6 @@ public class Player {
 	
 	public int getShipDamage() {
 		return selectedShip.getCurrentDamage();
-	}
-	
-	public void sellWeapon(Weapon weapon, int price) {
-		selectedShip.sellWeapon(weapon, price);
 	}
 	
 	public int getRepairCost() {

@@ -3,9 +3,9 @@ package GUI;
 import java.util.ArrayList;
 
 /**
- * The path thet the player can take from the island they are based to another island
- * <br>There are 2 different routes connecting 2 random islands, in total there are 20 routes in the systems
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * The path that the player can take from the island they are based to another island
+ * <br>There are 2 different routes connecting each pair of islands, in total there are 20 routes in the game
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 public class Route {
@@ -47,7 +47,7 @@ public class Route {
 	 * @param shipName The name of the ship that the player is using
 	 * @return days
 	 */
-	public int getDays(Ship shipName) {
+	public int getDaysToTravel(Ship shipName) {
 		int speed = shipName.getSpeed();
 		int days = distance / speed;
 		return days;

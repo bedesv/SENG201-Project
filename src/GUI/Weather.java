@@ -2,7 +2,7 @@ package GUI;
 
 /**
  * A type of the random events player may meet while sailing
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 public class Weather extends RandomEvent{
@@ -19,30 +19,25 @@ public class Weather extends RandomEvent{
 	 * @param ship
 	 * @return true (if the game continues) or false (otherwise)
 	 */
-	public boolean storm(Ship ship) {
-		System.out.println("A storm hits you unexpectedly, brace yourself.");
-		boolean gameCont = true;
+	public int storm(Ship ship, SelectRouteWindow selectRouteWindow) {
+		selectRouteWindow.showMessage("A storm hits you unexpectedly, brace yourself.");
+		int sailSuccess = 0;
 		// randomise the damage that will be caused to the ship
-		int damage = (int) (Math.random() * (6)) * ship.getDamageMultiplier();
+		int damage = (int) (Math.random() * (6)) * ship.getDefenceMultiplier();
 		if (damage == 0) {
-			System.out.println("You managed to pass through the storm unscathed");
+			selectRouteWindow.showMessage("You managed to pass through the storm unscathed");
 		} 
 		else if (damage == 100) {
-			System.out.println("The storm was much worse than you feared. It ripped your ship apart and your whole crew drowned");
-			gameCont = false;
+			selectRouteWindow.showMessage("The storm was much worse than you feared. It ripped your ship apart and your whole crew drowned");
+			sailSuccess = 2;
 		} 
 		else {
-			System.out.println("The storm has damaged " + damage + "% of your ship.\nYou must repair it before you can depart the next island");
+			selectRouteWindow.showMessage("The storm has damaged " + damage + "% of your ship.\nYou must repair it before you can depart the next island");
 			ship.takeDamage(damage);
 		}
-		return gameCont;
+		return sailSuccess;
 	}
 
 	
-	public static void main(String[] args) {
-		for (int i=0; i<1000;i++) {
-			System.out.println((int) (Math.random() * (300 - 50 + 1) + 50));
-		}
-	}
 
 }

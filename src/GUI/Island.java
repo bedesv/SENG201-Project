@@ -24,7 +24,7 @@ public class Island {
 	public Island(String name, Store store) {
 		this.islandName = name;
 		this.store = store;
-		// create an innitially empty list of routes from the island
+		// create an initially empty list of routes from the island
 		this.routeList = new ArrayList<Route>();
 	}
 	

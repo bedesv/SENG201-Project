@@ -104,12 +104,15 @@ public class SetupWindow {
 	/**
 	 * Create the application.
 	 */
-	public SetupWindow(Game game) {
+	public SetupWindow() {
+	}
+	
+	public void open(Game game) {
 		initialize(game);
 		frmSetupWindow.setVisible(true);
 	}
 	
-	public void exitSetup() {
+	public void close() {
 		frmSetupWindow.setVisible(false);
 	}
 
@@ -131,6 +134,7 @@ public class SetupWindow {
 		panelSelectIsland.setBounds(685, 275, 600, 633);
 		frmSetupWindow.getContentPane().add(panelSelectIsland);
 		panelSelectIsland.setLayout(null);
+		frmSetupWindow.setLocationRelativeTo(null);
 		
 		lblChooseStartingIslandText = new JLabel("Choose an island to start on");
 		lblChooseStartingIslandText.setHorizontalAlignment(SwingConstants.CENTER);
@@ -279,6 +283,7 @@ public class SetupWindow {
 		panelMantis.add(lblMantisProperties);
 		lblMantisProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblMantisProperties.setBackground(SystemColor.menu);
+		lblMantisProperties.setEditable(false);
 		
 		panelDelight = new JPanel();
 		panelDelight.setBounds(0, 0, 300, 290);
@@ -301,6 +306,7 @@ public class SetupWindow {
 		panelDelight.add(lblDelightProperties);
 		lblDelightProperties.setBackground(SystemColor.menu);
 		lblDelightProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		lblDelightProperties.setEditable(false);
 		
 		panelPioneer = new JPanel();
 		panelPioneer.setBounds(330, 308, 300, 287);
@@ -323,6 +329,7 @@ public class SetupWindow {
 		panelPioneer.add(lblPioneerProperties);
 		lblPioneerProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblPioneerProperties.setBackground(SystemColor.menu);
+		lblPioneerProperties.setEditable(false);
 		
 		panelDefender = new JPanel();
 		panelDefender.setBounds(330, 0, 300, 289);
@@ -345,6 +352,7 @@ public class SetupWindow {
 		panelDefender.add(lblDefenderProperties);
 		lblDefenderProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblDefenderProperties.setBackground(SystemColor.menu);
+		lblDefenderProperties.setEditable(false);
 		
 		lblChooseShipText = new JLabel("Choose a ship to use");
 		lblChooseShipText.setHorizontalAlignment(SwingConstants.CENTER);

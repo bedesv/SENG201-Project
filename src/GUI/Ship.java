@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Ship is the vehicle to travel from an island to the other
  * <br>There are 4 ships for player to choose from
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 
@@ -26,10 +26,10 @@ public class Ship {
 	private Island location;
 	/** the coins that the player owns, default at 1000 */
 	private int coins=1000;
-	/** the attack multiplier of the ship, the higher the mroe likely player will win a battle */
+	/** the attack multiplier of the ship, the higher the more likely player will win a battle */
 	private int attackMultiplier;
 	/** the damage multiplier, any damage received will be multiplied with this, the lower the better */
-	private int damageMultiplier;
+	private int defenceMultiplier;
 	/** the list of items in the inventory on the ship */
 	private ArrayList<Item> shipInventory = new ArrayList<Item>();
 	/** the list of weapons the ship has */
@@ -41,7 +41,7 @@ public class Ship {
 	/** the speed of the ship */
 	private int shipSpeed;
 	/** the wage the player has to pay each crew for a day of a sail */
-	private int costPerCrew = 50;
+	private final int COSTPERCREW = 5;
 	/** how many days the player has been playing for */
 	private int daysPlayed = 0;
 	/** event of encountering pirates */
@@ -65,7 +65,7 @@ public class Ship {
 		shipName = name;
 		maxCapacity = capacity;
 		attackMultiplier = attack;
-		damageMultiplier = damage;
+		defenceMultiplier = damage;
 		shipSpeed = speed;	
 	}
 	
@@ -74,7 +74,7 @@ public class Ship {
 	 * @param input What the player types in the system
 	 */
 	public void repairShip() {
-		coins -= shipDamage * 10;
+		coins -= shipDamage;
 		shipDamage = 0;
 			
 	}
@@ -85,7 +85,7 @@ public class Ship {
 	 * @return
 	 */
 	public int getRepairCost() {
-		return shipDamage * 10;
+		return shipDamage;
 	}
 	
 	//getter
@@ -108,7 +108,7 @@ public class Ship {
 	
 	//setter
 	/**
-	 * Set the location o fthe ship
+	 * Set the location of the ship
 	 * @param location The island that we want to set as the home island of the ship
 	 */
 	public void setLocation(Island location) {
@@ -132,6 +132,14 @@ public class Ship {
 		this.shipDamage += damage;
 	}
 	
+
+	public int getCurrentDamage() {
+		return this.shipDamage;
+	}
+	
+	public int getCrew() {
+		return this.shipCrew;
+	}
 	//getter
 	/**
 	 * Get the list of items bought by the player
@@ -208,10 +216,13 @@ public class Ship {
 	 * Calculate how much the inventory worths
 	 * @return the sum of coins
 	 */
-	public int inventoryTotal() {
+	public int inventoryValue() {
 		int sum = 0;
 		for (Item i:this.shipInventory) {
 			sum += i.getPrice();
+		}
+		for (Weapon w:this.shipWeapons) {
+			sum += w.getPrice();
 		}
 		return sum;
 	}
@@ -236,19 +247,23 @@ public class Ship {
 	 * @param item The item that the player wants to purchase
 	 * @param price The purchased price of the item
 	 */
-	public void buyItem(Item item, int price) {
+	public boolean buyItem(Item item, int price, StoreWindow storeWindow) {
 		if (coins < price) {
-			System.out.println("Not enough coins to buy " + item.getName() + ", sell some items to get more.");
+			throw new InsufficientCoinsException();
 		} else if (maxCapacity < currCapacity + item.getSize()) { 
-			System.out.println("Not enough inventory space to buy" + item.getName() + ", sell some items to free some up.");
+			throw new InsufficientInventorySpaceException();
 		} else {
-			item = item.copy();
-			item.buyItem(price);
-			coins -= price;
-			shipInventory.add(item);
-			currCapacity += item.getSize();
-			System.out.println(item.getName() + " purchased successfully\n");
-			this.printCoins();
+			if (storeWindow.confirmPurchase(item, price)) {
+				item = item.copy();
+				item.buyItem(price);
+				coins -= price;
+				shipInventory.add(item);
+				currCapacity += item.getSize();
+				System.out.println(item.getName() + " purchased successfully\n");
+				this.printCoins();
+				return true;
+			}
+			return false;
 		}
 	}
 	
@@ -257,21 +272,26 @@ public class Ship {
 	 * @param weapon The weapon that the player wants to purchase
 	 * @param price The purchased price of the weapon
 	 */
-	public void buyWeapon(Weapon weapon, int price) {
+	public boolean buyWeapon(Weapon weapon, int price, StoreWindow storeWindow) {
 		if (coins < price) {
-			System.out.println("Not enough coins to buy " + weapon.getName() + ", sell some items to get more.");
+			throw new InsufficientCoinsException();
 		} else if (maxCapacity < currCapacity + weapon.getSize()) { 
-			System.out.println("Not enough inventory space to buy" + weapon.getName() + ", sell some items to free some up.");
+			throw new InsufficientInventorySpaceException();
 		} else {
-			weapon = weapon.copy();
-			weapon.buyItem(price);
-			coins -= price;
-			currCapacity += weapon.getSize();
-			shipWeapons.add(weapon);
-			// upgrade ship
-			attackMultiplier += weapon.getMultChanged();
-			System.out.println(weapon.getName() + " purchased successfully\n");
-			this.printCoins();
+			
+			if (storeWindow.confirmPurchase(weapon, price)) {
+				weapon = weapon.copy();
+				weapon.buyItem(price);
+				coins -= price;
+				currCapacity += weapon.getSize();
+				shipWeapons.add(weapon);
+				// upgrade ship
+				attackMultiplier += weapon.getMultChanged();
+				System.out.println(weapon.getName() + " purchased successfully\n");
+				this.printCoins();
+				return true;
+			} 
+			return false;
 		}
 	}
 	
@@ -280,16 +300,22 @@ public class Ship {
 	 * @param weapon The weapon that the player wants to sell
 	 * @param price The sold price of the weapon
 	 */
-	public void sellWeapon(Weapon weapon, int price) {
-		weapon = this.getWeaponFromInventory(weapon);
-		weapon.sellItem(this.location, price);
-		soldWeapons.add(weapon);
-		coins += price;
-		shipWeapons.remove(weapon);
-		currCapacity -= weapon.getSize();
-		attackMultiplier -= weapon.getMultChanged();
-		System.out.println(weapon.getName() + " sold successfully\n");
-		this.printCoins();
+	public boolean sellWeapon(Weapon weapon, int price, StoreWindow storeWindow) {
+		
+		if (storeWindow.confirmSale(weapon, price)) {
+			weapon = this.getWeaponFromInventory(weapon);
+			weapon.sellItem(this.location, price);
+			soldWeapons.add(weapon);
+			coins += price;
+			shipWeapons.remove(weapon);
+			currCapacity -= weapon.getSize();
+			attackMultiplier -= weapon.getMultChanged();
+			System.out.println(weapon.getName() + " sold successfully\n");
+			this.printCoins();
+			return true;
+		}
+		return false;
+		
 	}
 	
 	//getter
@@ -328,15 +354,20 @@ public class Ship {
 	 * @param item The item that the player wants to sell
 	 * @param price The sold price of the item
 	 */
-	public void sellItem(Item item, int price) {
-		item = this.getItemFromInventory(item);
-		item.sellItem(this.location, price);
-		soldItems.add(item);
-		coins += price;
-		shipInventory.remove(item);
-		currCapacity -= item.getSize();
-		System.out.println(item.getName() + " sold successfully\n");
-		this.printCoins();
+	public boolean sellItem(Item item, int price, StoreWindow storeWindow) {
+		
+		if (storeWindow.confirmSale(item, price)) {
+			item = this.getItemFromInventory(item);
+			item.sellItem(this.location, price);
+			soldItems.add(item);
+			coins += price;
+			shipInventory.remove(item);
+			currCapacity -= item.getSize();
+			System.out.println(item.getName() + " sold successfully\n");
+			this.printCoins();
+			return true;
+		}
+		return false;
 
 	}
     
@@ -355,20 +386,24 @@ public class Ship {
 		return i;
 	}
 	
+	public int getCostToSail(int days) {
+		return days * this.COSTPERCREW * this.shipCrew;
+	}
+	
 //getter
 	/**
 	 * Get the ship's damage multiplier, 
 	 * any damage received will be multiplied with this, the lower the better
 	 * @return ship's damage multiplier
 	 */
-	public int getDamageMultiplier() {
-		return damageMultiplier;
+	public int getDefenceMultiplier() {
+		return defenceMultiplier;
 	}
 	
 	//getter
 	/**
 	 * Get the ship's attack multiplier,
-	 * the higher the mroe likely player will win a battle
+	 * the higher the more likely player will win a battle
 	 * @return ship's attack multiplier
 	 */
 	public int getAttackMultiplier() {
@@ -407,69 +442,59 @@ public class Ship {
 	}
 	
 	 /**
-	 * Player takes a route to travel to an isalnd with probability of random events
+	 * Player takes a route to travel to an island with probability of random events
 	 * @param route The chosen route to take
 	 * @param destination The island the player wants to travel to
 	 * @return
 	 */
-	public boolean useRoute(Route route, Island destination) {
-		// identidy the island that the player is currently at
-		Island oldLocation = this.location;
-		int daysTaken = route.getDays(this);
-		int wagesCost = daysTaken * this.costPerCrew * this.shipCrew;
-		int event;
-		int pirates = 1;
-		int weather = 2;
-		int sailors = 3;
-		this.coins -= wagesCost;
-		boolean gameCont = true;
-		if ((int) (Math.random() * 100) <= route.getMultiplier()) {
-			event = (int) (Math.random() * 3) + 1;
-			if (event == pirates) {
-				gameCont = encounterPirates.pirateBattle(this);
-			} else if (event == weather) {
-				gameCont = unfortunateWeather.storm(this);
-			} else if (event == sailors) {
-				rescueSailors.findSailors(this);
+	public int useRoute(Route route, Island destination, SelectRouteWindow selectRouteWindow, Player player) {
+		int daysTaken = route.getDaysToTravel(this);
+		int wagesCost = daysTaken * this.COSTPERCREW * this.shipCrew;
+		
+		if (this.getCoins() < wagesCost) {
+			throw new InsufficientCoinsException();
+		} else if (!player.unlimitedDays() && (this.daysPlayed + daysTaken > player.getMaxDays())) {
+			throw new InsufficientDaysException();
+		} else {
+			this.coins -= wagesCost;
+			int setSailSuccess = 0;
+			
+			int event;
+			int pirates = 1;
+			int weather = 2;
+			int sailors = 3;
+
+			if ((int) (Math.random() * 100) <= route.getMultiplier()) {
+				event = (int) (Math.random() * 3) + 1;
+				if (event == pirates) {
+					setSailSuccess = encounterPirates.pirateBattle(this, selectRouteWindow);
+				} else if (event == weather) {
+					setSailSuccess = unfortunateWeather.storm(this, selectRouteWindow);
+				} else if (event == sailors) {
+					rescueSailors.findSailors(this, selectRouteWindow);
+				}
 			}
+			return setSailSuccess;
 		}
-		
-		if (gameCont) {
-			System.out.println("Successfully traveled from " + oldLocation.getName() + " to " + destination.getName() + ".\n");
-			this.daysPlayed += daysTaken;
-			this.location = destination;
-		}
-		return gameCont;
-		
 	}
 	
-	//getter
-	/**
-	 * Get the current damage of the ship
-	 * @return ship's damage
-	 */
-	public int getCurrentDamage() {
-		return this.shipDamage;
+	public void increaseAttackMult() {
+		if (this.attackMultiplier + 1 <= 30) {
+			this.attackMultiplier += 1;
+		}
 	}
 	
-	/**
-	 * View the information/ property of the ship
-	 */
-	public void shipInfo() {
-		System.out.println(shipName + " Properties:");
-		System.out.println();
-		System.out.println("Damage Multiplier: " + damageMultiplier);
-		System.out.println("All damage received is multiplied by this before being applied (lower is better).");
-		System.out.println();
-		System.out.println("Attack Multiplier: " + attackMultiplier);
-		System.out.println("All damage given is multiplied by this before being applied (higher is better).");
-		System.out.println();
-		System.out.println("Crew Size: " + shipCrew);
-		System.out.println();
-		System.out.println("Max Inventory Capacity: " + maxCapacity);
-		System.out.println();
-		System.out.println();
+	public void increaseDefenceMult() {
+		if(this.defenceMultiplier + 1 <= 30) {
+			this.defenceMultiplier += 1;
+		}
 	}
+	
+	public void increaseInventoryCapacity() {
+		this.maxCapacity += 10;
+	}
+	
+
 	
 	//getter
 	/**
@@ -480,8 +505,5 @@ public class Ship {
 		return this.daysPlayed;
 	}
 	
-	public static void main(String[] args) {
-		
-	}
 	
 }
