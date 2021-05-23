@@ -1,4 +1,4 @@
-package gui;
+package GUI;
 
 /**
  * A type of the random events player may meet while sailing
@@ -7,6 +7,9 @@ package gui;
  */
 public class RescueSailors extends RandomEvent{
 	
+	/**
+	 * Constructor of rescue sailor event
+	 */
 	public RescueSailors() {
 	}
 	

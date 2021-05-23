@@ -1,4 +1,4 @@
-package gui;
+package GUI;
 
 /**
  * Super class of random events that can heppen during a sail
@@ -9,7 +9,9 @@ public class RandomEvent {
 	/** the name of the event */
 	private String name;
 
-	
+	/**
+	 * Constructor of a random event
+	 */
 	public RandomEvent() {
 	}
 

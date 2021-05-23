@@ -1,4 +1,4 @@
-package gui;
+package GUI;
 
 /**
  * A type of the random events player may meet while sailing
@@ -7,6 +7,9 @@ package gui;
  */
 public class Weather extends RandomEvent{
 	
+	/**
+	 * Constructor of meeting unfavorable weather event
+	 */
 	public Weather() {
 	}
 	
