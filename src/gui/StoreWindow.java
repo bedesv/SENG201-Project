@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 
 import javax.swing.JFrame;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class StoreWindow {
 
-	private JFrame storeWindowFrame;
+	private JFrame frmStoreWindow;
 	private JTable itemsToBuyTable;
 	private JTable itemsToSellTable;
 	private JTable weaponsToBuyTable;
@@ -53,6 +53,10 @@ public class StoreWindow {
 	
 	private ArrayList<Weapon> weaponsToBuyArray = new ArrayList<Weapon>();
 	private ArrayList<Weapon> weaponsToSellArray = new ArrayList<Weapon>();
+	private StoreWindow storeWindow = this;
+	
+	private boolean purchaseSuccess = false;
+	private boolean saleSuccess = false;
 	
 	
 
@@ -60,35 +64,35 @@ public class StoreWindow {
 	/**
 	 * Create the application.
 	 */
-	public StoreWindow(Game game) {
-		initialize(game);
-		storeWindowFrame.setVisible(true);
+	public StoreWindow() {
 		
 	}
 	
-	public void openStore(Game game) {
+	public void open(Game game) {
 		initialize(game);
-		storeWindowFrame.setVisible(true);
+		frmStoreWindow.setVisible(true);
 	}
 	
-	public void exitStore() {
-		storeWindowFrame.setVisible(false);
+	public void close() {
+		frmStoreWindow.setVisible(false);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize(Game game) {
-		storeWindowFrame = new JFrame();
-		storeWindowFrame.setBounds(100, 100, 1000, 800);
-		storeWindowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		storeWindowFrame.getContentPane().setLayout(null);
+		frmStoreWindow = new JFrame();
+		frmStoreWindow.setBounds(100, 100, 1000, 800);
+		frmStoreWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmStoreWindow.getContentPane().setLayout(null);
+		frmStoreWindow.setLocationRelativeTo(null);
 		
 		Player player = game.getPlayer();
 		Ship playersShip = player.getSelectedShip();
 		Store store = playersShip.getLocation().getStore();
 		
-		storeWindowFrame.setTitle(store.getStoreName());
+		frmStoreWindow.setTitle(store.getStoreName());
 		
 		String[] itemTableHeaders = {"Item", "Description", "Size", "Price"};
 		String[] weaponTableHeaders = {"Weapon", "Description", "Size", "Price"};
@@ -101,7 +105,7 @@ public class StoreWindow {
 		weaponsToSellPanel = new JPanel();
 		weaponsToSellPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Available to Sell", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsToSellPanel.setBounds(509, 387, 450, 250);
-		storeWindowFrame.getContentPane().add(weaponsToSellPanel);
+		frmStoreWindow.getContentPane().add(weaponsToSellPanel);
 		
 		weaponsToSellScrollPane = new JScrollPane();
 		GroupLayout gl_weaponsToSellPanel = new GroupLayout(weaponsToSellPanel);
@@ -124,7 +128,7 @@ public class StoreWindow {
 		// Set column widths for the weapons to sell table
 		weaponsToSellTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		weaponsToSellTable.getColumnModel().getColumn(0).setPreferredWidth(90);
-		weaponsToSellTable.getColumnModel().getColumn(1).setPreferredWidth(weaponsToSellPanel.getWidth() - (85 + 35 + 40 + 20));
+		weaponsToSellTable.getColumnModel().getColumn(1).setPreferredWidth(weaponsToSellPanel.getWidth() - (90 + 35 + 40 + 15));
 		weaponsToSellTable.getColumnModel().getColumn(2).setPreferredWidth(35);
 		weaponsToSellTable.getColumnModel().getColumn(3).setPreferredWidth(40);
 		
@@ -137,7 +141,7 @@ public class StoreWindow {
 		weaponsToBuyPanel = new JPanel();
 		weaponsToBuyPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Available to Buy", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsToBuyPanel.setBounds(509, 76, 450, 250);
-		storeWindowFrame.getContentPane().add(weaponsToBuyPanel);
+		frmStoreWindow.getContentPane().add(weaponsToBuyPanel);
 		
 		weaponsToBuyScrollPane = new JScrollPane();
 		GroupLayout gl_weaponsToBuyPanel = new GroupLayout(weaponsToBuyPanel);
@@ -173,7 +177,7 @@ public class StoreWindow {
 		itemsToSellPanel = new JPanel();
 		itemsToSellPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Items Available to Sell", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		itemsToSellPanel.setBounds(24, 387, 450, 250);
-		storeWindowFrame.getContentPane().add(itemsToSellPanel);
+		frmStoreWindow.getContentPane().add(itemsToSellPanel);
 		
 		itemsToSellScrollPane = new JScrollPane();
 		GroupLayout gl_itemsToSellPanel = new GroupLayout(itemsToSellPanel);
@@ -208,7 +212,7 @@ public class StoreWindow {
 		JPanel itemsToBuyPanel = new JPanel();
 		itemsToBuyPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Items Available to Buy", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		itemsToBuyPanel.setBounds(24, 76, 450, 250);
-		storeWindowFrame.getContentPane().add(itemsToBuyPanel);
+		frmStoreWindow.getContentPane().add(itemsToBuyPanel);
 		
 		JScrollPane itemsToBuyScrollPane = new JScrollPane();
 		GroupLayout gl_itemsToBuyPanel = new GroupLayout(itemsToBuyPanel);
@@ -243,57 +247,51 @@ public class StoreWindow {
 		btnBuyItem = new JButton("Buy Item");
 		btnBuyItem.setBounds(189, 336, 120, 40);
 		btnBuyItem.setEnabled(false);
-		storeWindowFrame.getContentPane().add(btnBuyItem);
+		frmStoreWindow.getContentPane().add(btnBuyItem);
 		
 		// Create a button to buy the selected weapon
 		btnBuyWeapon = new JButton("Buy Weapon");
 		btnBuyWeapon.setBounds(674, 337, 120, 40);
 		btnBuyWeapon.setEnabled(false);
-		storeWindowFrame.getContentPane().add(btnBuyWeapon);
+		frmStoreWindow.getContentPane().add(btnBuyWeapon);
 		
 		// Create a button to sell the selected item
 		btnSellItem = new JButton("Sell Item");
 		btnSellItem.setBounds(189, 647, 120, 40);
 		btnSellItem.setEnabled(false);
-		storeWindowFrame.getContentPane().add(btnSellItem);
+		frmStoreWindow.getContentPane().add(btnSellItem);
 		
 		// Create a button to sell the selected weapon
 		btnSellWeapon = new JButton("Sell Weapon");
 		btnSellWeapon.setBounds(674, 648, 120, 40);
 		btnSellWeapon.setEnabled(false);
-		storeWindowFrame.getContentPane().add(btnSellWeapon);
+		frmStoreWindow.getContentPane().add(btnSellWeapon);
 		
 		lblCoins = new JLabel("Coins: " + player.getCoins());
 		lblCoins.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCoins.setBounds(817, 30, 142, 35);
-		storeWindowFrame.getContentPane().add(lblCoins);
+		frmStoreWindow.getContentPane().add(lblCoins);
 		
 		lblCapacity = new JLabel("Ship Capacity: " + player.getShipCapacity());
 		lblCapacity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCapacity.setBounds(509, 30, 285, 35);
-		storeWindowFrame.getContentPane().add(lblCapacity);
+		frmStoreWindow.getContentPane().add(lblCapacity);
 		
 		lblWelcomeMessage = new JTextArea("Welcome to the " + store.getStoreName() + ".\nSelect an item or weapon to buy or sell");
 		lblWelcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblWelcomeMessage.setBackground(SystemColor.control);
 		lblWelcomeMessage.setBounds(24, 11, 376, 59);
-		storeWindowFrame.getContentPane().add(lblWelcomeMessage);
+		frmStoreWindow.getContentPane().add(lblWelcomeMessage);
 		
 		btnExitStore = new JButton("Exit Store");
 		btnExitStore.setBounds(434, 710, 120, 40);
-		storeWindowFrame.getContentPane().add(btnExitStore);
+		frmStoreWindow.getContentPane().add(btnExitStore);
 		
 		btnExitStore.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// Ask the player if they're sure they want to exit the store
-				int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to exit the store?", "Exit Confirmation",JOptionPane.YES_NO_OPTION);
-			
-				// If the player confirms they want to exit the store
-				if (choice == JOptionPane.YES_OPTION) {
-					game.exitStore();
-				}
+				game.exitStore();
 			}
 		});
 		
@@ -379,7 +377,7 @@ public class StoreWindow {
 		btnBuyItem.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent f) {
 				
 				// Fetch the selected item from the table of items to buy
 				Item item = itemsToBuyArray.get(itemsToBuyTable.getSelectedRow());
@@ -388,42 +386,32 @@ public class StoreWindow {
 				itemsToBuyTable.clearSelection();
 				btnBuyItem.setEnabled(false);
 				
-				// Display an error message if the player doesn't have enough coins to buy the selected item
-				if (player.getCoins() < store.getPurchasePrice(item)) {
+				try {
+					purchaseSuccess = player.buyItem(item, store.getPurchasePrice(item), storeWindow);
+					
+				} catch (InsufficientCoinsException e) {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough coins to buy a(n) " + item.getName() + ". Sell some items or weapons to get more");
 					
-				// Display an error message if the player doesn't have enough inventory space to buy the selected item
-				} else if (item.getSize() + player.getCurrShipCapacity() > player.getMaxShipCapacity()) {
+				} catch (InsufficientInventorySpaceException e) {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough inventory space to buy a(n) " + item.getName() + ". Sell some items or weapons to free some up");
+				}
+				
+				if (purchaseSuccess) {
+					// Update the coins and capacity labels
+					lblCoins.setText("Coins: " + player.getCoins());
+					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
 					
-				// Otherwise
-				} else {
+					// Update the array of items the player can sell
+					itemsToSellArray = store.getItemsPlayerCanSell(playersShip);
 					
-					// Ask the player if they're sure they want to buy the selected item
-					int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to buy" + " a(n) " + item.getName() + " for " + store.getPurchasePrice(item) + " coins?", "Purchase Confirmation",JOptionPane.YES_NO_OPTION);
+					// Clear all items from the table of items to sell
+					itemsToSellModel.setRowCount(0);
+					itemsToSellTable.removeAll();
 					
-					// If the player confirms they want to buy the selected item
-					if (choice == JOptionPane.YES_OPTION) {
-						
-						// Buy the selected item
-						player.buyItem(item, store.getPurchasePrice(item));
-						
-						// Update the coins and capacity labels
-						lblCoins.setText("Coins: " + player.getCoins());
-						lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
-						
-						// Update the array of items the player can sell
-						itemsToSellArray = store.getItemsPlayerCanSell(playersShip);
-						
-						// Clear all items from the table of items to sell
-						itemsToSellModel.setRowCount(0);
-						itemsToSellTable.removeAll();
-						
-						// Add the items the player can sell to the table of items to sell
-						for (Item i: itemsToSellArray) {
-							Object[] temp = {i.getName(), i.getDescription(), i.getSize(), store.getSalePrice(i)};
-							itemsToSellModel.addRow(temp);
-						}
+					// Add the items the player can sell to the table of items to sell
+					for (Item i: itemsToSellArray) {
+						Object[] temp = {i.getName(), i.getDescription(), i.getSize(), store.getSalePrice(i)};
+						itemsToSellModel.addRow(temp);
 					}
 				}
 			}
@@ -432,7 +420,7 @@ public class StoreWindow {
 		btnBuyWeapon.addActionListener(new ActionListener() {
 			
 			@Override
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent d) {
 				
 				// Fetch the selected weapon from the table of weapons to buy
 				Weapon weapon = weaponsToBuyArray.get(weaponsToBuyTable.getSelectedRow());
@@ -441,42 +429,32 @@ public class StoreWindow {
 				weaponsToBuyTable.clearSelection();
 				btnBuyWeapon.setEnabled(false);
 				
-				// Display an error message if the player doesn't have enough coins to buy the selected weapon
-				if (player.getCoins() < store.getPurchasePrice(weapon)) {
+				try {
+					purchaseSuccess = player.buyWeapon(weapon, store.getPurchasePrice(weapon), storeWindow);
+					
+				} catch (InsufficientCoinsException e) {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough coins to buy a(n) " + weapon.getName() + ". Sell some items or weapons to get more");
 					
-				// Display an error message if the player doesn't have enough inventory space to buy the selected weapon
-				} else if (weapon.getSize() + player.getCurrShipCapacity() > player.getMaxShipCapacity()) {
+				} catch (InsufficientInventorySpaceException e) {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough inventory space to buy a(n) " + weapon.getName() + ". Sell some items or weapons to free some up");
+				}
+				
+				if (purchaseSuccess) {
+					// Update the coins and capacity labels
+					lblCoins.setText("Coins: " + player.getCoins());
+					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
 					
-				// Otherwise
-				} else {
+					// Update the array of weapons the player can sell
+					weaponsToSellArray = store.getWeaponsPlayerCanSell(playersShip);
 					
-					// Ask the player if they're sure they want to buy the selected weapon
-					int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to buy" + " a(n) " + weapon.getName() + " for " + store.getPurchasePrice(weapon) + " coins?", "Purchase Confirmation",JOptionPane.YES_NO_OPTION);
+					// Clear all weapons from the table of weapons to sell
+					weaponsToSellModel.setRowCount(0);
+					weaponsToSellTable.removeAll();
 					
-					// If the player confirms they want to buy the selected weapon
-					if (choice == JOptionPane.YES_OPTION) {
-						
-						// Buy the selected weapon
-						player.buyWeapon(weapon, store.getPurchasePrice(weapon));
-						
-						// Update the coins and capacity labels
-						lblCoins.setText("Coins: " + player.getCoins());
-						lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
-						
-						// Update the array of weapons the player can sell
-						weaponsToSellArray = store.getWeaponsPlayerCanSell(playersShip);
-						
-						// Clear all weapons from the table of weapons to sell
-						weaponsToSellModel.setRowCount(0);
-						weaponsToSellTable.removeAll();
-						
-						// Add the weapons the player can sell to the table of weapons to sell
-						for (Weapon w: weaponsToSellArray) {
-							Object[] temp = {w.getName(), w.getDescription(), w.getSize(), store.getSalePrice(w)};
-							weaponsToSellModel.addRow(temp);
-						}
+					// Add the weapons the player can sell to the table of weapons to sell
+					for (Weapon w: weaponsToSellArray) {
+						Object[] temp = {w.getName(), w.getDescription(), w.getSize(), store.getSalePrice(w)};
+						weaponsToSellModel.addRow(temp);
 					}
 				}
 			}
@@ -494,14 +472,12 @@ public class StoreWindow {
 				itemsToSellTable.clearSelection();
 				btnSellItem.setEnabled(false);
 				
-				// Ask the player if they're sure they want to sell the selected item
-				int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to sell" + " a(n) " + item.getName() + " for " + store.getSalePrice(item) + " coins?", "Sale Confirmation",JOptionPane.YES_NO_OPTION);
-				
-				// If the player confirms they want to sell the selected item
-				if (choice == JOptionPane.YES_OPTION) {
+
 					
-					// Sell the selected item
-					player.sellItem(item, store.getSalePrice(item));
+				// Sell the selected item
+				saleSuccess = player.sellItem(item, store.getSalePrice(item), storeWindow);
+				
+				if (saleSuccess) {
 					
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
@@ -535,14 +511,11 @@ public class StoreWindow {
 				weaponsToSellTable.clearSelection();
 				btnSellWeapon.setEnabled(false);
 				
-				// Ask the player if they're sure they want to sell the selected weapon
-				int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to sell" + " a(n) " + weapon.getName() + " for " + store.getSalePrice(weapon) + " coins?", "Sale Confirmation",JOptionPane.YES_NO_OPTION);
-			
-				// If the player confirms they want to sell the selected weapon
-				if (choice == JOptionPane.YES_OPTION) {
 					
-					// Sell the selected weapon
-					player.sellWeapon(weapon, store.getSalePrice(weapon));
+				// Sell the selected weapon
+				saleSuccess = player.sellWeapon(weapon, store.getSalePrice(weapon), storeWindow);
+				
+				if (saleSuccess) {
 					
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
@@ -565,4 +538,23 @@ public class StoreWindow {
 		});
 		
 	}
+	
+	public boolean confirmPurchase(Item item, int price) {
+		int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to buy" + " a(n) " + item.getName() + " for " + price + " coins?", "Purchase Confirmation",JOptionPane.YES_NO_OPTION);
+		if (choice == JOptionPane.YES_OPTION) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
+	public boolean confirmSale(Item item, int price) {
+		int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to sell" + " a(n) " + item.getName() + " for " + price + " coins?", "Sale Confirmation",JOptionPane.YES_NO_OPTION);
+		if (choice == JOptionPane.YES_OPTION) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 }

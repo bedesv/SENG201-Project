@@ -1,11 +1,11 @@
-package GUI;
+package gui;
 
 import java.util.ArrayList;
 
 /**
  * Island is either home or destination for a ship. There are 5 in total.
  * <br> Each has a shop and 2 routes to each of the other islands.
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 public class Island {
@@ -24,7 +24,7 @@ public class Island {
 	public Island(String name, Store store) {
 		this.islandName = name;
 		this.store = store;
-		// create an innitially empty list of routes from the island
+		// create an initially empty list of routes from the island
 		this.routeList = new ArrayList<Route>();
 	}
 	

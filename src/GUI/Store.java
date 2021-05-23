@@ -1,11 +1,11 @@
-package GUI;
+package gui;
 
 import java.util.*;
 
 /**
  * Store is a place to trade good for player
  * <br> There are 5 stores in total, each is situated in a unique island
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 public class Store {

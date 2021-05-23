@@ -1,8 +1,8 @@
-package GUI;
+package gui;
 
 /**
- * Super class of random events that can heppen during a sail
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * Super class of random events that can happen during a sail
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 public class RandomEvent {

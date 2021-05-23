@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import java.util.ArrayList;
 
@@ -17,6 +17,9 @@ public class Game {
 	private MainMenuWindow mainMenuWindow;
 	private InventoryWindow inventoryWindow;
 	private SelectDestinationWindow selectDestinationWindow;
+	private SelectRouteWindow selectRouteWindow;
+	private SecretMenuWindow secretMenuWindow;
+	private ShipInformationWindow shipInformationWindow;
 	
 	private void initShips() {
 		// Create Ships
@@ -58,29 +61,29 @@ public class Game {
 		
 		//create routes 
 		//Route(int distance, Island island1, Island island2, String description, int eventMultiplier) 
-		Route AridTrail = new Route(10000, RemoteRefuge, RainingArchipelago, "Arid Trail", 20); 
-		Route DragonfireRoute = new Route(4000, RemoteRefuge, RainingArchipelago, "Dragonfire Route", 60); 
-		Route TrepidationPass = new Route(4600, RemoteRefuge, BrightwichIsland, "Trepidation Pass", 20); 
-		Route TheGlisteningDeep = new Route(1100, RemoteRefuge, BrightwichIsland, "The Glistening Deep", 40); 
-		Route TerrenrontoWaters = new Route(5200, RemoteRefuge, CrosserPeninsula, "Terrenronto Waters", 40); 
-		Route SalfilWaters = new Route(18000, RemoteRefuge, CrosserPeninsula, "Salfil Waters", 10); 
-		Route TheBurstingWaves = new Route(2500, RemoteRefuge, ArborlandIslet, "The Bursting Waves", 50); 
-		Route TheEmptyBay = new Route(19500, RemoteRefuge, ArborlandIslet, "The Empty Bay", 10); 
+		Route AridTrail = new Route(25, RemoteRefuge, RainingArchipelago, "Arid Trail", 20); 
+		Route DragonfireRoute = new Route(10, RemoteRefuge, RainingArchipelago, "Dragonfire Route", 60); 
+		Route TrepidationPass = new Route(35, RemoteRefuge, BrightwichIsland, "Trepidation Pass", 30); 
+		Route TheGlisteningDeep = new Route(20, RemoteRefuge, BrightwichIsland, "The Glistening Deep", 70); 
+		Route TerrenrontoWaters = new Route(35, RemoteRefuge, CrosserPeninsula, "Terrenronto Waters", 50); 
+		Route SalfilWaters = new Route(45, RemoteRefuge, CrosserPeninsula, "Salfil Waters", 20); 
+		Route TheBurstingWaves = new Route(15, RemoteRefuge, ArborlandIslet, "The Bursting Waves", 40); 
+		Route TheEmptyBay = new Route(20, RemoteRefuge, ArborlandIslet, "The Empty Bay", 10); 
 		 
-		Route ChillwaterSea = new Route(18200, RainingArchipelago, BrightwichIsland, "Chilwater Sea", 30); 
-		Route TheDarkestDepths = new Route(5150, RainingArchipelago, BrightwichIsland, "The Darkest Depths", 40); 
-		Route CartvonsBay = new Route(1230, RainingArchipelago, CrosserPeninsula, "Cartvons Bay", 50); 
-		Route TheTroubledOcean = new Route(4130, RainingArchipelago, CrosserPeninsula, "The Troubled Ocean", 20); 
-		Route TheNarrowGulf = new Route(15000, RainingArchipelago, ArborlandIslet, "The Narrow Gulf", 20); 
-		Route TheOceanOfWoodbourg = new Route(10050, RainingArchipelago, ArborlandIslet, "The Ocean of Woodbourg", 30); 
+		Route ChillwaterSea = new Route(10, RainingArchipelago, BrightwichIsland, "Chillwater Sea", 30); 
+		Route TheDarkestDepths = new Route(5, RainingArchipelago, BrightwichIsland, "The Darkest Depths", 80); 
+		Route CartvonsBay = new Route(30, RainingArchipelago, CrosserPeninsula, "Cartvons Bay", 20); 
+		Route TheTroubledOcean = new Route(25, RainingArchipelago, CrosserPeninsula, "The Troubled Ocean", 35); 
+		Route TheNarrowGulf = new Route(25, RainingArchipelago, ArborlandIslet, "The Narrow Gulf", 20); 
+		Route TheOceanOfWoodbourg = new Route(15, RainingArchipelago, ArborlandIslet, "The Ocean of Woodbourg", 40); 
 		 
-		Route TheSunnyDomain = new Route(17000, BrightwichIsland, CrosserPeninsula, "The Sunny Domain", 10); 
-		Route TheDarkOcean = new Route(5300, BrightwichIsland, CrosserPeninsula, "The Dark Ocean", 50); 
-		Route TheCoralOcean = new Route(17050, BrightwichIsland, ArborlandIslet, "The Coral Ocean", 10); 
-		Route TheHungryDepths = new Route(3500, BrightwichIsland, ArborlandIslet, "The Hungry Depths", 70); 
+		Route TheSunnyDomain = new Route(35, BrightwichIsland, CrosserPeninsula, "The Sunny Domain", 40); 
+		Route TheDarkOcean = new Route(30, BrightwichIsland, CrosserPeninsula, "The Dark Ocean", 50); 
+		Route TheCoralOcean = new Route(30, BrightwichIsland, ArborlandIslet, "The Coral Ocean", 50); 
+		Route TheHungryDepths = new Route(25, BrightwichIsland, ArborlandIslet, "The Hungry Depths", 65); 
 		 
-		Route TheWastingBay = new Route(20000, CrosserPeninsula, ArborlandIslet, "The Wasting Bay", 10); 
-		Route TheGraveSea = new Route(4000, CrosserPeninsula, ArborlandIslet, "The Grave Sea", 100); 
+		Route TheWastingBay = new Route(50, CrosserPeninsula, ArborlandIslet, "The Wasting Bay", 40); 
+		Route TheGraveSea = new Route(20, CrosserPeninsula, ArborlandIslet, "The Grave Sea", 100); 
 		
 		// Add Islands to array
 		islands.add(ArborlandIslet);
@@ -181,6 +184,18 @@ public class Game {
 		 
 	}
 	
+	private void initWindows() {
+		storeWindow = new StoreWindow();
+		selectDestinationWindow = new SelectDestinationWindow();
+		selectRouteWindow = new SelectRouteWindow();
+		inventoryWindow = new InventoryWindow();
+		mainMenuWindow = new MainMenuWindow();
+		secretMenuWindow = new SecretMenuWindow();
+		shipInformationWindow = new ShipInformationWindow();
+		
+		
+	}
+	
 	public void repairShip() {
 		player.repairShip();
 	}
@@ -202,33 +217,89 @@ public class Game {
 	}
 	
 	public void exitStore() {
-		mainMenuWindow = new MainMenuWindow(this);
-		storeWindow.exitStore();
+		mainMenuWindow.open(this);
+		storeWindow.close();
 	}
 	
 	public void openStore() {
-		storeWindow = new StoreWindow(this);
-		mainMenuWindow.exitMenu();
+		storeWindow.open(this);
+		mainMenuWindow.close();
 	}
 	
 	public void openInventory() {
-		inventoryWindow = new InventoryWindow(this);
-		mainMenuWindow.exitMenu();
-	}
-	
-	public void setSail() {
-		selectDestinationWindow = new SelectDestinationWindow(this);
-		mainMenuWindow.exitMenu();
+		inventoryWindow.open(this);
+		mainMenuWindow.close();
 	}
 	
 	public void exitInventory() {
-		mainMenuWindow = new MainMenuWindow(this);
-		inventoryWindow.exitInventory();
+		mainMenuWindow.open(this);
+		inventoryWindow.close();
 	}
 	
+	public void openSelectDestination() {
+		selectDestinationWindow.open(this);
+		mainMenuWindow.close();
+	}
+	
+	public void exitSelectDestination() {
+		mainMenuWindow.open(this);
+		selectDestinationWindow.close();
+	}
+	
+	public void openSelectRoute(Island destination) {
+		selectRouteWindow.open(this, destination);
+		selectDestinationWindow.close();
+	}
+
+	public void exitSelectRoute() {
+		selectDestinationWindow.open(this);
+		selectRouteWindow.close();
+	}
+	
+	public void setSail() {
+		mainMenuWindow.open(this);
+		selectRouteWindow.close();
+	}
+	
+	public void openSecretMenu() {
+		secretMenuWindow.open(this);
+		mainMenuWindow.close();
+	}
+	
+	public void exitSecretMenu() {
+		mainMenuWindow.open(this);
+		secretMenuWindow.close();
+	}
+	
+	public void openShipInformation() {
+		shipInformationWindow.open(this);
+		mainMenuWindow.close();
+	}
+	
+	public void exitShipInformation() {
+		mainMenuWindow.open(this);
+		shipInformationWindow.close();
+	}
+	
+	public void gameOver(SelectRouteWindow selectRouteWindow, int deathType) {
+		int pirates = 1;
+		int weather = 2;
+		selectRouteWindow.close();
+		if (deathType == pirates) {
+			selectRouteWindow.showMessage("Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before you were killed by pirates");
+		} else if (deathType == weather) {
+			selectRouteWindow.showMessage("Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before your ship was destroyed in a storm");
+		}
+	}
+
+	
 	public void startGame() {
-		setupWindow.exitSetup();
-		mainMenuWindow = new MainMenuWindow(this);
+		initWindows();
+		mainMenuWindow.open(this);
+		setupWindow.close();
+	}
+	public void endGame() {
+		mainMenuWindow.close();
 	}
 	
 	public void playGame() {
@@ -236,10 +307,14 @@ public class Game {
 		initGame();
 		initItems();
 		initStores();
+		setupWindow = new SetupWindow();
+		setupWindow.open(this);
+		
 
-		setupWindow = new SetupWindow(this);
+		
 	}
 	public static void main(String[] args) {
+		
 		Game game = new Game();
 		game.playGame();
 	}

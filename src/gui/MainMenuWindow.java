@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import javax.swing.JFrame;
 
@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 public class MainMenuWindow {
 
-	private JFrame mainMenuWindowFrame;
+	private JFrame frmMainMenuWindow;
 	
 	private JButton btnEnterShop;
 	private JButton btnRepairShip;
@@ -28,40 +28,42 @@ public class MainMenuWindow {
 	private JLabel lblDays;
 	private JPanel panelMenuButtons;
 	private JFrame popup;
+	private JButton btnHiddenMenu;
 	
 
 	/**
 	 * Create the application.
 	 */
-	public MainMenuWindow(Game game) {
+	public MainMenuWindow() {
+	}
+	
+	public void open(Game game) {
 		initialize(game);
-		this.openMenu();
+		frmMainMenuWindow.setVisible(true);
 	}
 	
-	public void openMenu() {
-		mainMenuWindowFrame.setVisible(true);
-	}
-	
-	public void exitMenu() {
-		mainMenuWindowFrame.setVisible(false);
+	public void close() {
+		frmMainMenuWindow.setVisible(false);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize(Game game) {
 		
 		Player player = game.getPlayer();
-		mainMenuWindowFrame = new JFrame();
-		mainMenuWindowFrame.setTitle("Main Game");
-		mainMenuWindowFrame.setBounds(100, 100, 1000, 800);
-		mainMenuWindowFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMainMenuWindow = new JFrame();
+		frmMainMenuWindow.setTitle("Main Game");
+		frmMainMenuWindow.setBounds(100, 100, 1000, 800);
+		frmMainMenuWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmMainMenuWindow.setLocationRelativeTo(null);
 		
-		mainMenuWindowFrame.getContentPane().setLayout(null);
+		frmMainMenuWindow.getContentPane().setLayout(null);
 		
 		panelMenuButtons = new JPanel();
-		panelMenuButtons.setBounds(235, 167, 300, 521);
-		mainMenuWindowFrame.getContentPane().add(panelMenuButtons);
+		panelMenuButtons.setBounds(340, 168, 300, 521);
+		frmMainMenuWindow.getContentPane().add(panelMenuButtons);
 		panelMenuButtons.setLayout(null);
 		
 		btnEndGame = new JButton("END GAME");
@@ -89,7 +91,7 @@ public class MainMenuWindow {
 		panelMenuButtons.add(btnViewInventory);
 		btnViewInventory.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		
-		btnViewShipInfo = new JButton("View Ship Properties");
+		btnViewShipInfo = new JButton("View Ship Information");
 		btnViewShipInfo.setBounds(0, 304, 300, 65);
 		panelMenuButtons.add(btnViewShipInfo);
 		btnViewShipInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -102,12 +104,12 @@ public class MainMenuWindow {
 		lblCoins = new JLabel("Coins: " + player.getCoins());
 		lblCoins.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCoins.setBounds(817, 65, 142, 35);
-		mainMenuWindowFrame.getContentPane().add(lblCoins);
+		frmMainMenuWindow.getContentPane().add(lblCoins);
 		
-		lblWelcome = new JLabel("Hello " + player.getName() + ". Choose an activity");
+		lblWelcome = new JLabel("Hello " + player.getName() + ". Welcome to " + player.getCurrLocation().getName());
 		lblWelcome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblWelcome.setBounds(42, 30, 351, 35);
-		mainMenuWindowFrame.getContentPane().add(lblWelcome);
+		lblWelcome.setBounds(42, 30, 568, 35);
+		frmMainMenuWindow.getContentPane().add(lblWelcome);
 		
 		lblDays = new JLabel();
 		
@@ -119,7 +121,24 @@ public class MainMenuWindow {
 		
 		lblDays.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblDays.setBounds(817, 30, 100, 35);
-		mainMenuWindowFrame.getContentPane().add(lblDays);
+		frmMainMenuWindow.getContentPane().add(lblDays);
+		
+		btnHiddenMenu = new JButton("");
+		btnHiddenMenu.setBounds(36, 297, 242, 55);
+		frmMainMenuWindow.getContentPane().add(btnHiddenMenu);
+		btnHiddenMenu.setOpaque(false);
+		btnHiddenMenu.setContentAreaFilled(false);
+		btnHiddenMenu.setBorderPainted(false);
+		javax.swing.ToolTipManager.sharedInstance().setInitialDelay(0 );
+		btnHiddenMenu.setToolTipText("I'm a secret menu, click me!");
+		
+		btnHiddenMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				game.openSecretMenu();
+			}
+		});
 		
 		btnEnterShop.addActionListener(new ActionListener() {
 			
@@ -154,10 +173,32 @@ public class MainMenuWindow {
 			}
 		});
 		
+		btnViewShipInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				game.openShipInformation();
+			}
+		});
+		
 		btnSetSail.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.setSail();
+				game.openSelectDestination();
+			}
+		});
+		
+		btnEndGame.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to end the game?", "Exit Confirmation",JOptionPane.YES_NO_OPTION);
+				if (choice == JOptionPane.YES_OPTION) {
+					game.endGame();
+					JOptionPane.showMessageDialog(popup,"Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + 
+							" days, ammassed " + player.getCoins() + " coins and had " + player.getInventoryValue() + " coins worth of items and weapons.");
+					
+				}
+				
 			}
 		});
 	}
