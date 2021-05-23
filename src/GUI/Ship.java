@@ -79,6 +79,11 @@ public class Ship {
 			
 	}
 	
+	//getter
+	/**
+	 * Get the cost for repairing the ship
+	 * @return
+	 */
 	public int getRepairCost() {
 		return shipDamage * 10;
 	}
@@ -127,23 +132,43 @@ public class Ship {
 		this.shipDamage += damage;
 	}
 	
+	//getter
+	/**
+	 * Get the list of items bought by the player
+	 * @return item list
+	 */
 	public ArrayList<Item> getItemsBought() {
 		return shipInventory;
 	}
 	
+	//getter
+	/**
+	 * Get the list of items sold by the player
+	 * @return item list
+	 */
 	public ArrayList<Item> getItemsSold() {
 		return soldItems;
 	}
 	
+	//getter
+	/**
+	 * Get the list of weapons bought by the player
+	 * @return weapon list
+	 */
 	public ArrayList<Weapon> getWeaponsBought() {
 		return shipWeapons;
 	}
 	
+	//getter
+	/**
+	 * Get the list of weapon sold by the player
+	 * @return weapon list
+	 */
 	public ArrayList<Weapon> getWeaponsSold() {
 		return soldWeapons;
 	}
 	
-//getter
+	//getter
 	/**
 	 * Get the current filled capacity of the ship
 	 * @return ship's current used capacity
@@ -267,6 +292,12 @@ public class Ship {
 		this.printCoins();
 	}
 	
+	//getter
+	/**
+	 * Get a single weapon from the inventory
+	 * @param weapon The wanted weapon
+	 * @return weapon
+	 */
 	public Weapon getWeaponFromInventory(Weapon weapon) {
 		
 		for (Weapon shipWeapon:shipWeapons) {
@@ -277,6 +308,12 @@ public class Ship {
 		return weapon;
 	}
 	
+	//getter
+	/**
+	 * Get a single item from the inventory
+	 * @param item The wanted item
+	 * @return item
+	 */
 	public Item getItemFromInventory(Item item) {
 		for (Item shipItem:shipInventory) {
 			if (item.equals(shipItem)) {
@@ -415,6 +452,9 @@ public class Ship {
 		return this.shipDamage;
 	}
 	
+	/**
+	 * View the information/ property of the ship
+	 */
 	public void shipInfo() {
 		System.out.println(shipName + " Properties:");
 		System.out.println();
