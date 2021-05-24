@@ -20,6 +20,7 @@ public class Game {
 	private SelectRouteWindow selectRouteWindow;
 	private SecretMenuWindow secretMenuWindow;
 	private ShipInformationWindow shipInformationWindow;
+	private IslandInformationWindow islandInformationWindow;
 	
 	private void initShips() {
 		// Create Ships
@@ -192,6 +193,7 @@ public class Game {
 		mainMenuWindow = new MainMenuWindow();
 		secretMenuWindow = new SecretMenuWindow();
 		shipInformationWindow = new ShipInformationWindow();
+		islandInformationWindow = new IslandInformationWindow();
 		
 		
 	}
@@ -210,6 +212,10 @@ public class Game {
 	
 	public ArrayList<Island> getIslands() {
 		return this.islands;
+	}
+	
+	public ArrayList<Store> getStores() {
+		return this.stores;
 	}
 	
 	public void createPlayer(Ship ship, Island island, String name, int days) {
@@ -281,15 +287,26 @@ public class Game {
 		shipInformationWindow.close();
 	}
 	
-	public void gameOver(SelectRouteWindow selectRouteWindow, int deathType) {
+	public void openIslandInformation() {
+		islandInformationWindow.open(this);
+		mainMenuWindow.close();
+	}
+	
+	public void exitIslandInformation() {
+		mainMenuWindow.open(this);
+		islandInformationWindow.close();
+	}
+	
+	public String gameOver(int deathType) {
 		int pirates = 1;
 		int weather = 2;
 		selectRouteWindow.close();
 		if (deathType == pirates) {
-			selectRouteWindow.showMessage("Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before you were killed by pirates");
+			return "Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before you were killed by pirates";
 		} else if (deathType == weather) {
-			selectRouteWindow.showMessage("Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before your ship was destroyed in a storm");
+			return "Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before your ship was destroyed in a storm";
 		}
+		return "";
 	}
 
 	

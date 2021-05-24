@@ -24,6 +24,13 @@ public class Store {
 	/** The price of the item or weapon when sold by the store will be multiplied with this */
 	private int soldMultiplier;
 	
+	
+	/**
+	 * Constructor of a store
+	 * Constructs an empty store
+	 */
+	public Store() {
+	}
 	/**
 	 * Constructor of a store
 	 * @param name The name of the store

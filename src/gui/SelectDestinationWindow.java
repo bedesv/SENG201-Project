@@ -67,7 +67,7 @@ public class SelectDestinationWindow {
 		panelSelectIsland.setBounds(0, 0, 600, 633);
 		frmSelectDestination.getContentPane().add(panelSelectIsland);
 		
-		lblChooseAnIsland = new JLabel("Choose an island to sail to");
+		lblChooseAnIsland = new JLabel("Select an island to sail to");
 		lblChooseAnIsland.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChooseAnIsland.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblChooseAnIsland.setBounds(0, 0, 600, 34);
@@ -157,7 +157,7 @@ public class SelectDestinationWindow {
 		frmSelectDestination.getContentPane().add(btnSelectRoute);
 		
 		JButton btnMainMenu = new JButton("Return to the Main Menu");
-		btnMainMenu.setBounds(10, 644, 183, 29);
+		btnMainMenu.setBounds(10, 644, 210, 29);
 		frmSelectDestination.getContentPane().add(btnMainMenu);
 		
 		btnMainMenu.addActionListener(new ActionListener() {

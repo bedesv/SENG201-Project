@@ -19,11 +19,11 @@ import javax.swing.border.EtchedBorder;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
+import javax.swing.UIManager;
 
 public class StoreWindow {
 
@@ -109,6 +109,7 @@ public class StoreWindow {
 		frmStoreWindow.getContentPane().add(weaponsToSellPanel);
 		
 		weaponsToSellScrollPane = new JScrollPane();
+		weaponsToSellScrollPane.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_weaponsToSellPanel = new GroupLayout(weaponsToSellPanel);
 		gl_weaponsToSellPanel.setHorizontalGroup(
 			gl_weaponsToSellPanel.createParallelGroup(Alignment.LEADING)
@@ -123,6 +124,7 @@ public class StoreWindow {
 		
 		DefaultTableModel weaponsToSellModel = new DefaultTableModel(weaponTableHeaders, 0);
 		weaponsToSellTable = new JTable(weaponsToSellModel);
+		weaponsToSellTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		weaponsToSellScrollPane.setViewportView(weaponsToSellTable);
 		weaponsToSellPanel.setLayout(gl_weaponsToSellPanel);
 		
@@ -145,6 +147,7 @@ public class StoreWindow {
 		frmStoreWindow.getContentPane().add(weaponsToBuyPanel);
 		
 		weaponsToBuyScrollPane = new JScrollPane();
+		weaponsToBuyScrollPane.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_weaponsToBuyPanel = new GroupLayout(weaponsToBuyPanel);
 		gl_weaponsToBuyPanel.setHorizontalGroup(
 			gl_weaponsToBuyPanel.createParallelGroup(Alignment.LEADING)
@@ -159,6 +162,7 @@ public class StoreWindow {
 		
 		DefaultTableModel weaponsToBuyModel = new DefaultTableModel(weaponTableHeaders, 0);
 		weaponsToBuyTable = new JTable(weaponsToBuyModel);
+		weaponsToBuyTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		weaponsToBuyScrollPane.setViewportView(weaponsToBuyTable);
 		weaponsToBuyPanel.setLayout(gl_weaponsToBuyPanel);
 		
@@ -181,6 +185,7 @@ public class StoreWindow {
 		frmStoreWindow.getContentPane().add(itemsToSellPanel);
 		
 		itemsToSellScrollPane = new JScrollPane();
+		itemsToSellScrollPane.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_itemsToSellPanel = new GroupLayout(itemsToSellPanel);
 		gl_itemsToSellPanel.setHorizontalGroup(
 			gl_itemsToSellPanel.createParallelGroup(Alignment.LEADING)
@@ -194,6 +199,7 @@ public class StoreWindow {
 		);
 		DefaultTableModel itemsToSellModel = new DefaultTableModel(itemTableHeaders, 0);
 		itemsToSellTable = new JTable(itemsToSellModel);
+		itemsToSellTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToSellScrollPane.setViewportView(itemsToSellTable);
 		itemsToSellPanel.setLayout(gl_itemsToSellPanel);
 		
@@ -216,6 +222,7 @@ public class StoreWindow {
 		frmStoreWindow.getContentPane().add(itemsToBuyPanel);
 		
 		JScrollPane itemsToBuyScrollPane = new JScrollPane();
+		itemsToBuyScrollPane.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_itemsToBuyPanel = new GroupLayout(itemsToBuyPanel);
 		gl_itemsToBuyPanel.setHorizontalGroup(
 			gl_itemsToBuyPanel.createParallelGroup(Alignment.LEADING)
@@ -228,6 +235,7 @@ public class StoreWindow {
 		
 		DefaultTableModel itemsToBuyModel = new DefaultTableModel(itemTableHeaders, 0);
 		itemsToBuyTable = new JTable(itemsToBuyModel);
+		itemsToBuyTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToBuyScrollPane.setViewportView(itemsToBuyTable);
 		itemsToBuyPanel.setLayout(gl_itemsToBuyPanel);
 		itemsToBuyTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
@@ -280,7 +288,7 @@ public class StoreWindow {
 		
 		lblWelcomeMessage = new JTextArea("Welcome to the " + store.getStoreName() + ".\nSelect an item or weapon to buy or sell");
 		lblWelcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblWelcomeMessage.setBackground(SystemColor.control);
+		lblWelcomeMessage.setBackground(UIManager.getColor("Button.background"));
 		lblWelcomeMessage.setBounds(24, 11, 376, 59);
 		frmStoreWindow.getContentPane().add(lblWelcomeMessage);
 		

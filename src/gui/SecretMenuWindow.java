@@ -63,12 +63,12 @@ public class SecretMenuWindow {
 		frmSecretMenuWindow.getContentPane().add(panelInformation);
 		panelInformation.setLayout(null);
 		
-		JLabel lblCoins = new JLabel("Coins: " + player.getCoins());
+		JLabel lblCoins = new JLabel("Coins:\t" + player.getCoins());
 		lblCoins.setBounds(0, 35, 142, 35);
 		panelInformation.add(lblCoins);
 		lblCoins.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		JLabel lblCapacity = new JLabel("Ship Capacity: " + player.getShipCapacity());
+		JLabel lblCapacity = new JLabel("Ship Capacity:\t" + player.getShipCapacity());
 		lblCapacity.setBounds(0, 62, 285, 35);
 		panelInformation.add(lblCapacity);
 		lblCapacity.setFont(new Font("Tahoma", Font.PLAIN, 20));

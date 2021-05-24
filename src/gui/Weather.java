@@ -28,14 +28,14 @@ public class Weather extends RandomEvent{
 		// Randomize the damage that will be caused to the ship
 		int damage = (int) (Math.random() * (500)) / ship.getDefenceMultiplier();
 		if (damage == 0) {
-			messages.add("You managed to pass through the storm unscathed");
+			messages.add("You managed to pass through the storm unscathed.");
 		} 
 		else if (damage >= 100) {
-			messages.add("The storm was much worse than you feared. It ripped your ship apart and your whole crew drowned");
+			messages.add("The storm was much worse than you feared. It ripped your ship apart and your whole crew drowned.");
 			sailSuccess = 2;
 		} 
 		else {
-			messages.add("The storm has damaged " + damage + "% of your ship.\nYou must repair it before you can depart the next island");
+			messages.add("The storm has damaged " + damage + "% of your ship.\nYou must repair it before you can depart the next island.");
 			ship.takeDamage(damage);
 		}
 		EventInfo result = new EventInfo(sailSuccess, 2, messages);

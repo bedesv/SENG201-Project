@@ -56,13 +56,13 @@ public class Pirates extends RandomEvent{
 			// if the inventory satisfies the pirates and they take it all
 			if (shipName.inventoryValue() >= pirateWants) {
 				shipName.clearInventory();
-				messages.add("Your goods satisfy the pirates.\nThey will let you go now.");	
+				messages.add("Your goods satisfy the pirates.\nThey will let you continue your journey.");	
 			}
 			
 			// if the pirates do not satisfy with the inventory
 			else {
 				messages.add("Too bad... Your goods don't satisfy the pirates.\n"
-						+ "They will take your ship and make you and your crew walk the plank.\n");
+						+ "They will take your ship and make you and your crew walk the plank.");
 				// the whole game ends here
 				sailSuccess = 1;
 			}
