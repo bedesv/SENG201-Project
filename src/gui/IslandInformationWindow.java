@@ -531,7 +531,7 @@ public class IslandInformationWindow {
 	
 	private void expandWindow(Island island, Player player) {
 		if (!itemsToBuyPanel.isVisible() && !weaponsToSellPanel.isVisible() && !btnViewRoutes.isVisible()) {
-			frmIslandInformationWindow.setBounds(100, 100, 1146, 800);
+			frmIslandInformationWindow.setBounds(100, 100, 1085, 800);
 			frmIslandInformationWindow.setLocationRelativeTo(null);
 		}
 		btnViewItems.setVisible(true);

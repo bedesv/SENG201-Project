@@ -43,42 +43,6 @@ public class Store {
 	}
 	
 	/**
-	 * To see what items the store will buy
-	 */
-	public void viewItemsBought() {
-		System.out.println(String.format("Items bought at %s:\n", storeName));
-		for (Item i : itemsBought) {
-			System.out.println(String.format("%s\n", i));
-		}
-	}
-	
-	/**
-	 * To see what items the store will sell
-	 */
-	public void viewItemsSold() {
-		System.out.println(String.format("Items sold at %s:\n", storeName));
-		for (Item i : itemsSold) {
-			System.out.println(String.format("%s\n", i));
-		}
-	}
-	
-	/**
-	 * To string method that will show what the store sells or buys
-	 * @return the message of the store's property
-	 */
-	public String toString() {
-		String mess = "Items bought at " + storeName + ": \n";
-		for (Item i : itemsBought) {
-			mess += String.format("%s\n", i);
-		}
-		mess += String.format("Items sold at %s:\n", storeName);
-		for (Item i : itemsSold) {
-			mess += String.format("%s\n", i);
-		}
-		return mess;
-	}
-	
-	/**
 	 * Check if store can buy an item from the player
 	 * @param i The item that the player wants to sell to the store
 	 * @return true (if the item can be bought by the store) or false (otherwise)
