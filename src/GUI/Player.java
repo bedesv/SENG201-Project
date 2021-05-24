@@ -74,6 +74,10 @@ public class Player {
 		return selectedShip.getDays();
 	}
 	
+	public int getAttackMultiplier() {
+		return selectedShip.getAttackMultiplier();
+	}
+	
 	public String getName() {
 		return this.name;
 	}

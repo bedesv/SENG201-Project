@@ -23,9 +23,12 @@ public class Pirates extends RandomEvent{
 		// the player has to get a greater number from the dice than this to win
 		// higher ship attack multiplier yields higher probability to win
 		int bound = 25 - shipAttackMultiplier;
+		if (bound < 0) {
+			bound = 0;
+		}
 		
 		selectRouteWindow.rollDice("Oh no! You encounter pirates. They will try to board your ship and steal your goods.\n"
-				+ "The pirates challenge you to a dice battle.\nYour number needs to be greater than " + bound + " to beat the pirates and secure your goods.");
+				+ "The pirates challenge you to a 30 sided dice battle.\nYour number needs to be greater than " + bound + " to beat the pirates and secure your goods.");
 		
 		// the dice has the values ranging from 1 to 30
 		int small = 1;

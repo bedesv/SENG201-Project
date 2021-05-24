@@ -73,7 +73,7 @@ public class SecretMenuWindow {
 		panelInformation.add(lblCapacity);
 		lblCapacity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
-		JLabel lblAttack = new JLabel("Attack Multiplier:\t" + player.getSelectedShip().getDefenceMultiplier());
+		JLabel lblAttack = new JLabel("Attack Multiplier:\t" + player.getSelectedShip().getAttackMultiplier());
 		lblAttack.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblAttack.setBounds(0, 97, 285, 35);
 		panelInformation.add(lblAttack);
@@ -82,6 +82,7 @@ public class SecretMenuWindow {
 		lblDefence.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblDefence.setBounds(0, 126, 285, 35);
 		panelInformation.add(lblDefence);
+		
 		
 		JPanel panelButtons = new JPanel();
 		panelButtons.setBounds(66, 183, 213, 286);
@@ -103,10 +104,16 @@ public class SecretMenuWindow {
 		JButton btnAddDefenceMult = new JButton("Plus 1 Defence Multiplier");
 		btnAddDefenceMult.setBounds(0, 59, 213, 43);
 		panelButtons.add(btnAddDefenceMult);
+		if (player.getSelectedShip().getDefenceMultiplier() >= 30) {
+			btnAddDefenceMult.setEnabled(false);
+		}
 		
 		JButton btnAddAttackMult = new JButton("Plus 1 Attack Multiplier");
 		btnAddAttackMult.setBounds(0, 1, 213, 43);
 		panelButtons.add(btnAddAttackMult);
+		if (player.getSelectedShip().getAttackMultiplier() >= 30) {
+			btnAddAttackMult.setEnabled(false);
+		}
 		
 		btnMainMenu.addActionListener(new ActionListener() {
 			
@@ -122,7 +129,7 @@ public class SecretMenuWindow {
 			public void actionPerformed(ActionEvent e) {
 				player.getSelectedShip().increaseDefenceMult();
 				lblDefence.setText("Defence Multiplier:\t" + player.getSelectedShip().getDefenceMultiplier());
-				if (player.getSelectedShip().getDefenceMultiplier() == 30) {
+				if (player.getSelectedShip().getDefenceMultiplier() >= 30) {
 					btnAddDefenceMult.setEnabled(false);
 				}
 			}
@@ -134,7 +141,7 @@ public class SecretMenuWindow {
 			public void actionPerformed(ActionEvent e) {
 				player.getSelectedShip().increaseAttackMult();
 				lblAttack.setText("Attack Multiplier:\t" + player.getSelectedShip().getAttackMultiplier());
-				if (player.getSelectedShip().getAttackMultiplier() == 30) {
+				if (player.getSelectedShip().getAttackMultiplier() >= 30) {
 					btnAddAttackMult.setEnabled(false);
 				}
 			}

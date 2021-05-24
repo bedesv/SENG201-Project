@@ -118,6 +118,7 @@ public class SetupWindow {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * @wbp.parser.entryPoint
 	 */
 	private void initialize(Game game) {
 		frmSetupWindow = new JFrame();
@@ -131,7 +132,7 @@ public class SetupWindow {
 		frmSetupWindow.getContentPane().setLayout(null);
 		
 		panelSelectIsland = new JPanel();
-		panelSelectIsland.setBounds(685, 275, 600, 633);
+		panelSelectIsland.setBounds(688, 185, 600, 633);
 		frmSetupWindow.getContentPane().add(panelSelectIsland);
 		panelSelectIsland.setLayout(null);
 		frmSetupWindow.setLocationRelativeTo(null);
@@ -197,7 +198,7 @@ public class SetupWindow {
 		lblMap.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Base Map.png")));
 		
 		panelEnterName = new JPanel();
-		panelEnterName.setBounds(241, 146, 209, 63);
+		panelEnterName.setBounds(241, 100, 209, 63);
 		frmSetupWindow.getContentPane().add(panelEnterName);
 		panelEnterName.setLayout(null);
 		
@@ -214,7 +215,7 @@ public class SetupWindow {
 		textYourName.setColumns(10);
 		
 		panelSelectDays = new JPanel();
-		panelSelectDays.setBounds(775, 147, 420, 61);
+		panelSelectDays.setBounds(775, 100, 420, 61);
 		frmSetupWindow.getContentPane().add(panelSelectDays);
 		panelSelectDays.setLayout(null);
 		
@@ -253,7 +254,7 @@ public class SetupWindow {
 		panelSelectDays.add(lblDaysMessage);
 		
 		panelSelectShip = new JPanel();
-		panelSelectShip.setBounds(30, 275, 632, 633);
+		panelSelectShip.setBounds(33, 185, 632, 633);
 		frmSetupWindow.getContentPane().add(panelSelectShip);
 		panelSelectShip.setLayout(null);
 		
@@ -360,10 +361,27 @@ public class SetupWindow {
 		lblChooseShipText.setBounds(0, 0, 632, 39);
 		panelSelectShip.add(lblChooseShipText);
 		
+		panelWelcomeMessage = new JPanel();
+		panelWelcomeMessage.setBounds(0, 0, 1310, 80);
+		frmSetupWindow.getContentPane().add(panelWelcomeMessage);
+		panelWelcomeMessage.setLayout(null);
+		
+		lblWelcomeMessage = new JLabel("Welcome to Island Trader");
+		lblWelcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeMessage.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblWelcomeMessage.setBounds(0, 5, 1310, 53);
+		panelWelcomeMessage.add(lblWelcomeMessage);
+		
+		lblInstructions = new JLabel("Please enter your name, the number of days you want to play for and choose your ship and starting island");
+		lblInstructions.setHorizontalAlignment(SwingConstants.CENTER);
+		lblInstructions.setFont(new Font("Tahoma", Font.BOLD, 20));
+		lblInstructions.setBounds(0, 33, 1310, 67);
+		panelWelcomeMessage.add(lblInstructions);
+		
 		btnPlayGame = new JButton("Play Game");
-		btnPlayGame.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		btnPlayGame.setBounds(574, 932, 200, 40);
+		btnPlayGame.setBounds(498, 122, 200, 40);
 		frmSetupWindow.getContentPane().add(btnPlayGame);
+		btnPlayGame.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
 		btnPlayGame.addActionListener(new ActionListener() {
 			
@@ -436,22 +454,5 @@ public class SetupWindow {
 				}
 			}
 		});
-		
-		panelWelcomeMessage = new JPanel();
-		panelWelcomeMessage.setBounds(0, 0, 1310, 80);
-		frmSetupWindow.getContentPane().add(panelWelcomeMessage);
-		panelWelcomeMessage.setLayout(null);
-		
-		lblWelcomeMessage = new JLabel("Welcome to Island Trader");
-		lblWelcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcomeMessage.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblWelcomeMessage.setBounds(0, 5, 1310, 53);
-		panelWelcomeMessage.add(lblWelcomeMessage);
-		
-		lblInstructions = new JLabel("Please enter your name, the number of days you want to play for and choose your ship and starting island");
-		lblInstructions.setHorizontalAlignment(SwingConstants.CENTER);
-		lblInstructions.setFont(new Font("Tahoma", Font.BOLD, 20));
-		lblInstructions.setBounds(0, 33, 1310, 67);
-		panelWelcomeMessage.add(lblInstructions);
 	}
 }

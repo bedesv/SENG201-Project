@@ -259,7 +259,7 @@ public class Ship {
 				coins -= price;
 				shipInventory.add(item);
 				currCapacity += item.getSize();
-				System.out.println(item.getName() + " purchased successfully\n");
+				storeWindow.showMessage(item.getName() + " purchased successfully\n");
 				this.printCoins();
 				return true;
 			}
@@ -273,10 +273,23 @@ public class Ship {
 	 * @param price The purchased price of the weapon
 	 */
 	public boolean buyWeapon(Weapon weapon, int price, StoreWindow storeWindow) {
+		
+		boolean weaponAlreadyOwned = false;
+		checkWeaponOwned:
+			for (Weapon w: this.shipWeapons) {
+				if (weapon.getName() == w.getName()) {
+					weaponAlreadyOwned = true;
+					break checkWeaponOwned;
+				}
+			}
 		if (coins < price) {
 			throw new InsufficientCoinsException();
 		} else if (maxCapacity < currCapacity + weapon.getSize()) { 
 			throw new InsufficientInventorySpaceException();
+		} else if (attackMultiplier + weapon.getMultChanged() > 30) {
+			throw new AttackMultiplierTooHighException();
+		} else if (weaponAlreadyOwned) {
+			throw new WeaponAlreadyOwnedException();
 		} else {
 			
 			if (storeWindow.confirmPurchase(weapon, price)) {
@@ -287,7 +300,7 @@ public class Ship {
 				shipWeapons.add(weapon);
 				// upgrade ship
 				attackMultiplier += weapon.getMultChanged();
-				System.out.println(weapon.getName() + " purchased successfully\n");
+				storeWindow.showMessage(weapon.getName() + " purchased successfully\n");
 				this.printCoins();
 				return true;
 			} 

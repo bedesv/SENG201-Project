@@ -437,6 +437,10 @@ public class StoreWindow {
 					
 				} catch (InsufficientInventorySpaceException e) {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough inventory space to buy a(n) " + weapon.getName() + ". Sell some items or weapons to free some up");
+				} catch (AttackMultiplierTooHighException e) {
+					JOptionPane.showMessageDialog(popup, "Error: Your attack multiplier is too high to purchase " + weapon.getName() + ". Current: " + player.getAttackMultiplier() + ". Max: 30.");
+				} catch (WeaponAlreadyOwnedException e) {
+					JOptionPane.showMessageDialog(popup, "Error: You already own " + weapon.getName() + ". You can only have one of each weapon.");
 				}
 				
 				if (purchaseSuccess) {
@@ -555,6 +559,10 @@ public class StoreWindow {
 		} else {
 			return false;
 		}
+	}
+	
+	public void showMessage(String message) {
+		JOptionPane.showMessageDialog(popup, message);
 	}
 	
 }

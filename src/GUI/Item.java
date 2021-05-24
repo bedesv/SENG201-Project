@@ -97,7 +97,7 @@ public class Item{
 	
 	/**
 	 * Format a string of an Item object
-	 * @return formated strind describing the item when the item object is called
+	 * @return formated string describing the item when the item object is called
 	 */
 	public String toString() {
 		return String.format("\tItem: %s\n\tDescription: %s\n\tType: %s\n\tSize: %d\n\tPrice: %d", itemName, itemDescription, itemType, itemSize, itemPrice);

@@ -1,8 +1,8 @@
 package gui;
 
 /**
- * This is a sub class os Item class, a type of item
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * This is a sub class of Item class, a type of item
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 public class Weapon extends Item {
@@ -38,6 +38,10 @@ public class Weapon extends Item {
 	 */
 	public Weapon copy() {
 		return new Weapon(this.getName(), this.getDescription(), this.getType(), this.getSize(), this.getPrice(), this.getMultChanged());
+	}
+	
+	public boolean equals(Weapon weapon) {
+		return weapon.getName().equals(this.getName());
 	}
 
 }
