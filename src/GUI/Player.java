@@ -34,20 +34,28 @@ public class Player {
 		return selectedShip.getCurrCapacity() + "/" + selectedShip.getMaxCapacity();
 	}
 	
-	public boolean buyItem(Item item, int price, StoreWindow storeWindow) {
-		return selectedShip.buyItem(item, price, storeWindow);
+	public boolean checkItemPurchase(Item item, int price) {
+		return selectedShip.checkItemPurchase(item, price);
 	}
 	
-	public boolean buyWeapon(Weapon weapon, int price, StoreWindow storeWindow) {
-		return selectedShip.buyWeapon(weapon, price, storeWindow);
+	public void buyItem(Item item, int price) {
+		selectedShip.buyItem(item, price);
 	}
 	
-	public boolean sellItem(Item item, int price, StoreWindow storeWindow) {
-		return selectedShip.sellItem(item, price, storeWindow);
+	public boolean checkWeaponPurchase(Weapon weapon, int price) {
+		return selectedShip.checkWeaponPurchase(weapon, price);
 	}
 	
-	public boolean sellWeapon(Weapon weapon, int price, StoreWindow storeWindow) {
-		return selectedShip.sellWeapon(weapon, price, storeWindow);
+	public void buyWeapon(Weapon weapon, int price) {
+		selectedShip.buyWeapon(weapon, price);
+	}
+	
+	public void sellItem(Item item, int price) {
+		selectedShip.sellItem(item, price);
+	}
+	
+	public void sellWeapon(Weapon weapon, int price) {
+		selectedShip.sellWeapon(weapon, price);
 	}
 	
 	public boolean unlimitedDays() {
@@ -62,8 +70,12 @@ public class Player {
 		return selectedShip.getLocation();
 	}
 	
-	public int setSail(Route route, Island destination, SelectRouteWindow selectRouteWindow) {
-		return selectedShip.useRoute(route, destination, selectRouteWindow, this);
+	public boolean checkRoute(Route route) {
+		return selectedShip.checkRoute(route, this);
+	}
+	
+	public EventInfo setSail(Route route, Island destination) {
+		return selectedShip.useRoute(route, destination, this);
 	}
 	
 	public int getMaxDays() {

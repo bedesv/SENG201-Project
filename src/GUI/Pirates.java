@@ -1,5 +1,7 @@
 package gui;
 
+import java.util.ArrayList;
+
 /**
  * A type of the random events player may meet while sailing
  * @author Aerinn Nguyen, Bede Skinner-Vennell
@@ -18,7 +20,9 @@ public class Pirates extends RandomEvent{
 	 * @param shipName The name of the ship the player is using
 	 * @return true (if the player overcomes the battle) or false (if the player loses the entire game)
 	 */
-	public int pirateBattle(Ship shipName, SelectRouteWindow selectRouteWindow) {
+	public EventInfo pirateBattle(Ship shipName) {
+		int sailSuccess = 0;
+		ArrayList<String> messages = new ArrayList<String>();
 		int shipAttackMultiplier = shipName.getAttackMultiplier();
 		// the player has to get a greater number from the dice than this to win
 		// higher ship attack multiplier yields higher probability to win
@@ -27,7 +31,7 @@ public class Pirates extends RandomEvent{
 			bound = 0;
 		}
 		
-		selectRouteWindow.rollDice("Oh no! You encounter pirates. They will try to board your ship and steal your goods.\n"
+		messages.add("Oh no! You encounter pirates. They will try to board your ship and steal your goods.\n"
 				+ "The pirates challenge you to a 30 sided dice battle.\nYour number needs to be greater than " + bound + " to beat the pirates and secure your goods.");
 		
 		// the dice has the values ranging from 1 to 30
@@ -38,13 +42,13 @@ public class Pirates extends RandomEvent{
 		
 		// player wins the dice game
 		if (randomNum > bound) {
-			selectRouteWindow.showMessage("Congratulations! You've got a " + randomNum + " from your dice battle with the pirates and WON!!!");
-			selectRouteWindow.showMessage("You can keep all of your items and continue on your journey. Good luck!");
+			messages.add("Congratulations! You've got a " + randomNum + " from your dice battle with the pirates and WON!!!");
+			messages.add("You can keep all of your items and continue on your journey. Good luck!");
 		}
 		
 		// player loses to dice game
 		else {
-			selectRouteWindow.showMessage("Bad luck... You've got a " + randomNum + " and the pirates won.\nThey are going to take your items.");
+			messages.add("Bad luck... You've got a " + randomNum + " and the pirates won.\nThey are going to take your items.");
 			// randomize how much the pirates want
 			int pirateRandom = (int) (Math.random() * (7 - 1 + 1) + 1);
 			int pirateWants = 2000 * (30 - randomNum * pirateRandom);
@@ -52,19 +56,20 @@ public class Pirates extends RandomEvent{
 			// if the inventory satisfies the pirates and they take it all
 			if (shipName.inventoryValue() >= pirateWants) {
 				shipName.clearInventory();
-				selectRouteWindow.showMessage("Your goods satisfy the pirates.\nThey will let you go now.");	
+				messages.add("Your goods satisfy the pirates.\nThey will let you go now.");	
 			}
 			
 			// if the pirates do not satisfy with the inventory
 			else {
-				selectRouteWindow.showMessage("Too bad... Your goods don't satisfy the pirates.\n"
+				messages.add("Too bad... Your goods don't satisfy the pirates.\n"
 						+ "They will take your ship and make you and your crew walk the plank.\n");
 				// the whole game ends here
-				return 1;
+				sailSuccess = 1;
 			}
 		}
 		// keep playing
-		return 0;
+		EventInfo result = new EventInfo(sailSuccess, 1, messages);
+		return result;
 	}
 
 }

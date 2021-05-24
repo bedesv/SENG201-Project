@@ -184,7 +184,11 @@ public class MainMenuWindow {
 		btnSetSail.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				game.openSelectDestination();
+				if (player.getShipDamage() > 0) {
+					JOptionPane.showMessageDialog(popup, "Error: You must repair your ship before setting sail.");
+				} else {
+					game.openSelectDestination();
+				}
 			}
 		});
 		

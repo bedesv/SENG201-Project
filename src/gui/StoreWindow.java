@@ -55,6 +55,7 @@ public class StoreWindow {
 	private ArrayList<Weapon> weaponsToSellArray = new ArrayList<Weapon>();
 	private StoreWindow storeWindow = this;
 	
+	private boolean purchaseCheck = false;
 	private boolean purchaseSuccess = false;
 	private boolean saleSuccess = false;
 	
@@ -386,8 +387,11 @@ public class StoreWindow {
 				itemsToBuyTable.clearSelection();
 				btnBuyItem.setEnabled(false);
 				
+				purchaseCheck = false;
+				purchaseSuccess = false;
+				
 				try {
-					purchaseSuccess = player.buyItem(item, store.getPurchasePrice(item), storeWindow);
+					purchaseCheck = player.checkItemPurchase(item, store.getPurchasePrice(item));
 					
 				} catch (InsufficientCoinsException e) {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough coins to buy a(n) " + item.getName() + ". Sell some items or weapons to get more");
@@ -396,7 +400,12 @@ public class StoreWindow {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough inventory space to buy a(n) " + item.getName() + ". Sell some items or weapons to free some up");
 				}
 				
+				if (purchaseCheck) {
+					purchaseSuccess = storeWindow.confirmPurchase(item, store.getPurchasePrice(item));
+				}
+				
 				if (purchaseSuccess) {
+					player.buyItem(item, store.getPurchasePrice(item));
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
 					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
@@ -413,6 +422,7 @@ public class StoreWindow {
 						Object[] temp = {i.getName(), i.getDescription(), i.getSize(), store.getSalePrice(i)};
 						itemsToSellModel.addRow(temp);
 					}
+					JOptionPane.showMessageDialog(popup, item.getName() + " purchased successfully");
 				}
 			}
 		});
@@ -429,8 +439,11 @@ public class StoreWindow {
 				weaponsToBuyTable.clearSelection();
 				btnBuyWeapon.setEnabled(false);
 				
+				purchaseCheck = false;
+				purchaseSuccess = false;
+				
 				try {
-					purchaseSuccess = player.buyWeapon(weapon, store.getPurchasePrice(weapon), storeWindow);
+					purchaseCheck = player.checkWeaponPurchase(weapon, store.getPurchasePrice(weapon));
 					
 				} catch (InsufficientCoinsException e) {
 					JOptionPane.showMessageDialog(popup, "Error: You don't have enough coins to buy a(n) " + weapon.getName() + ". Sell some items or weapons to get more");
@@ -443,7 +456,12 @@ public class StoreWindow {
 					JOptionPane.showMessageDialog(popup, "Error: You already own " + weapon.getName() + ". You can only have one of each weapon.");
 				}
 				
+				if (purchaseCheck) {
+					purchaseSuccess = storeWindow.confirmPurchase(weapon, store.getPurchasePrice(weapon));
+				}
+				
 				if (purchaseSuccess) {
+					player.buyWeapon(weapon, store.getPurchasePrice(weapon));
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
 					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
@@ -460,6 +478,7 @@ public class StoreWindow {
 						Object[] temp = {w.getName(), w.getDescription(), w.getSize(), store.getSalePrice(w)};
 						weaponsToSellModel.addRow(temp);
 					}
+					JOptionPane.showMessageDialog(popup, weapon.getName() + " purchased successfully");
 				}
 			}
 		});
@@ -477,12 +496,12 @@ public class StoreWindow {
 				btnSellItem.setEnabled(false);
 				
 
-					
+				
 				// Sell the selected item
-				saleSuccess = player.sellItem(item, store.getSalePrice(item), storeWindow);
+				saleSuccess = storeWindow.confirmSale(item, store.getSalePrice(item));
 				
 				if (saleSuccess) {
-					
+					player.sellItem(item, store.getSalePrice(item));
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
 					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
@@ -499,6 +518,7 @@ public class StoreWindow {
 						Object[] temp = {i.getName(), i.getDescription(), i.getSize(), store.getSalePrice(i)};
 						itemsToSellModel.addRow(temp);
 					}
+					JOptionPane.showMessageDialog(popup, item.getName() + " sold successfully");
 				}
 			}
 		});
@@ -517,10 +537,10 @@ public class StoreWindow {
 				
 					
 				// Sell the selected weapon
-				saleSuccess = player.sellWeapon(weapon, store.getSalePrice(weapon), storeWindow);
+				saleSuccess = storeWindow.confirmSale(weapon, store.getSalePrice(weapon));
 				
 				if (saleSuccess) {
-					
+					player.sellWeapon(weapon, store.getSalePrice(weapon));
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
 					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
@@ -537,6 +557,7 @@ public class StoreWindow {
 						Object[] temp = {w.getName(), w.getDescription(), w.getSize(), store.getSalePrice(w)};
 						weaponsToSellModel.addRow(temp);
 					}
+					JOptionPane.showMessageDialog(popup, weapon.getName() + " sold successfully");
 				}
 			}
 		});
@@ -559,10 +580,6 @@ public class StoreWindow {
 		} else {
 			return false;
 		}
-	}
-	
-	public void showMessage(String message) {
-		JOptionPane.showMessageDialog(popup, message);
 	}
 	
 }

@@ -266,7 +266,9 @@ public class SelectRouteWindow {
 			public void actionPerformed(ActionEvent f) {
 				Route selectedRoute = routes.get(1);
 				boolean routeSelectSuccess = true;
+				boolean checkRoute = false;
 				int setSailSuccess = 0;
+				
 				if (rdbtnSafeRoute.isSelected()) {
 					selectedRoute = safeRoute;
 				} else if (rdbtnDangerousRoute.isSelected()) {
@@ -275,9 +277,11 @@ public class SelectRouteWindow {
 					showMessage("Please select a route to use");
 					routeSelectSuccess = false;
 				}
+				
+				
 				if (routeSelectSuccess) {
 					try {
-						setSailSuccess = player.setSail(selectedRoute, destination, selectRouteWindow);
+						checkRoute = player.checkRoute(selectedRoute);
 					} catch (InsufficientCoinsException e) {
 						showMessage("Error: You don't have enough coins to use this route. Sell some items or weapons to get more");
 						setSailSuccess = -1;
@@ -285,6 +289,24 @@ public class SelectRouteWindow {
 						showMessage("Error: You don't have enough days left to use this route. Try another or start a new game with unlimited days");
 						setSailSuccess = -1;
 					}
+					if (checkRoute) {
+						EventInfo eventInfo = player.setSail(selectedRoute, destination);
+						int eventType = eventInfo.getEventType();
+						setSailSuccess = eventInfo.getSailSuccess();
+						ArrayList<String> messages = eventInfo.getMessages();
+						if (eventType == 1) {
+							
+							selectRouteWindow.rollDice(messages.get(0));
+							for (int i=1; i < messages.size(); i++) {
+								selectRouteWindow.showMessage(messages.get(i));
+							}
+						} else {
+							for (int i=0; i < messages.size(); i++) {
+								selectRouteWindow.showMessage(messages.get(i));
+							}
+						}
+					}
+					
 					
 					if (setSailSuccess == 0) {
 						game.setSail();
