@@ -123,7 +123,7 @@ public class SetupWindow {
 	private void initialize(Game game) {
 		frmSetupWindow = new JFrame();
 		frmSetupWindow.setTitle("Set Up");
-		frmSetupWindow.setBounds(6, -31, 1326, 1036);
+		frmSetupWindow.setBounds(6, -31, 1326, 872);
 		frmSetupWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
@@ -198,7 +198,7 @@ public class SetupWindow {
 		lblMap.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Base Map.png")));
 		
 		panelEnterName = new JPanel();
-		panelEnterName.setBounds(241, 100, 209, 63);
+		panelEnterName.setBounds(213, 98, 209, 63);
 		frmSetupWindow.getContentPane().add(panelEnterName);
 		panelEnterName.setLayout(null);
 		
@@ -215,7 +215,7 @@ public class SetupWindow {
 		textYourName.setColumns(10);
 		
 		panelSelectDays = new JPanel();
-		panelSelectDays.setBounds(775, 100, 420, 61);
+		panelSelectDays.setBounds(837, 98, 420, 61);
 		frmSetupWindow.getContentPane().add(panelSelectDays);
 		panelSelectDays.setLayout(null);
 		
@@ -269,7 +269,7 @@ public class SetupWindow {
 		panelMantis.setLayout(null);
 		
 		rdbtnMantis = new JRadioButton("Mantis");
-		rdbtnMantis.setBounds(115, 207, 69, 23);
+		rdbtnMantis.setBounds(115, 207, 78, 23);
 		panelMantis.add(rdbtnMantis);
 		rdbtnMantis.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		shipRadioButtonGroup.add(rdbtnMantis);
@@ -292,7 +292,7 @@ public class SetupWindow {
 		panelDelight.setLayout(null);
 		
 		rdbtnDelight = new JRadioButton("Delight");
-		rdbtnDelight.setBounds(115, 207, 69, 23);
+		rdbtnDelight.setBounds(115, 207, 80, 23);
 		panelDelight.add(rdbtnDelight);
 		rdbtnDelight.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		shipRadioButtonGroup.add(rdbtnDelight);
@@ -315,7 +315,7 @@ public class SetupWindow {
 		panelPioneer.setLayout(null);
 		
 		rdbtnPioneer = new JRadioButton("Pioneer");
-		rdbtnPioneer.setBounds(112, 204, 73, 23);
+		rdbtnPioneer.setBounds(112, 204, 75, 23);
 		panelPioneer.add(rdbtnPioneer);
 		rdbtnPioneer.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		shipRadioButtonGroup.add(rdbtnPioneer);
@@ -338,7 +338,7 @@ public class SetupWindow {
 		panelDefender.setLayout(null);
 		
 		rdbtnDefender = new JRadioButton("Defender");
-		rdbtnDefender.setBounds(107, 207, 85, 23);
+		rdbtnDefender.setBounds(107, 207, 87, 23);
 		panelDefender.add(rdbtnDefender);
 		rdbtnDefender.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		shipRadioButtonGroup.add(rdbtnDefender);
@@ -379,7 +379,7 @@ public class SetupWindow {
 		panelWelcomeMessage.add(lblInstructions);
 		
 		btnPlayGame = new JButton("Play Game");
-		btnPlayGame.setBounds(498, 122, 200, 40);
+		btnPlayGame.setBounds(577, 100, 200, 63);
 		frmSetupWindow.getContentPane().add(btnPlayGame);
 		btnPlayGame.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		
