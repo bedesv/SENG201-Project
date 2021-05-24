@@ -104,21 +104,6 @@ public class Route {
 		return mess;
 	}
 	
-
-	public void getDescriptionNumbered(String islandName, int i) {
-		Island destination;
-		if (islandName.equals(this.island2.getName())) {
-			destination = this.island1;
-		}
-		else {
-			destination = this.island2;
-		}
-		String destinationName = destination.getName();
-		
-		System.out.println(i + " " + this.name);
-		System.out.println("  Destination: " + destinationName + " (" + this.distance + "km)");
-		System.out.println("  This route has " + this.eventMultiplier + "% chance of random events occurring\n");
-	}
 	
 	//getter
 	/**

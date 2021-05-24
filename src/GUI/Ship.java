@@ -28,7 +28,7 @@ public class Ship {
 	private int coins=1000;
 	/** the attack multiplier of the ship, the higher the more likely player will win a battle */
 	private int attackMultiplier;
-	/** the damage multiplier, any damage received will be multiplied with this, the lower the better */
+	/** the defence multiplier, any damage received will be multiplied with this, the lower the better */
 	private int defenceMultiplier;
 	/** the list of items in the inventory on the ship */
 	private ArrayList<Item> shipInventory = new ArrayList<Item>();
@@ -132,11 +132,20 @@ public class Ship {
 		this.shipDamage += damage;
 	}
 	
-
+	//getter
+	/**
+	 * Get the current damage of the ship
+	 * @return ship's damage
+	 */
 	public int getCurrentDamage() {
 		return this.shipDamage;
 	}
 	
+	//getter
+	/**
+	 * Get the number of crews on the ship
+	 * @return ship's number of crew
+	 */
 	public int getCrew() {
 		return this.shipCrew;
 	}
@@ -212,7 +221,7 @@ public class Ship {
 		return this.shipWeapons;
 	}
 	
-/**
+	/**
 	 * Calculate how much the inventory worths
 	 * @return the sum of coins
 	 */
@@ -241,7 +250,12 @@ public class Ship {
 		return false;
 	}
 	
-	
+	/**
+	 * Check if the player can afford to buy and store the item
+	 * @param item The item that the player wants to buy
+	 * @param price the price of the item
+	 * @return true (if yes) or false (otherwise)
+	 */
 	public boolean checkItemPurchase(Item item, int price) {
 		if (coins < price) {
 			throw new InsufficientCoinsException();
@@ -262,11 +276,15 @@ public class Ship {
 		item.buyItem(price);
 		coins -= price;
 		shipInventory.add(item);
-		currCapacity += item.getSize();
-
-		
+		currCapacity += item.getSize();	
 	}
 	
+	/**
+	 * Check if the player can afford to buy and store the weapon
+	 * @param item The weapon that the player wants to buy
+	 * @param price the price of the weapon
+	 * @return true (if yes) or false (otherwise)
+	 */
 	public boolean checkWeaponPurchase(Weapon weapon, int price) {
 		boolean weaponAlreadyOwned = false;
 		checkWeaponOwned:
@@ -313,7 +331,6 @@ public class Ship {
 	 * @param price The sold price of the weapon
 	 */
 	public void sellWeapon(Weapon weapon, int price) {
-		
 
 		weapon = this.getWeaponFromInventory(weapon);
 		weapon.sellItem(this.location, price);
@@ -390,15 +407,21 @@ public class Ship {
 		return i;
 	}
 	
+	//getter
+	/**
+	 * Get the wage that player has to pay the crew before sailing
+	 * @param days The length of the sail in days
+	 * @return wage cost
+	 */
 	public int getCostToSail(int days) {
 		return days * this.COSTPERCREW * this.shipCrew;
 	}
 	
-//getter
+	//getter
 	/**
-	 * Get the ship's damage multiplier, 
+	 * Get the ship's defence multiplier, 
 	 * any damage received will be multiplied with this, the lower the better
-	 * @return ship's damage multiplier
+	 * @return ship's defence multiplier
 	 */
 	public int getDefenceMultiplier() {
 		return defenceMultiplier;
@@ -439,6 +462,12 @@ public class Ship {
 		this.shipInventory.clear();
 	}
 	
+	/**
+	 * Check if the player can afford to travel a route
+	 * @param route The route that the player chooses
+	 * @param player The player
+	 * @return true (if the player can use the route) or false (otherwise)
+	 */
 	public boolean checkRoute(Route route, Player player) {
 		int daysTaken = route.getDaysToTravel(this);
 		int wagesCost = daysTaken * this.COSTPERCREW * this.shipCrew;
@@ -487,18 +516,27 @@ public class Ship {
 		
 	}
 	
+	/**
+	 * Increase the attack multiplier
+	 */
 	public void increaseAttackMult() {
 		if (this.attackMultiplier + 1 <= 30) {
 			this.attackMultiplier += 1;
 		}
 	}
 	
+	/**
+	 * Increase the defence multiplier
+	 */
 	public void increaseDefenceMult() {
 		if(this.defenceMultiplier + 1 <= 30) {
 			this.defenceMultiplier += 1;
 		}
 	}
 	
+	/**
+	 * Increase the inventory capacity on the ship
+	 */
 	public void increaseInventoryCapacity() {
 		this.maxCapacity += 10;
 	}

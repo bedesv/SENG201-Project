@@ -40,6 +40,11 @@ public class Weapon extends Item {
 		return new Weapon(this.getName(), this.getDescription(), this.getType(), this.getSize(), this.getPrice(), this.getMultChanged());
 	}
 	
+	/**
+	 * Check if the 2 weapons are identical
+	 * @param weapon The weapon we want to compare
+	 * @return true or false
+	 */
 	public boolean equals(Weapon weapon) {
 		return weapon.getName().equals(this.getName());
 	}
