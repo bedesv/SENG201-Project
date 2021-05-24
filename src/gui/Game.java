@@ -16,8 +16,7 @@ public class Game {
 	private SetupWindow setupWindow;
 	private MainMenuWindow mainMenuWindow;
 	private InventoryWindow inventoryWindow;
-	private SelectDestinationWindow selectDestinationWindow;
-	private SelectRouteWindow selectRouteWindow;
+	private SetSailWindow setSailWindow;
 	private SecretMenuWindow secretMenuWindow;
 	private ShipInformationWindow shipInformationWindow;
 	private IslandInformationWindow islandInformationWindow;
@@ -187,8 +186,7 @@ public class Game {
 	
 	private void initWindows() {
 		storeWindow = new StoreWindow();
-		selectDestinationWindow = new SelectDestinationWindow();
-		selectRouteWindow = new SelectRouteWindow();
+		setSailWindow = new SetSailWindow();
 		inventoryWindow = new InventoryWindow();
 		mainMenuWindow = new MainMenuWindow();
 		secretMenuWindow = new SecretMenuWindow();
@@ -243,28 +241,13 @@ public class Game {
 	}
 	
 	public void openSelectDestination() {
-		selectDestinationWindow.open(this);
+		setSailWindow.open(this);
 		mainMenuWindow.close();
 	}
 	
-	public void exitSelectDestination() {
+	public void exitSetSail() {
 		mainMenuWindow.open(this);
-		selectDestinationWindow.close();
-	}
-	
-	public void openSelectRoute(Island destination) {
-		selectRouteWindow.open(this, destination);
-		selectDestinationWindow.close();
-	}
-
-	public void exitSelectRoute() {
-		selectDestinationWindow.open(this);
-		selectRouteWindow.close();
-	}
-	
-	public void setSail() {
-		mainMenuWindow.open(this);
-		selectRouteWindow.close();
+		setSailWindow.close();
 	}
 	
 	public void openSecretMenu() {
@@ -300,11 +283,11 @@ public class Game {
 	public String gameOver(int deathType) {
 		int pirates = 1;
 		int weather = 2;
-		selectRouteWindow.close();
+		setSailWindow.close();
 		if (deathType == pirates) {
-			return "Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before you were killed by pirates";
+			return "Game Over: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before you were killed by pirates";
 		} else if (deathType == weather) {
-			return "Game Finished: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before your ship was destroyed in a storm";
+			return "Game Over: Thanks for playing " + player.getName() + "! You lasted for " + player.getCurrDay() + " days before your ship was destroyed in a storm";
 		}
 		return "";
 	}

@@ -511,7 +511,8 @@ public class IslandInformationWindow {
 				weaponsToSellPanel.setVisible(false);
 				panelSafeRoute.setVisible(true);
 				panelDangerousRoute.setVisible(true);
-				MapRoute mapRoute = findMapImage(island, player, safeRoute, dangerousRoute);
+				MapRoute mapRoute = new MapRoute();
+				mapRoute = mapRoute.findMapImage(island, player, safeRoute, dangerousRoute);
 				String imageString = mapRoute.getImgString();
 				safeRoute = mapRoute.getSafeRoute();
 				dangerousRoute = mapRoute.getDangerousRoute();
@@ -589,120 +590,5 @@ public class IslandInformationWindow {
 			Object[] temp = {weapon.getName(), weapon.getDescription(), weapon.getSize(), store.getSalePrice(weapon)};
 			weaponsToSellModel.addRow(temp);
 		}
-	}
-	
-	private MapRoute findMapImage(Island selectedIsland, Player player, Route safeRoute, Route dangerousRoute) {
-		String imageString = "";
-		Island currentLocation = player.getCurrLocation();
-		ArrayList<Route> routes = currentLocation.getRoutes(selectedIsland);
-		
-		safeRoute = routes.get(0);
-		dangerousRoute = routes.get(1);
-		
-		switch(routes.get(0).getName()) {
-		case "Arid Trail":
-			imageString = "/Images/Remote Refuge and Raining Archipelago.png";
-			break;
-			
-		case "Dragonfire Route":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Remote Refuge and Raining Archipelago.png";
-			break;
-			
-		case "Trepidation Pass":
-			imageString = "/Images/Remote Refuge and Brightwich Island.png";
-			break;
-			
-		case "The Glistening Deep":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Remote Refuge and Brightwich Island.png";
-			break;
-		
-		case "Salfil Waters":
-			imageString = "/Images/Remote Refuge and Crosser Peninsula.png";
-			break;
-			
-		case "Terrenronto Waters":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Remote Refuge and Crosser Peninsula.png";
-			break;
-			
-		case "The Empty Bay":
-			imageString = "/Images/Remote Refuge and Arborland Islet.png";
-			break;
-			
-		case "The Bursting Waves":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Remote Refuge and Arborland Islet.png";
-			break;
-			
-		case "Chillwater Sea":
-			imageString = "/Images/Raining Archipelago and Brightwich Island.png";
-			break;
-			
-		case "The Darkest Depths":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Raining Archipelago and Brightwich Island.png";
-			break;
-			
-		case "Cartvons Bay":
-			imageString = "/Images/Raining Archipelago and Crosser Peninsula.png";
-			break;
-			
-		case "The Troubled Ocean":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Raining Archipelago and Crosser Peninsula.png";
-			break;
-			
-		case "The Narrow Gulf":
-			imageString = "/Images/Arborland Islet and Raining Archipelago.png";
-			break;
-			
-		case "The Ocean of Woodbourg":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Arborland Islet and Raining Archipelago.png";
-			break;
-			
-		case "The Sunny Domain":
-			imageString = "/Images/Brightwich Island and Crosser Peninsula.png";
-			break;
-			
-		case "The Dark Ocean":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Brightwich Island and Crosser Peninsula.png";
-			break;
-			
-		case "The Coral Ocean":
-			imageString = "/Images/Arborland Islet and Brightwich Island.png";
-			break;
-			
-		case "The Hungry Depths":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Arborland Islet and Brightwich Island.png";
-			break;
-			
-		case "The Wasting Bay":
-			imageString = "/Images/Arborland Islet and Crosser Peninsula.png";
-			break;
-			
-		case "The Grave Sea":
-			safeRoute = routes.get(1);
-			dangerousRoute = routes.get(0);
-			imageString = "/Images/Arborland Islet and Crosser Peninsula.png";
-			break;
-
-			
-		}
-		MapRoute result = new MapRoute(imageString, safeRoute, dangerousRoute);
-		return result;
 	}
 }
