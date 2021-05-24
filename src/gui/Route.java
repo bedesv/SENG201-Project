@@ -11,16 +11,19 @@ import java.util.ArrayList;
 public class Route {
 	/** the length of the route in km */
 	private int distance;
-	/** one island in one of the end of the route */
-	private Island island1;
-	/** the other island from the other end of the route */
-	private Island island2;
 	/** the name of the route */
 	private String name;
 	/** the likelihood of the random events during the trip on that route */
 	private int eventMultiplier;
 	/** the list of islands that the route will lead to */
 	ArrayList<Island> islands = new ArrayList<Island>();
+	
+	/**
+	 * Constructor of a route
+	 * Constructs an empty route
+	 */
+	public Route() {
+	}
 	
 	/**
 	 * Constructor of a route
@@ -33,8 +36,6 @@ public class Route {
 	public Route(int distance, Island island1, Island island2, String name, int eventMultiplier) {
 		this.name = name;
 		this.distance = distance;
-		this.island1 = island1;
-		this.island2 = island2;
 		islands.add(island1);
 		islands.add(island2);
 		this.name = name;
@@ -47,10 +48,14 @@ public class Route {
 	 * @param shipName The name of the ship that the player is using
 	 * @return days
 	 */
-	public int getDaysToTravel(Ship shipName) {
-		int speed = shipName.getSpeed();
+	public int getDaysToTravel(Ship ship) {
+		int speed = ship.getSpeed();
 		int days = distance / speed;
 		return days;
+	}
+	
+	public int getCost(Ship ship) {
+		return ship.getCostToSail(this.getDaysToTravel(ship));
 	}
 	
 	//getter
@@ -79,31 +84,6 @@ public class Route {
 	public ArrayList<Island> getIslands() {
 		return islands;
 	}
-	
-	//getter
-	/**
-	 * Get the description of the route
-	 * @param islandName The island where the player is situated at the moment
-	 * @return message of description
-	 */
-	public String getDescription(String islandName) {
-		// find which one of the 2 islands on the 2 ends of the route 
-		// is the home island
-		Island destination;
-		if (islandName.equals(this.island2.getName())) {
-			destination = this.island1;
-		}
-		else {
-			destination = this.island2;
-		}
-		String destinationName = destination.getName();
-		
-		String mess = "\t" + this.name;
-		mess += "\tDestination: " + destinationName + " (" + this.distance + "km)";
-		mess += "\tThis route has " + this.eventMultiplier + "% chance of random events occurring\n";
-		return mess;
-	}
-	
 	
 	//getter
 	/**

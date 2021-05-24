@@ -96,14 +96,6 @@ public class Item{
 	}
 	
 	/**
-	 * Format a string of an Item object
-	 * @return formated string describing the item when the item object is called
-	 */
-	public String toString() {
-		return String.format("\tItem: %s\n\tDescription: %s\n\tType: %s\n\tSize: %d\n\tPrice: %d", itemName, itemDescription, itemType, itemSize, itemPrice);
-	}
-	
-	/**
 	 * Player wants to increase coins or get rid of an item by selling it to 
 	 * a store that will buy it
 	 * @param island The island where the store is based
@@ -143,7 +135,7 @@ public class Item{
 	
 	//getter
 	/**
-	 * Get the island where the item is sold from
+	 * Get the island the item was sold to
 	 * @return island
 	 */
 	public Island getIslandSoldOn() {

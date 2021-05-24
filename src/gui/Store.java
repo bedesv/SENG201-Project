@@ -24,6 +24,13 @@ public class Store {
 	/** The price of the item or weapon when sold by the store will be multiplied with this */
 	private int soldMultiplier;
 	
+	
+	/**
+	 * Constructor of a store
+	 * Constructs an empty store
+	 */
+	public Store() {
+	}
 	/**
 	 * Constructor of a store
 	 * @param name The name of the store
@@ -33,42 +40,6 @@ public class Store {
 		storeName = name;
 		boughtMultiplier = multiplier - 2;
 		soldMultiplier = multiplier;
-	}
-	
-	/**
-	 * To see what items the store will buy
-	 */
-	public void viewItemsBought() {
-		System.out.println(String.format("Items bought at %s:\n", storeName));
-		for (Item i : itemsBought) {
-			System.out.println(String.format("%s\n", i));
-		}
-	}
-	
-	/**
-	 * To see what items the store will sell
-	 */
-	public void viewItemsSold() {
-		System.out.println(String.format("Items sold at %s:\n", storeName));
-		for (Item i : itemsSold) {
-			System.out.println(String.format("%s\n", i));
-		}
-	}
-	
-	/**
-	 * To string method that will show what the store sells or buys
-	 * @return the message of the store's property
-	 */
-	public String toString() {
-		String mess = "Items bought at " + storeName + ": \n";
-		for (Item i : itemsBought) {
-			mess += String.format("%s\n", i);
-		}
-		mess += String.format("Items sold at %s:\n", storeName);
-		for (Item i : itemsSold) {
-			mess += String.format("%s\n", i);
-		}
-		return mess;
 	}
 	
 	/**

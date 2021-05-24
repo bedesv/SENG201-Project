@@ -18,13 +18,15 @@ import java.awt.Font;
 import javax.swing.JRadioButton;
 import javax.swing.JSlider;
 import javax.swing.JTextArea;
+import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+
 import javax.swing.SwingConstants;
-import java.awt.SystemColor;
 import javax.swing.JCheckBox;
+import javax.swing.UIManager;
 
 public class SetupWindow {
 
@@ -215,7 +217,7 @@ public class SetupWindow {
 		textYourName.setColumns(10);
 		
 		panelSelectDays = new JPanel();
-		panelSelectDays.setBounds(837, 98, 420, 61);
+		panelSelectDays.setBounds(837, 98, 420, 75);
 		frmSetupWindow.getContentPane().add(panelSelectDays);
 		panelSelectDays.setLayout(null);
 		
@@ -238,6 +240,8 @@ public class SetupWindow {
 		
 		
 		sliderDays = new JSlider();
+		sliderDays.setValue(35);
+		sliderDays.setMaximum(50);
 		sliderDays.setBounds(10, 23, 316, 38);
 		panelSelectDays.add(sliderDays);
 		sliderDays.setPaintLabels(true);
@@ -245,7 +249,7 @@ public class SetupWindow {
 		sliderDays.setPaintTicks(true);
 		sliderDays.setSnapToTicks(true);
 		sliderDays.setMinorTickSpacing(1);
-		sliderDays.setMinimum(10);
+		sliderDays.setMinimum(20);
 		
 		lblDaysMessage = new JLabel("How many days do you want to play for?");
 		lblDaysMessage.setFont(new Font("Tahoma", Font.BOLD, 15));
@@ -283,7 +287,7 @@ public class SetupWindow {
 		lblMantisProperties.setBounds(0, 235, 300, 52);
 		panelMantis.add(lblMantisProperties);
 		lblMantisProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblMantisProperties.setBackground(SystemColor.menu);
+		lblMantisProperties.setBackground(UIManager.getColor("Button.background"));
 		lblMantisProperties.setEditable(false);
 		
 		panelDelight = new JPanel();
@@ -302,10 +306,10 @@ public class SetupWindow {
 		panelDelight.add(lblDelightImage);
 		lblDelightImage.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Delight.jpg")));
 		
-		lblDelightProperties = new JTextArea("Crew: 8\t\tCargo Capacity: 100\nAttack Level: 12\tDefense Level: 8\nSpeed: 4");
+		lblDelightProperties = new JTextArea("Crew: 8\t\tCargo Capacity:100\nAttack Level:12\t\tDefense Level:8\nSpeed: 4");
 		lblDelightProperties.setBounds(0, 235, 300, 52);
 		panelDelight.add(lblDelightProperties);
-		lblDelightProperties.setBackground(SystemColor.menu);
+		lblDelightProperties.setBackground(UIManager.getColor("Button.background"));
 		lblDelightProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		lblDelightProperties.setEditable(false);
 		
@@ -315,7 +319,7 @@ public class SetupWindow {
 		panelPioneer.setLayout(null);
 		
 		rdbtnPioneer = new JRadioButton("Pioneer");
-		rdbtnPioneer.setBounds(112, 204, 75, 23);
+		rdbtnPioneer.setBounds(112, 204, 79, 23);
 		panelPioneer.add(rdbtnPioneer);
 		rdbtnPioneer.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		shipRadioButtonGroup.add(rdbtnPioneer);
@@ -329,7 +333,7 @@ public class SetupWindow {
 		lblPioneerProperties.setBounds(0, 235, 300, 52);
 		panelPioneer.add(lblPioneerProperties);
 		lblPioneerProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblPioneerProperties.setBackground(SystemColor.menu);
+		lblPioneerProperties.setBackground(UIManager.getColor("Button.background"));
 		lblPioneerProperties.setEditable(false);
 		
 		panelDefender = new JPanel();
@@ -338,13 +342,15 @@ public class SetupWindow {
 		panelDefender.setLayout(null);
 		
 		rdbtnDefender = new JRadioButton("Defender");
-		rdbtnDefender.setBounds(107, 207, 87, 23);
+		rdbtnDefender.setHorizontalAlignment(SwingConstants.LEFT);
+		rdbtnDefender.setBounds(107, 207, 92, 23);
 		panelDefender.add(rdbtnDefender);
 		rdbtnDefender.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		shipRadioButtonGroup.add(rdbtnDefender);
 		
 		lblDefenderImage = new JLabel("");
-		lblDefenderImage.setBounds(0, 0, 300, 200);
+		lblDefenderImage.setBorder(BorderFactory.createEmptyBorder());
+		lblDefenderImage.setBounds(0, -1, 300, 200);
 		panelDefender.add(lblDefenderImage);
 		lblDefenderImage.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Defender.jpg")));
 		
@@ -352,7 +358,7 @@ public class SetupWindow {
 		lblDefenderProperties.setBounds(0, 235, 300, 52);
 		panelDefender.add(lblDefenderProperties);
 		lblDefenderProperties.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		lblDefenderProperties.setBackground(SystemColor.menu);
+		lblDefenderProperties.setBackground(UIManager.getColor("Button.background"));
 		lblDefenderProperties.setEditable(false);
 		
 		lblChooseShipText = new JLabel("Choose a ship to use");
@@ -431,8 +437,17 @@ public class SetupWindow {
 				}
 				
 				name = textYourName.getText();
-				if (name.length() < 3) {
-					JOptionPane.showMessageDialog(popup, "Your name must be at least 3 characters long");
+				if (name.length() < 3 || name.length() > 15) {
+					JOptionPane.showMessageDialog(popup, "Your name must be between 3 and 15 characters long");
+					setupSuccess = false;
+				} else if (!name.matches("^[a-zA-Z ]+$")) {
+					JOptionPane.showMessageDialog(popup, "Your name may only contain letters and spaces");
+					setupSuccess = false;
+				} else if (name.contains("  ")) {
+					JOptionPane.showMessageDialog(popup, "Your name may only contain one space in a row");
+					setupSuccess = false;
+				} else if (name.endsWith(" ") || name.startsWith(" ")) {
+					JOptionPane.showMessageDialog(popup, "Your name may not start or end with a space");
 					setupSuccess = false;
 				}
 				

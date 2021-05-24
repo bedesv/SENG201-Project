@@ -1,11 +1,2 @@
-Change ship capacities and crew numbers
-Change route cost and (distance or ship speed)
-
-Figure out why solditems values are changing - must be because they point to the same object -> In purchase item method in ship class?
-
-
-view ship detail is not working
-add view islands & view inventory in activities
-add enter name and days
-
-In the store gui, the price shown on the screen and the amount of coins deducted are different
+New route images without island labels
+Move start game button to bottom of page

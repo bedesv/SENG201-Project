@@ -151,13 +151,13 @@ public class MainMenuWindow {
 		btnRepairShip.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (player.getCoins() < player.getRepairCost()) {
-					JOptionPane.showMessageDialog(popup, "Error: You don't have enough coins to repair the ship (" + player.getRepairCost() + " required). Sell some items or weapons to get more");
+				if (player.getCoins() < player.getShipRepairCost()) {
+					JOptionPane.showMessageDialog(popup, "Error: You don't have enough coins to repair the ship (" + player.getShipRepairCost() + " required). Sell some items or weapons to get more");
 				} else if (player.getShipDamage() == 0) {
 					JOptionPane.showMessageDialog(popup, "Your ship doesn't need repairing");
 				} else {
 					
-					int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to repair your ship for " + player.getRepairCost() + " coins?", "Repair Confirmation",JOptionPane.YES_NO_OPTION);
+					int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to repair your ship for " + player.getShipRepairCost() + " coins?", "Repair Confirmation",JOptionPane.YES_NO_OPTION);
 					if (choice == JOptionPane.YES_OPTION) {
 						player.repairShip();
 					}
@@ -170,6 +170,14 @@ public class MainMenuWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				game.openInventory();
+			}
+		});
+		
+		btnViewIslandInfo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				game.openIslandInformation();
 			}
 		});
 		

@@ -17,7 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 import java.awt.Font;
-import java.awt.SystemColor;
+import javax.swing.UIManager;
 
 public class ShipInformationWindow {
 
@@ -99,7 +99,7 @@ public class ShipInformationWindow {
 		});
 		
 		JTextArea textAreaShipInfo = new JTextArea();
-		textAreaShipInfo.setBackground(SystemColor.menu);
+		textAreaShipInfo.setBackground(UIManager.getColor("Button.background"));
 		textAreaShipInfo.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		textAreaShipInfo.setBounds(85, 22, 306, 119);
 		frmShipInformationWindow.getContentPane().add(textAreaShipInfo);

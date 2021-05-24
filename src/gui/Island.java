@@ -16,6 +16,14 @@ public class Island {
 	/** the list of the possible routes from the island */
 	private ArrayList<Route> routeList;
 	
+	
+	/**
+	 * A constructor for an island object.
+	 * Constructs an empty island
+	 */
+	public Island() {
+	}
+	
 	/**
 	 * A constructor for an island object. Also creates an array list for possible routes from it.
 	 * @param name Default by button, the name of the island
@@ -68,42 +76,4 @@ public class Island {
 		}
 		return possibleRoutes;	
 	}
-	
-	/**
-	 * To view the property on the island
-	 */
-	public void viewPropertyIsland() {
-		//island name
-		System.out.println(islandName);
-		//route info
-		System.out.println("\nPossible routes from " + islandName + ":\n");
-		
-		for (Route route : routeList) {
-			route.getDescription(islandName);
-		}
-		//store info
-		String storeName = store.getStoreName();
-		System.out.println("Store: " + storeName);
-		//call methods to view items bought and sold from the store on the island
-		store.viewItemsBought();
-		store.viewItemsSold();
-	}
-	
-	/**
-	 * To show the property of an island when calling it as an object
-	 * @return the string that has all the details of the property of an island
-	 */
-	public String toString() {
-		String mess = "Possible routes from " + islandName + ":\n";
-		for (Route route : routeList) {
-			mess += route.getDescription(islandName);
-		}
-		String storeName = store.getStoreName();
-		mess += "Store: " + storeName + "\n";
-		mess += store;
-		return mess;
-	}
-	
-	
-
 }
