@@ -31,47 +31,10 @@ import java.util.ArrayList;
 public class InventoryWindow {
 
 	private JFrame frmInventoryWindow;
-	
-	private JTable itemsBoughtTable;
-	private JTable itemsSoldTable;
-	private JTable weaponsBoughtTable;
-	private JTable weaponsSoldTable;
-	private JPanel itemsSoldPanel;
-	private JScrollPane itemsSoldScrollPane;
-	private JPanel weaponsBoughtPanel;
-	private JScrollPane weaponsBoughtScrollPane;
-	private JPanel weaponsSoldPanel;
-	private JScrollPane weaponsSoldScrollPane;
-	private JButton btnMainMenu;
-	private JLabel lblCapacity;
-	private JLabel lblCoins;
-	
-	private ArrayList<Item> itemsBoughtArray = new ArrayList<Item>();
-	private ArrayList<Item> itemsSoldArray = new ArrayList<Item>();
-	
-	private ArrayList<Weapon> weaponsBoughtArray = new ArrayList<Weapon>();
-	private ArrayList<Weapon> weaponsSoldArray = new ArrayList<Weapon>();
 	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					InventoryWindow window = new InventoryWindow();
-//					window.frmInventoryWindow.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
-
-	/**
-	 * Create the application.
+	 * Create the window.
 	 */
 	public InventoryWindow() {
-	
 	}
 	
 	public void close() {
@@ -96,27 +59,32 @@ public class InventoryWindow {
 		frmInventoryWindow.getContentPane().setLayout(null);
 		frmInventoryWindow.setLocationRelativeTo(null);
 		
+		// Create references to the player and the players ship
 		Player player = game.getPlayer();
 		Ship playersShip = player.getSelectedShip();
 		
+		// Update the window title
 		frmInventoryWindow.setTitle(playersShip.getName() + " Inventory");
 		
+		// Create headers for the tabled
 		String[] itemsBoughtTableHeader = {"Item", "Purchased For"};
 		String[] itemsSoldTableHeader = {"Item", "Purchased For", "Sold For", "Sold At"};
 		String[] weaponsBoughtTableHeader = {"Weapon", "Purchased For"};
 		String[] weaponsSoldTableHeader = {"Weapon", "Purchased For", "Sold For", "Sold At"};
-		itemsBoughtArray = playersShip.getItemsBought();
-		itemsSoldArray = playersShip.getItemsSold();
-		weaponsBoughtArray = playersShip.getWeaponsBought();
-		weaponsSoldArray = playersShip.getWeaponsSold();
 		
+		// Get lists of the items for the tables
+		ArrayList<Item> itemsBoughtArray = playersShip.getItemsBought();
+		ArrayList<Item> itemsSoldArray = playersShip.getItemsSold();
+		ArrayList<Weapon> weaponsBoughtArray = playersShip.getWeaponsBought();
+		ArrayList<Weapon> weaponsSoldArray = playersShip.getWeaponsSold();
 		
-		weaponsSoldPanel = new JPanel();
+		// Create the tables
+		JPanel weaponsSoldPanel = new JPanel();
 		weaponsSoldPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Sold", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsSoldPanel.setBounds(509, 387, 450, 250);
 		frmInventoryWindow.getContentPane().add(weaponsSoldPanel);
 		
-		weaponsSoldScrollPane = new JScrollPane();
+		JScrollPane weaponsSoldScrollPane = new JScrollPane();
 		GroupLayout gl_weaponsSoldPanel = new GroupLayout(weaponsSoldPanel);
 		gl_weaponsSoldPanel.setHorizontalGroup(
 			gl_weaponsSoldPanel.createParallelGroup(Alignment.LEADING)
@@ -131,7 +99,7 @@ public class InventoryWindow {
 		
 		DefaultTableModel weaponsSoldModel = new DefaultTableModel(weaponsSoldTableHeader, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the weaponsSoldTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -139,7 +107,8 @@ public class InventoryWindow {
 	          }
 	    };
 	    
-		weaponsSoldTable = new JTable(weaponsSoldModel);
+	    // Create a table model for the weaponsSoldTable
+	    JTable weaponsSoldTable = new JTable(weaponsSoldModel);
 		weaponsSoldScrollPane.setViewportView(weaponsSoldTable);
 		weaponsSoldPanel.setLayout(gl_weaponsSoldPanel);
 		
@@ -150,12 +119,12 @@ public class InventoryWindow {
 			weaponsSoldModel.addRow(temp);
 		}
 		
-		weaponsBoughtPanel = new JPanel();
+		JPanel weaponsBoughtPanel = new JPanel();
 		weaponsBoughtPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Bought", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsBoughtPanel.setBounds(509, 76, 450, 250);
 		frmInventoryWindow.getContentPane().add(weaponsBoughtPanel);
 		
-		weaponsBoughtScrollPane = new JScrollPane();
+		JScrollPane weaponsBoughtScrollPane = new JScrollPane();
 		GroupLayout gl_weaponsBoughtPanel = new GroupLayout(weaponsBoughtPanel);
 		gl_weaponsBoughtPanel.setHorizontalGroup(
 			gl_weaponsBoughtPanel.createParallelGroup(Alignment.LEADING)
@@ -170,14 +139,16 @@ public class InventoryWindow {
 		
 		DefaultTableModel weaponsBoughtModel = new DefaultTableModel(weaponsBoughtTableHeader, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the weaponsBoughtTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
 	             return false;
 	          }
 	    };
-		weaponsBoughtTable = new JTable(weaponsBoughtModel);
+	    
+	    // Create a table model for the weaponsBoughtTable
+	    JTable weaponsBoughtTable = new JTable(weaponsBoughtModel);
 		weaponsBoughtScrollPane.setViewportView(weaponsBoughtTable);
 		weaponsBoughtPanel.setLayout(gl_weaponsBoughtPanel);
 		
@@ -187,12 +158,12 @@ public class InventoryWindow {
 			weaponsBoughtModel.addRow(temp);
 		}
 		
-		itemsSoldPanel = new JPanel();
+		JPanel itemsSoldPanel = new JPanel();
 		itemsSoldPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Items Sold", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		itemsSoldPanel.setBounds(24, 387, 450, 250);
 		frmInventoryWindow.getContentPane().add(itemsSoldPanel);
 		
-		itemsSoldScrollPane = new JScrollPane();
+		JScrollPane itemsSoldScrollPane = new JScrollPane();
 		GroupLayout gl_itemsSoldPanel = new GroupLayout(itemsSoldPanel);
 		gl_itemsSoldPanel.setHorizontalGroup(
 			gl_itemsSoldPanel.createParallelGroup(Alignment.LEADING)
@@ -206,14 +177,16 @@ public class InventoryWindow {
 		);
 		DefaultTableModel itemsSoldModel = new DefaultTableModel(itemsSoldTableHeader, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the itemsSoldTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
 	             return false;
 	          }
 	    };
-		itemsSoldTable = new JTable(itemsSoldModel);
+	    
+	    // Create a table model for the itemsSoldTable
+	    JTable itemsSoldTable = new JTable(itemsSoldModel);
 		itemsSoldScrollPane.setViewportView(itemsSoldTable);
 		itemsSoldPanel.setLayout(gl_itemsSoldPanel);
 		
@@ -242,14 +215,16 @@ public class InventoryWindow {
 		
 		DefaultTableModel itemsBoughtModel = new DefaultTableModel(itemsBoughtTableHeader, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the itemsBoughtTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
 	             return false;
 	          }
 	    };
-		itemsBoughtTable = new JTable(itemsBoughtModel);
+	    
+	    // Create a table model for the itemsBoughtTable
+	    JTable itemsBoughtTable = new JTable(itemsBoughtModel);
 		itemsBoughtScrollPane.setViewportView(itemsBoughtTable);
 		itemsBoughtPanel.setLayout(gl_itemsBoughtPanel);
 		
@@ -259,32 +234,36 @@ public class InventoryWindow {
 			itemsBoughtModel.addRow(temp);
 		}
 		
-		lblCoins = new JLabel("Coins: " + player.getCoins());
+		// Create the label showing the coins the player has
+		JLabel lblCoins = new JLabel("Coins: " + player.getCoins());
 		lblCoins.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCoins.setBounds(817, 30, 142, 35);
 		frmInventoryWindow.getContentPane().add(lblCoins);
 		
-		lblCapacity = new JLabel("Ship Capacity: " + player.getShipCapacity());
+		// Create the label showing the ships capacity
+		JLabel lblCapacity = new JLabel("Ship Capacity: " + player.getShipCapacity());
 		lblCapacity.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblCapacity.setBounds(509, 30, 285, 35);
 		frmInventoryWindow.getContentPane().add(lblCapacity);
 		
-		btnMainMenu = new JButton("Main Menu");
+		// Create the main menu button
+		JButton btnMainMenu = new JButton("Main Menu");
 		btnMainMenu.setBounds(434, 710, 120, 40);
 		frmInventoryWindow.getContentPane().add(btnMainMenu);
 		
+		// If the main menu button is clicked
 		btnMainMenu.addActionListener(new ActionListener() {
-			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 					game.exitInventory();
 			}
 		});
 		
+		// If an item is selected in the itemsBoughtTable
 		itemsBoughtTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 		    @Override
 		    public void valueChanged(ListSelectionEvent event) {
-		    	// Check if a valid row is selected in the itemsToBuyTable
+		    	// Check if a valid row is selected in the itemsBoughtTable
 		        if (itemsBoughtTable.getSelectedRow() > -1) {
 		        	
 		        	// Clear selection in all other tables
@@ -295,10 +274,11 @@ public class InventoryWindow {
 		    }
 		});
 		
+		// If an item is selected in the weaponsBoughtTable
 		weaponsBoughtTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 		    @Override
 		    public void valueChanged(ListSelectionEvent event) {
-		    	// Check if a valid row is selected in the weaponsToBuyTable
+		    	// Check if a valid row is selected in the weaponsBoughtTable
 		        if (weaponsBoughtTable.getSelectedRow() > -1) {
 		        	
 		        	// Clear selection in all other tables
@@ -309,12 +289,12 @@ public class InventoryWindow {
 		    }
 		});
 		
+		// If an item is selected in the itemsSoldTable
 		itemsSoldTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 		    @Override
 		    public void valueChanged(ListSelectionEvent event) {
-		    	// Check if a valid row is selected in the itemsToSellTable
+		    	// Check if a valid row is selected in the itemsSoldTable
 		        if (itemsSoldTable.getSelectedRow() > -1) {
-		        	
 		        	// Clear selection in all other tables
 		        	itemsBoughtTable.clearSelection();
 		        	weaponsBoughtTable.clearSelection();
@@ -323,13 +303,12 @@ public class InventoryWindow {
 		    }
 		});
 		
+		// If an item is selected in the weaponsSoldTable
 		weaponsSoldTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 		    @Override
 		    public void valueChanged(ListSelectionEvent event) {
-		    	
-		    	// Check if a valid row is selected in the weaponsToSellTable
+		    	// Check if a valid row is selected in the weaponsSoldTable
 		        if (weaponsSoldTable.getSelectedRow() > -1) {
-		        	
 		        	// Clear selection in all other tables
 		        	itemsBoughtTable.clearSelection();
 		        	weaponsBoughtTable.clearSelection();

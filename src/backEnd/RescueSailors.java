@@ -16,9 +16,10 @@ public class RescueSailors extends RandomEvent{
 	}
 	
 	/**
-	 * Player finds another sailor and rescue him
-	 * <br>In return, that sailor will reward the player with coins
-	 * @param ship The ship they the player is using
+	 * Player finds some sailors and rescues them
+	 * <br>In return, those sailors reward the player with coins
+	 * @param ship The ship the player is using
+	 * @return Information about the event
 	 */
 	public EventInfo findSailors(Ship ship) {
 		ArrayList<String> messages = new ArrayList<String>();

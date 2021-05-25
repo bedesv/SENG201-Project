@@ -63,7 +63,7 @@ public class Player {
 	}
 	
 	/**
-	 * To repair the ship after the storm hit it
+	 * Repairs the ship after the it has been damaged
 	 */
 	public void repairShip() {
 		selectedShip.repairShip();
@@ -71,7 +71,7 @@ public class Player {
 	
 	//getter
 	/**
-	 * Get the string to show how much capacity has been used compared to the maximum capacity
+	 * Get a string showing how much capacity has been used compared to the maximum capacity
 	 * @return current capacity
 	 */
 	public String getShipCapacity() {
@@ -82,7 +82,7 @@ public class Player {
 	 * Check if the player can afford to buy and store the item
 	 * @param item The item that the player wants to buy
 	 * @param price the price of the item
-	 * @return true (if yes) or false (otherwise)
+	 * @return true (if yes) or throws the respective error otherwise
 	 */
 	public boolean checkItemPurchase(Item item, int price) {
 		if (selectedShip.getCoins() < price) {
@@ -96,9 +96,9 @@ public class Player {
 	
 	/**
 	 * Check if the player can afford to buy and store the weapon
-	 * @param item The weapon that the player wants to buy
+	 * @param weapon The weapon that the player wants to buy
 	 * @param price the price of the weapon
-	 * @return true (if yes) or false (otherwise)
+	 * @return true (if yes) or throws the respective error otherwise
 	 */
 	public boolean checkWeaponPurchase(Weapon weapon, int price) {
 		boolean weaponAlreadyOwned = false;
@@ -186,7 +186,7 @@ public class Player {
 	
 	//getter
 	/**
-	 * Get the island that the ship is currently staying
+	 * Get the island that the ship is located at
 	 * @return island
 	 */
 	public Island getCurrLocation() {
@@ -194,10 +194,9 @@ public class Player {
 	}
 	
 	/**
-	 * Check if the player can afford to travel a route
-	 * @param route The route that the player chooses
-	 * @param player The player
-	 * @return true (if the player can use the route) or false (otherwise)
+	 * Check if the player can afford to travel along a route
+	 * @param route The route that the player has chosen
+	 * @return true (if the player can use the route) or throws the respective error if not
 	 */
 	public boolean checkRoute(Route route) {
 		int daysTaken = route.getDaysToTravel(selectedShip);
@@ -216,12 +215,13 @@ public class Player {
 	 * Player takes a route to travel to an island with probability of random events
 	 * @param route The chosen route to take
 	 * @param destination The island the player wants to travel to
-	 * @return
+	 * @return The information about the event that occurred, if any
 	 */
 	public EventInfo setSail(Route route, Island destination) {
 		int daysTaken = route.getDaysToTravel(selectedShip);
 		int wagesCost = selectedShip.getCostToSail(daysTaken);
 		
+		// Deduct crew wages
 		selectedShip.removeCoins(wagesCost);
 		EventInfo eventInfo = new EventInfo(0, 0, new ArrayList<String>());
 		
@@ -229,7 +229,8 @@ public class Player {
 		int pirates = 1;
 		int weather = 2;
 		int sailors = 3;
-
+		
+		// Generate a random number to see if an event occurs
 		if ((int) (Math.random() * 100) <= route.getMultiplier()) {
 			event = (int) (Math.random() * 3) + 1;
 			if (event == pirates) {
@@ -240,6 +241,7 @@ public class Player {
 				eventInfo = rescueSailors.findSailors(selectedShip);
 			}
 		}
+		// If the player survives the voyage
 		if (eventInfo.getSailSuccess() == 0) {
 			selectedShip.setLocation(destination);
 			this.daysPlayed += daysTaken;

@@ -8,22 +8,30 @@ import java.util.ArrayList;
  *
  */
 public class EventInfo {
-	/** 0 means successful sail */
+	
+	/** 0 means successful voyage
+	 *  1 means the player was killed by pirates
+	 *  2 means the player was killed in a storm
+	 */
 	private int sailSuccess;
 	
-	/* 0 means no Event
-	 * 1 means Pirates
-	 * 2 means Weather
-	 * 3 means Sailors
+	/** 0 means no event occurred
+	 *  1 means Pirates
+	 *  2 means Weather
+	 *  3 means Sailors
 	 */
 	private int eventType;
-	/** The list of messages that will be passed to the player dependent on the event and its outcome */
+	
+	/** The list of messages that will be passed back to the player and 
+	 * <br>in turn, the user interface. 
+	 *  Dependent on the event and its outcome 
+	 */
 	private ArrayList<String> messages;
 	
 	/**
 	 * Constructor of an event info
-	 * @param sailSuccess Determines if the sail is successful (0) or not
-	 * @param eventType The number represents the type of event occuring
+	 * @param sailSuccess Determines if the voyage is successful (0) or not ((1) or (2))
+	 * @param eventType The number represents the type of event occurring
 	 * @param messages The message that shows the outcome of the event
 	 */
 	public EventInfo(int sailSuccess, int eventType, ArrayList<String> messages) {
@@ -43,7 +51,7 @@ public class EventInfo {
 	
 	//getter
 	/**
-	 * Get the number represents the success or failure of the sail
+	 * Get the number representing the success or failure of the voyage
 	 * @return success number
 	 */
 	public int getSailSuccess() {
@@ -52,7 +60,7 @@ public class EventInfo {
 	
 	//getter
 	/**
-	 * Get the number represents the type of the event
+	 * Get the number representing the type of event that occurred
 	 * @return event number
 	 */
 	public int getEventType() {

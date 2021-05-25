@@ -3,7 +3,7 @@ package backEnd;
 import java.util.ArrayList;
 
 /**
- * To find routes between 2 islands and shows map of them
+ * Finds routes between 2 islands and the map of them
  * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
@@ -16,17 +16,17 @@ public class MapRoute {
 	private Route dangerousRoute;
 	
 	/**
-	 * Constructor of the map
-	 * Empty
+	 * Constructor of the MapRoute
+	 * Creates an empty MapRoute
 	 */
 	public MapRoute() {
 	}
 	
 	/**
-	 * Constructor of the map
+	 * Constructor of the MapRoute
 	 * @param imgString The string of location of the image
-	 * @param safeRoute The route with less chance of random events
-	 * @param dangerousRoute route with more chance of random events
+	 * @param safeRoute The route with less chance of random events but is longer
+	 * @param dangerousRoute route with more chance of random events but is shorter
 	 */
 	public MapRoute(String imgString, Route safeRoute, Route dangerousRoute) {
 		this.imgString = imgString;
@@ -45,7 +45,7 @@ public class MapRoute {
 	
 	//getter
 	/**
-	 * Get the route with less chance of random events
+	 * Get the route with a lower chance of random events
 	 * @return safe route
 	 */
 	public Route getSafeRoute() {
@@ -54,7 +54,7 @@ public class MapRoute {
 	
 	//getter
 	/**
-	 * Get the route with more chance of random events
+	 * Get the route with a higher chance of random events
 	 * @return dangerous route
 	 */
 	public Route getDangerousRoute() {
@@ -62,12 +62,12 @@ public class MapRoute {
 	}
 	
 	/**
-	 * Show to map of the rooutes between islands
-	 * @param selectedIsland The islands that are selected to be the next destination
+	 * Find the routes between islands and the map of them
+	 * @param selectedIsland The island that to find the routes to
 	 * @param player The player of the game
-	 * @param safeRoute The route with less chance of random events
-	 * @param dangerousRoute The route with more chance of random events
-	 * @return
+	 * @param safeRoute The route with a lower chance of random events
+	 * @param dangerousRoute The route with a higher chance of random events
+	 * @return returns a MapRoute with an imgString, safeRoute and dangerousRoute for the given island and players current island
 	 */
 	public MapRoute findMapImage(Island selectedIsland, Player player, Route safeRoute, Route dangerousRoute) {
 		String imageString = "";

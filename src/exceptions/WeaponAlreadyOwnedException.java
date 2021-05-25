@@ -2,7 +2,7 @@ package exceptions;
 
 /**
  * This exception class is raised when the weapon is already owned by the player
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 @SuppressWarnings("serial")

@@ -12,35 +12,35 @@ import java.util.*;
  */
 
 public class Ship {
-	/** the name of the ship */
+	/** The name of the ship */
 	private String shipName;
-	/** the number of the crew on the ship */
+	/** The number of the crew on the ship */
 	private int shipCrew;
-	/** the maximum capacity of the ship */
+	/** The maximum capacity of the ship */
 	private int maxCapacity;
-	/** the current filled up capacity of the ship */
+	/** The current used capacity of the ship, initially 0 */
 	private int currCapacity=0;
-	/** the amount (%) of damage the ship has received */
+	/** The amount (%) of damage the ship has received */
 	private int shipDamage;
-	/** the island where the ship is located on */
+	/** The island where the ship is located on */
 	private Island location;
-	/** the coins that the player owns, default at 1000 */
+	/** The coins that the player owns, default at 1000 */
 	private int coins=1000;
-	/** the attack multiplier of the ship, the higher the more likely player will win a battle */
+	/** The attack multiplier of the ship, the higher the more likely player will win a battle */
 	private int attackMultiplier;
-	/** the defence multiplier, any damage received will be divided by this, the lower the better */
+	/** The defence multiplier, any damage received will be divided by this, the lower the better */
 	private int defenceMultiplier;
-	/** the list of items in the inventory on the ship */
+	/** The list of items in the inventory on the ship */
 	private ArrayList<Item> shipInventory = new ArrayList<Item>();
-	/** the list of weapons the ship has */
+	/** The list of weapons the ship has */
 	private ArrayList<Weapon> shipWeapons = new ArrayList<Weapon>();
-	/** the list of items that the player has sold */
+	/** The list of items that the player has sold */
 	private ArrayList<Item> soldItems = new ArrayList<Item>();
-	/** the list of weapons that the player has sold */
+	/** The list of weapons that the player has sold */
 	private ArrayList<Weapon> soldWeapons = new ArrayList<Weapon>();
-	/** the speed of the ship */
+	/** The speed of the ship */
 	private int shipSpeed;
-	/** wages the player has to pay each crew member for a day of a sail */
+	/** The wages the player has to pay each crew member for one day of a sailing */
 	private final int COSTPERCREW = 5;
 	/** The string for the location of the image of the ship */
 	private String imgString;
@@ -53,6 +53,7 @@ public class Ship {
 	 * @param attack The attack multiplier of the ship
 	 * @param damage The damage multiplier of the ship
 	 * @param speed The speed of the ship
+	 * @param imgString The location of the ships image
 	 */
 	public Ship(String name, int crew, int capacity, int attack, int damage, int speed, String imgString) {
 		this.shipCrew = crew;
@@ -65,8 +66,7 @@ public class Ship {
 	}
 	
 	/**
-	 * Player will need to repair the ship when it is damaged
-	 * @param input What the player types in the system
+	 * Repairs the ship for a cost of 1 coin per point/percent of damage
 	 */
 	public void repairShip() {
 		coins -= shipDamage;
@@ -76,7 +76,7 @@ public class Ship {
 	//getter
 	/**
 	 * Get the cost for repairing the ship
-	 * @return
+	 * @return The cost to repair the ship
 	 */
 	public int getRepairCost() {
 		return shipDamage;
@@ -85,7 +85,7 @@ public class Ship {
 	//getter
 	/**
 	 * Get the image location string
-	 * @return
+	 * @return The image location string
 	 */
 	public String getImgString() {
 		return this.imgString;
@@ -93,8 +93,8 @@ public class Ship {
 	
 	//getter
 	/**
-	 * Get the amount of coins the player currently owns
-	 * @return coins
+	 * Get the amount of coins the player currently has
+	 * @return Amount of coins the player has
 	 */
 	public int getCoins() {
 		return coins;
@@ -103,7 +103,7 @@ public class Ship {
 	//getter
 	/**
 	 * Get the speed of the ship
-	 * @return ship's speed
+	 * @return Ship's speed
 	 */
 	public int getSpeed() {
 		return shipSpeed;
@@ -112,7 +112,7 @@ public class Ship {
 	//setter
 	/**
 	 * Set the location of the ship
-	 * @param location The island that we want to set as the home island of the ship
+	 * @param location The island to set as the ships current location
 	 */
 	public void setLocation(Island location) {
 		this.location = location;
@@ -129,7 +129,7 @@ public class Ship {
 	
 	/**
 	 * Add the damage to the ship
-	 * @param damage The extra damage received to the ship
+	 * @param damage The damage done to the ship
 	 */
 	public void takeDamage(int damage) {
 		this.shipDamage += damage;
@@ -146,8 +146,8 @@ public class Ship {
 	
 	//getter
 	/**
-	 * Get the number of crews on the ship
-	 * @return ship's number of crew
+	 * Get the number of crew on the ship
+	 * @return number of crew on the ship
 	 */
 	public int getCrew() {
 		return this.shipCrew;
@@ -155,7 +155,7 @@ public class Ship {
 	
 	/**
 	 * Check if there is rum in the inventory
-	 * @return
+	 * @return true (if there is rum in the inventory) or false (otherwise)
 	 */
 	public boolean hasRum() {
 		for (Item item:shipInventory) {
@@ -218,7 +218,7 @@ public class Ship {
 	//getter
 	/**
 	 * Get the current filled capacity of the ship
-	 * @return ship's current used capacity
+	 * @return ship's current filled capacity
 	 */
 	public int getCurrCapacity() {
 		return this.currCapacity;
@@ -244,7 +244,7 @@ public class Ship {
 	
 	//getter
 	/**
-	 * Get the list of weapons owned by the ship/ the player
+	 * Get the list of weapons on the ship
 	 * @return weapon list
 	 */
 	public ArrayList<Weapon> getWeapons() {
@@ -252,8 +252,8 @@ public class Ship {
 	}
 	
 	/**
-	 * Calculate how much the inventory worths
-	 * @return the sum of coins
+	 * Calculate how much all the items in the inventory are worth
+	 * @return the sum of values in coins
 	 */
 	public int inventoryValue() {
 		int sum = 0;
@@ -268,12 +268,12 @@ public class Ship {
 	
 	/**
 	 * Check if the item exists in the inventory
-	 * @param i item in the inventory (item list)
+	 * @param item item in the inventory (item list)
 	 * @return true (if the item is in the inventory) or false (if it is not)
 	 */
-	public boolean inventoryContains(Item i) {
-		for (Item j: this.shipInventory) {
-			if (j.equals(i)) {
+	public boolean inventoryContains(Item item) {
+		for (Item shipItem: this.shipInventory) {
+			if (shipItem.equals(item)) {
 				return true;
 			}
 		}

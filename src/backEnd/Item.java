@@ -7,21 +7,21 @@ package backEnd;
  *
  */
 public class Item{
-	/** the name of the item */
+	/** The name of the item */
 	private String itemName;
-	/** the description of the item */
+	/** The description of the item */
 	private String itemDescription;
-	/** the type of the item */
+	/** The type of the item */
 	private String itemType;
-	/** how much capacity the item takes */
+	/** The inventory space the item takes up */
 	private int itemSize;
-	/** the original price of the item */
+	/** The price of the item */
 	private int itemPrice;
-	/** the price that the player has to pay to buy the item */
+	/** The price that the player paid to buy the item */
 	private int itemPurchasedPrice;
-	/** the price that the player receive when selling the item */
+	/** The price that the player received when they sold the item */
 	private int itemSoldPrice;
-	/** the island on which the store selling the item is based */
+	/** The island on which the player sold the item */
 	private Island islandSoldOn;
 	
 	/**
@@ -36,9 +36,9 @@ public class Item{
 	 * Constructor for an item
 	 * @param name The name of the item
 	 * @param description The description of the item
-	 * @param type The type of the item, either Food or Weapon
-	 * @param size the capacity the item takes
-	 * @param price the original price of the item
+	 * @param type The type of the item, Food, Weapon, Jewellery or Special
+	 * @param size The inventory space the item takes up
+	 * @param price The price of the item
 	 */
 	public Item(String name, String description, String type, int size, int price) {
 		itemName = name;
@@ -52,15 +52,15 @@ public class Item{
 	//getter
 	/**
 	 * Get the item's name
-	 * @return item's name
+	 * @return The item's name
 	 */
 	public String getName() {
 		return itemName;
 	}
 	
 	/**
-	 * Create a new item
-	 * @return new item
+	 * Create a new copy of the item
+	 * @return A copy of the item
 	 */
 	public Item copy() {
 		return new Item(this.getName(), this.getDescription(), this.getType(), this.getSize(), this.getPrice());
@@ -69,7 +69,7 @@ public class Item{
 	//getter
 	/**
 	 * Get the original price of the item
-	 * @return item's price
+	 * @return The item's price
 	 */
 	public int getPrice() {
 		return itemPrice;
@@ -78,7 +78,7 @@ public class Item{
 	//getter
 	/**
 	 * Get the type of the item
-	 * @return item's type
+	 * @return The item's type
 	 */
 	public String getType() {
 		return itemType;
@@ -86,8 +86,8 @@ public class Item{
 	
 	//getter
 	/**
-	 * Get the size of the item (how much capacity it takes)
-	 * @return item's size
+	 * Get the size of the item (how much inventory space it takes up)
+	 * @return The item's size
 	 */
 	public int getSize() {
 		return itemSize;
@@ -96,7 +96,7 @@ public class Item{
 	//getter
 	/**
 	 * Get the description of the item
-	 * @return item's description
+	 * @return The item's description
 	 */
 	public String getDescription() {
 		return itemDescription;
@@ -115,7 +115,7 @@ public class Item{
 	
 	//getter
 	/**
-	 * Get the price that a player has to pay to buy an item
+	 * Get the price that the player paid for the item
 	 * @return item's purchased price
 	 */
 	public int getPurchasedPrice() {
@@ -124,8 +124,7 @@ public class Item{
 	
 	//getter
 	/**
-	 * Get the price that a player will sell an item to a store, 
-	 * which is smaller than the purchased price
+	 * Get the price that the player sold the item for
 	 * @return item's sold price
 	 */
 	public int getSoldPrice() {
@@ -133,8 +132,8 @@ public class Item{
 	}
 	
 	/**
-	 * Player wants to buy an item from a store
-	 * @param price The price that the item costs the player to buy the item
+	 * Saves the price the player paid for the item
+	 * @param price The price that the player paid for the item
 	 */
 	public void buyItem(int price) {
 		this.itemPurchasedPrice = price;
@@ -142,7 +141,7 @@ public class Item{
 	
 	//getter
 	/**
-	 * Get the island the item was sold to
+	 * Get the island the item was sold on
 	 * @return island
 	 */
 	public Island getIslandSoldOn() {
@@ -150,9 +149,9 @@ public class Item{
 	}
 	
 	/**
-	 * Identify if the 2 items are identical or not
+	 * Identify if the 2 items are equal or not
 	 * @param item The other item that needs to be compared with
-	 * @return true (if they are identical) or false (if they are different)
+	 * @return true (if they are equal) or false (if they are different)
 	 * 
 	 */
 	public boolean equals(Item item) {

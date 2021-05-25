@@ -199,7 +199,7 @@ public class MainMenuWindow {
 				if (player.getShipDamage() > 0) {
 					JOptionPane.showMessageDialog(popup, "Error: You must repair your ship before setting sail.");
 				} else {
-					game.openSelectDestination();
+					game.openSetSail();
 				}
 			}
 		});

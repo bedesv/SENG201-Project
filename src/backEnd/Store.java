@@ -44,13 +44,13 @@ public class Store {
 	
 	/**
 	 * Check if store can buy an item from the player
-	 * @param i The item that the player wants to sell to the store
+	 * @param item The item that the player wants to sell to the store
 	 * @return true (if the item can be bought by the store) or false (otherwise)
 	 */
-	public boolean buysItem(Item i) {
+	public boolean buysItem(Item item) {
 		
-		for (Item j: this.itemsBought) {
-			if (j.equals(i)) {
+		for (Item storeItem: this.itemsBought) {
+			if (storeItem.equals(item)) {
 				return true;
 			}
 		}
@@ -59,12 +59,12 @@ public class Store {
 	
 	/**
 	 * Check if store can buy a weapon from the player
-	 * @param i The weapon that the player wants to sell to the store
+	 * @param weapon The weapon that the player wants to sell to the store
 	 * @return true (if the weapon can be bought by the store) or false (otherwise)
 	 */
-	public boolean buysWeapon(Weapon w) {
-		for (Weapon x:this.weaponsBought) {
-			if(x.equals(w)) {
+	public boolean buysWeapon(Weapon weapon) {
+		for (Weapon storeWeapon:this.weaponsBought) {
+			if(storeWeapon.equals(weapon)) {
 				return true;
 			}
 		}
@@ -74,7 +74,7 @@ public class Store {
 	//getter
 	/**
 	 * Get the list of items can be bought by the store
-	 * @return item list
+	 * @return ArrayList of items bought by the store
 	 */
 	public ArrayList<Item> getItemsBought() {
 		return this.itemsBought;
@@ -83,7 +83,7 @@ public class Store {
 	//getter
 	/**
 	 * Get the list of items can be sold by the store
-	 * @return item list
+	 * @return ArrayList of items sold by the store
 	 */
 	public ArrayList<Item> getItemsSold() {
 		return this.itemsSold;
@@ -92,7 +92,7 @@ public class Store {
 	//getter
 	/**
 	 * Get the list of weapons can be bought by the store
-	 * @return weapon list
+	 * @return ArrayList of weapons bought by the store
 	 */
 	public ArrayList<Weapon> getWeaponsBought() {
 		return this.weaponsBought;
@@ -101,7 +101,7 @@ public class Store {
 	//getter
 	/**
 	 * Get the list of weapons can be sold by the store
-	 * @return weapon list
+	 * @return ArrayList of weapons sold by the store
 	 */
 	public ArrayList<Weapon> getWeaponsSold() {
 		return this.weaponsSold;
@@ -110,7 +110,7 @@ public class Store {
 	/**
 	 * Add an item to the store that the store buys
 	 * Creates a new item so it can modify the price
-	 * @param item The item that the store bought
+	 * @param item The item that the store buys
 	 */
 	public void addItemBought(Item item) {
 		itemsBought.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * boughtMultiplier)));
@@ -129,25 +129,25 @@ public class Store {
 	 * Add a special item to the store that the store buys
 	 * Store buys for a higher price because item is special
 	 * Creates a new item so it can modify the price
-	 * @param item The item that the store bought
+	 * @param item The item that the store buys
 	 */
 	public void addSpecialItemBought(Item item) {
-		itemsBought.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), ((2+item.getPrice()) * boughtMultiplier)));
+		itemsBought.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), ((2 + item.getPrice()) * boughtMultiplier)));
 	}
 	
 	/**
-	 * Add an weapon to the store when it is bought by the store
+	 * Add an weapon to the store that the store buys
 	 * Creates a new weapon so it can modify the price
-	 * @param weapon The item that the store bought
+	 * @param weapon The item that the store buys
 	 */
 	public void addWeaponBought(Weapon weapon) {
 		weaponsBought.add(new Weapon(weapon.getName(), weapon.getDescription(), weapon.getType(), weapon.getSize(), (weapon.getPrice() * boughtMultiplier), weapon.getMultChanged()));
 	}
 	
 	/**
-	 * Add an weapon to the store when it is bought by the store
+	 * Add an weapon to the store that the store sells
 	 * Creates a new weapon so it can modify the price
-	 * @param weapon The item that the store bought
+	 * @param weapon The item that the store sells
 	 */
 	public void addWeaponSold(Weapon weapon) {
 		weaponsSold.add(new Weapon(weapon.getName(), weapon.getDescription(), weapon.getType(), weapon.getSize(), (weapon.getPrice() * soldMultiplier), weapon.getMultChanged()));
@@ -165,20 +165,20 @@ public class Store {
 	//getter
 	/**
 	 * Get the price that the player has to pay to buy the item
-	 * @param i The item whose the purchase price is needed to know
+	 * @param item The item whose the purchase price is needed to know
 	 * @return item's purchase price
 	 */
-	public int getPurchasePrice(Item i) {
-		if (i.getType() == "Weapon") {
-			for (Weapon j: this.weaponsSold) {
-				if (i.equals(j)) {
-					return j.getPrice();
+	public int getPurchasePrice(Item item) {
+		if (item.getType() == "Weapon") {
+			for (Weapon storeWeapon: this.weaponsSold) {
+				if (item.equals(storeWeapon)) {
+					return storeWeapon.getPrice();
 				}
 			}
 		} else {
-			for (Item j: this.itemsSold) {
-				if (i.equals(j)) {
-					return j.getPrice();
+			for (Item storeItem: this.itemsSold) {
+				if (item.equals(storeItem)) {
+					return storeItem.getPrice();
 				}
 			}
 		}
@@ -188,20 +188,20 @@ public class Store {
 	//getter
 	/**
 	 * Get the price that the player receives when selling the item
-	 * @param i The item whose the sale price is needed to know
+	 * @param item The item whose the sale price is needed to know
 	 * @return item's sale price
 	 */
-	public int getSalePrice(Item i) {
-		if (i.getType() == "Weapon") {
-			for (Weapon j: this.weaponsBought) {
-				if (i.equals(j)) {
-					return j.getPrice();
+	public int getSalePrice(Item item) {
+		if (item.getType() == "Weapon") {
+			for (Weapon storeWeapon: this.weaponsBought) {
+				if (item.equals(storeWeapon)) {
+					return storeWeapon.getPrice();
 				}
 			}
 		} else {
-			for (Item j: this.itemsBought) {
-				if (i.equals(j)) {
-					return j.getPrice();
+			for (Item storeItem: this.itemsBought) {
+				if (item.equals(storeItem)) {
+					return storeItem.getPrice();
 				}
 			}
 		}

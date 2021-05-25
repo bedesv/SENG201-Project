@@ -22,11 +22,11 @@ public class Game {
 	private ArrayList<Store> stores = new ArrayList<Store>();
 	/** The list of special items */
 	private ArrayList<Item> specialItems = new ArrayList<Item>();
-	/** The player who controls the game */
+	/** The player playing the game */
 	private Player player;
 	/** The screen that displays the store */
 	private StoreWindow storeWindow;
-	/** The screen that allows the player to initiate their game, only opens once at the start */
+	/** The screen that allows the player to set up the game, only opens once at the start */
 	private SetupWindow setupWindow;
 	/** The screen that displays the main menu of actions for the player to choose from */
 	private MainMenuWindow mainMenuWindow;
@@ -34,7 +34,7 @@ public class Game {
 	private InventoryWindow inventoryWindow;
 	/** The screen that allows the player to sail from one island to the other */
 	private SetSailWindow setSailWindow;
-	/** The screen that displays the secret menu to adjust the ship's property for testing */
+	/** The screen that displays the secret menu to adjust the ship's property for cheating/testing */
 	private SecretMenuWindow secretMenuWindow;
 	/** The screen that displays the ship's information */
 	private ShipInformationWindow shipInformationWindow;
@@ -42,10 +42,9 @@ public class Game {
 	private IslandInformationWindow islandInformationWindow;
 	/** The name of the player */
 	public static String name = "";
-	/** The index number for home island */
-	public static int home = -1;
+	
 	/**
-	 * To create all and add all the possible ships to the array
+	 * Creates and adds all the possible ships to an array
 	 */
 	private void initShips() {
 		// Create Ships
@@ -61,18 +60,18 @@ public class Game {
 	}
 	
 	/**
-	 * To get all the islands, routes and stores ready for the game
+	 * Gets all the islands, routes and stores ready for the game
 	 */
 	private void initGame() {
 
-		//create stores 
+		// Create stores 
 		Store VelvetKnife = new Store("Velvet Knife", 10); 
 		Store EducatedMonkey = new Store("Educated Monkey", 15); 
 		Store ViciousKettle = new Store("Vicious Kettle", 20); 
 		Store JollyNut = new Store("Jolly Nut", 17); 
 		Store IronBear = new Store("Iron Bear", 13); 
 		
-		//add store to the array
+		// Add stores to an array
 		stores.add(VelvetKnife);
 		stores.add(IronBear);
 		stores.add(EducatedMonkey);
@@ -80,15 +79,14 @@ public class Game {
 		stores.add(ViciousKettle);
 		 
 		 
-		//create islands 
+		// Create islands 
 		Island RemoteRefuge = new Island("Remote Refuge", VelvetKnife); 
 		Island RainingArchipelago = new Island("Raining Archipelago", EducatedMonkey); 
 		Island BrightwichIsland = new Island("Brightwich Island", ViciousKettle); 
 		Island CrosserPeninsula = new Island("Crosser Peninsula", JollyNut); 
 		Island ArborlandIslet = new Island("Arborland Islet", IronBear); 
 		
-		//create routes 
-		//Route(int distance, Island island1, Island island2, String description, int eventMultiplier) 
+		// Create routes 
 		
 		Route AridTrail = new Route(25, RemoteRefuge, RainingArchipelago, "Arid Trail", 20); 
 		Route DragonfireRoute = new Route(10, RemoteRefuge, RainingArchipelago, "Dragonfire Route", 60); 
@@ -121,9 +119,9 @@ public class Game {
 		islands.add(RemoteRefuge);
 		islands.add(BrightwichIsland); 
 		
-		// add routes to islands' array list of routes
+		// Add routes to islands' array list of routes
 		
-		//RemoteRefuge's routes
+		// Remote Refuge's routes
 		RemoteRefuge.addRoute(AridTrail); 
 		RemoteRefuge.addRoute(DragonfireRoute); 
 		RemoteRefuge.addRoute(TrepidationPass); 
@@ -133,7 +131,7 @@ public class Game {
 		RemoteRefuge.addRoute(TheBurstingWaves); 
 		RemoteRefuge.addRoute(TheEmptyBay); 
 		 
-		//RainingArchipelago 
+		// Raining Archipelago's routes
 		RainingArchipelago.addRoute(AridTrail); 
 		RainingArchipelago.addRoute(DragonfireRoute); 
 		RainingArchipelago.addRoute(ChillwaterSea); 
@@ -143,7 +141,7 @@ public class Game {
 		RainingArchipelago.addRoute(TheNarrowGulf); 
 		RainingArchipelago.addRoute(TheOceanOfWoodbourg); 
 		 
-		//BrightwichIsland 
+		// Brightwich Island's routes 
 		BrightwichIsland.addRoute(TrepidationPass); 
 		BrightwichIsland.addRoute(TheGlisteningDeep); 
 		BrightwichIsland.addRoute(ChillwaterSea); 
@@ -153,7 +151,7 @@ public class Game {
 		BrightwichIsland.addRoute(TheCoralOcean); 
 		BrightwichIsland.addRoute(TheHungryDepths); 
 		 
-		//CrosserPeninsula 
+		// Crosser Peninsula's routes
 		CrosserPeninsula.addRoute(TerrenrontoWaters); 
 		CrosserPeninsula.addRoute(SalfilWaters); 
 		CrosserPeninsula.addRoute(CartvonsBay); 
@@ -163,7 +161,7 @@ public class Game {
 		CrosserPeninsula.addRoute(TheWastingBay); 
 		CrosserPeninsula.addRoute(TheGraveSea); 
 		 
-		//ArborlandIslet 
+		// Arborland Islet's routes
 		ArborlandIslet.addRoute(TheBurstingWaves); 
 		ArborlandIslet.addRoute(TheEmptyBay); 
 		ArborlandIslet.addRoute(TheNarrowGulf); 
@@ -176,27 +174,28 @@ public class Game {
 	
 
 	/**
-	 * To create items in game
+	 * Creates items and adds them to stores
 	 */
 	private void initItems() { 
-		// create normal items
+		
+		// Create normal items
 		items.add(new Item("Banana", "A yummy fruit", "Food", 1, 5)); 
 		items.add(new Item("Apple", "A round fruit", "Food", 1, 2)); 
 		items.add(new Item("Orange", "An orange fruit", "Food", 1, 3)); 
 		items.add(new Item("Pear", "A weird looking fruit", "Food", 1, 7)); 
-		items.add(new Item("Rum", "Delicous alcohol", "Drink", 5, 15));
+		items.add(new Item("Rum", "Delicous alcohol", "Food", 5, 15));
 		items.add(new Item("Ring", "Has an expensive looking diamond", "Jewellery", 1, 10));
-		items.add(new Item("Necklace", "Made of gold", "Jewelery", 1, 12));
-		items.add(new Item("Broach", "Owned by someones grandma","Jewelery", 1, 8));
+		items.add(new Item("Necklace", "Made of gold", "Jewellery", 1, 12));
+		items.add(new Item("Broach", "Owned by someones grandma","Jewellery", 1, 8));
 		
-		// create special items that are unique to the stores
+		// Create special items that are unique to the stores
 		specialItems.add(new Item("Hay", "Could be eaten as a last resort?", "Special", 5, 10));
 		specialItems.add(new Item("Tobacco", "Can be smoked or chewed", "Special", 2, 12));
 		specialItems.add(new Item("Rice", "Good with curries", "Special", 4, 8));
 		specialItems.add(new Item("Tea", "Mix with hot water for a tasy drink", "Special", 5, 10));
 		specialItems.add(new Item("Spices", "Make your meals taste good", "Special", 4, 15));
 		
-		//create weapons unique to the stores
+		// Create weapons that unique to the stores
 		weapons.add(new Weapon("Single Cannon", "Adds 5 to the ships attack multiplier", "Weapon", 7, 60, 5));
 		weapons.add(new Weapon("Double Cannon", "Adds 9 to the ships attack multiplier", "Weapon", 16, 70, 9));
 		weapons.add(new Weapon("Grappling Hook", "Adds 3 to the ships attack multiplier", "Weapon", 5, 35, 3));
@@ -210,6 +209,7 @@ public class Game {
 	 */
 	private void initStores() { 
 		 
+		// Add the regular items to every store
 		for (Item i:items) { 
 			for (Store s:stores) {
 				s.addItemBought(i);
@@ -217,10 +217,14 @@ public class Game {
 			}
 		} 
 		
+		// Add the special items and weapons to stores
 		for (int i=0; i<stores.size(); i++) {
+			// Each store sells one of the weapons and special items
 			stores.get(i).addWeaponSold(weapons.get(i));
 			stores.get(i).addItemSold(specialItems.get(i));
 			for (int j=0;j<weapons.size();j++) {
+				// Each store only buys the weapons and special items
+				// that they don't sell
 				if (j!=i) {
 					stores.get(i).addWeaponBought(weapons.get(j));
 					stores.get(i).addSpecialItemBought(specialItems.get(j));
@@ -230,7 +234,7 @@ public class Game {
 	}
 	
 	/**
-	 * Initialize all of the frames in gui
+	 * Initialize all of the frames for the gui
 	 */
 	private void initWindows() {
 		storeWindow = new StoreWindow();
@@ -262,7 +266,7 @@ public class Game {
 	
 	//getter
 	/**
-	 * Get all of the islands
+	 * Get a list of all of the islands
 	 * @return island list
 	 */
 	public ArrayList<Island> getIslands() {
@@ -271,7 +275,7 @@ public class Game {
 	 
 	//getter
 	/**
-	 * Get the list of all of the stores
+	 * Get a list of all of the stores
 	 * @return store list
 	 */
 	public ArrayList<Store> getStores() {
@@ -279,7 +283,7 @@ public class Game {
 	}
 	
 	/**
-	 * To create a new player
+	 * Creates a new player
 	 * @param ship The ship that the player chose
 	 * @param island The start island that the player chose
 	 * @param name The name of the player
@@ -290,7 +294,7 @@ public class Game {
 	}
 	
 	/**
-	 * To exit the store screen and back to the main menu screen
+	 * Exits the store screen and opens the main menu screen
 	 */
 	public void exitStore() {
 		mainMenuWindow.open(this);
@@ -298,7 +302,7 @@ public class Game {
 	}
 	
 	/**
-	 * To open the store screen
+	 * Opens the store screen and closes the main menu screen
 	 */
 	public void openStore() {
 		storeWindow.open(this);
@@ -306,7 +310,7 @@ public class Game {
 	}
 	
 	/**
-	 * To open the inventory screen 
+	 * Opens the inventory screen and closes the main menu screen
 	 */
 	public void openInventory() {
 		inventoryWindow.open(this);
@@ -314,7 +318,7 @@ public class Game {
 	}
 	
 	/**
-	 * To exit the inventory screen and back to the main menu screen
+	 * Exits the inventory screen and opens the main menu screen
 	 */
 	public void exitInventory() {
 		mainMenuWindow.open(this);
@@ -322,15 +326,15 @@ public class Game {
 	}
 	
 	/**
-	 * To open the select destination frame
+	 * Opens the set sail screen and closes the main menu screen
 	 */
-	public void openSelectDestination() {
+	public void openSetSail() {
 		setSailWindow.open(this);
 		mainMenuWindow.close();
 	}
 	
 	/**
-	 * To exit the set sail screen and back to the main menu screen
+	 * Exits the set sail screen and opens the main menu screen
 	 */
 	public void exitSetSail() {
 		mainMenuWindow.open(this);
@@ -338,7 +342,7 @@ public class Game {
 	}
 	
 	/**
-	 * To open the secret menu screen
+	 * Opens the secret menu screen and closes the main menu screen
 	 */
 	public void openSecretMenu() {
 		secretMenuWindow.open(this);
@@ -346,7 +350,7 @@ public class Game {
 	}
 	
 	/**
-	 * To exit the secret menu screen and back to the main menu screen
+	 * Exits the secret menu screen and opens the main menu screen
 	 */
 	public void exitSecretMenu() {
 		mainMenuWindow.open(this);
@@ -354,7 +358,7 @@ public class Game {
 	}
 	
 	/**
-	 * To open the ship information screen
+	 * Opens the ship information screen and closes the main menu screen
 	 */
 	public void openShipInformation() {
 		shipInformationWindow.open(this);
@@ -362,7 +366,7 @@ public class Game {
 	}
 	
 	/**
-	 * To exit the ship information screen and back to the main menu screen
+	 * Exits the ship information screen and opens the main menu screen
 	 */
 	public void exitShipInformation() {
 		mainMenuWindow.open(this);
@@ -370,7 +374,7 @@ public class Game {
 	}
 	
 	/**
-	 * To open the island information screen
+	 * Opens the island information screen and closes the main menu screen
 	 */
 	public void openIslandInformation() {
 		islandInformationWindow.open(this);
@@ -378,7 +382,7 @@ public class Game {
 	}
 	
 	/**
-	 * To exit the island information screen and back to the main menu screen
+	 * Exits the island information screen and opens the main menu screen
 	 */
 	public void exitIslandInformation() {
 		mainMenuWindow.open(this);
@@ -387,8 +391,8 @@ public class Game {
 	
 	/**
 	 * To determine what is the reason for the game over
-	 * @param deathType The reason for the game over
-	 * @return the type of game over
+	 * @param deathType The type of event that killed the player
+	 * @return the game over message
 	 */
 	public String gameOver(int deathType) {
 		int pirates = 1;
@@ -403,7 +407,8 @@ public class Game {
 	}
 
 	/**
-	 * To start the game
+	 * Starts the game
+	 * Closes the setup window and opens the main menu screen
 	 */
 	public void startGame() {
 		initWindows();
@@ -412,7 +417,8 @@ public class Game {
 	}
 	
 	/**
-	 * To end the game
+	 * Ends the game
+	 * Closes the main menu screen and exits the program
 	 */
 	public void endGame() {
 		mainMenuWindow.close();
@@ -420,7 +426,8 @@ public class Game {
 	}
 	
 	/**
-	 * To play the game
+	 * Starts the game setup
+	 * Initializes the game environment and opens the setup window
 	 */
 	public void playGame() {
 		initShips();
@@ -432,8 +439,8 @@ public class Game {
 	}
 	
 	/**
-	 * Initiate a game
-	 * @param args
+	 * Initiates a new game
+	 * @param args Arguments for the main method
 	 */
 	public static void main(String[] args) {
 		

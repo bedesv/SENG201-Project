@@ -18,7 +18,7 @@ public class Weather extends RandomEvent{
 	/**
 	 * A storm hits the ship when the player is sailing
 	 * <br> This will add some damage to the ship and requires repair before sailing again
-	 * @param ship
+	 * @param ship The ship used by the player
 	 * @return true (if the game continues) or false (otherwise)
 	 */
 	public EventInfo storm(Ship ship) {

@@ -2,7 +2,7 @@ package exceptions;
 
 /**
  * The exception is raised when the attack multiplier exceeds the maximum level possible in the game
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 @SuppressWarnings("serial")

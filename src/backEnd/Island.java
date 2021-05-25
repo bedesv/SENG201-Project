@@ -13,7 +13,7 @@ public class Island {
 	private String islandName;
 	/** the store that is located on the island */
 	private Store store;
-	/** the list of the possible routes from the island */
+	/** the list of the possible routes to/from the island */
 	private ArrayList<Route> routeList;
 	
 	
@@ -26,8 +26,8 @@ public class Island {
 	
 	/**
 	 * A constructor for an island object. Also creates an array list for possible routes from it.
-	 * @param name Default by button, the name of the island
-	 * @param store Default, a specific store only on that island
+	 * @param name The name of the island
+	 * @param store A specific store only on that island
 	 */
 	public Island(String name, Store store) {
 		this.islandName = name;
@@ -37,7 +37,7 @@ public class Island {
 	}
 	
 	/**
-	 * A method to add routes from a specific island to other islands in its route list
+	 * A method to add routes from a specific island to other island in its route list
 	 * @param route A specific way from one island to another with unique characteristics
 	 */
 	public void addRoute(Route route) {
@@ -54,10 +54,10 @@ public class Island {
 	}
 	
 	//getter
-		/**
-		 * Get the store (object) on the island
-		 * @return island's store
-		 */
+	/**
+	 * Get the store (object) on the island
+	 * @return island's store
+	 */
 	public Store getStore() {
 		return store;
 	}
@@ -65,7 +65,8 @@ public class Island {
 	//getter
 	/**
 	 * Get the list of the possible routes player can travel from home island
-	 * @return island's list of routes
+	 * @param destination The island the player wants to travel to
+	 * @return A list of routes from the players current island to the given island
 	 */
 	public ArrayList<Route> getRoutes(Island destination){
 		ArrayList<Route> possibleRoutes = new ArrayList<Route>();

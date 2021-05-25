@@ -2,7 +2,7 @@ package exceptions;
 
 /**
  * The exception is raised when there are not enough days to continue sailing
- * @author Aerinn Nguyen, Bede Skinnier-Vennell
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
  *
  */
 @SuppressWarnings("serial")

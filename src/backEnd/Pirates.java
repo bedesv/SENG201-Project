@@ -18,13 +18,13 @@ public class Pirates extends RandomEvent{
 	/**
 	 * Player meets pirates and needs to play a dice game to battle with them
 	 * @param shipName The name of the ship the player is using
-	 * @return true (if the player overcomes the battle) or false (if the player loses the entire game)
+	 * @return An EventInfo with messages to be displayed to the player and the outcome of the event
 	 */
 	public EventInfo pirateBattle(Ship shipName) {
 		int sailSuccess = 0;
 		ArrayList<String> messages = new ArrayList<String>();
 		int shipAttackMultiplier = shipName.getAttackMultiplier();
-		// the player has to get a greater number from the dice than this to win
+		// the player has to roll a number larger than this to win
 		// higher ship attack multiplier yields higher probability to win
 		int bound = 25 - shipAttackMultiplier;
 		if (bound < 0) {
