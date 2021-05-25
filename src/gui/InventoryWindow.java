@@ -11,6 +11,11 @@ import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
+import backEnd.Game;
+import backEnd.Item;
+import backEnd.Player;
+import backEnd.Ship;
+import backEnd.Weapon;
 
 import javax.swing.border.EtchedBorder;
 

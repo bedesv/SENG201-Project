@@ -1,6 +1,8 @@
-package gui;
+package backEnd;
 
 import java.util.ArrayList;
+
+import gui.*;
 
 public class Game {
 	
@@ -24,10 +26,10 @@ public class Game {
 	private void initShips() {
 		// Create Ships
 		
-		Ship Delight = new Ship("Delight", 8, 100, 12, 8, 4); 
-		Ship Defender = new Ship("Defender", 13, 130, 6, 18, 3); 
-		Ship Mantis = new Ship("Mantis", 12, 110, 17, 5, 4); 
-		Ship Pioneer = new Ship("Pioneer", 12, 80, 10, 10, 5);
+		Ship Delight = new Ship("Delight", 8, 100, 12, 8, 4, "/Images/Delight.jpg"); 
+		Ship Defender = new Ship("Defender", 13, 130, 6, 18, 3, "/Images/Defender.jpg"); 
+		Ship Mantis = new Ship("Mantis", 12, 110, 17, 5, 4, "/Images/Mantis.jpg"); 
+		Ship Pioneer = new Ship("Pioneer", 12, 80, 10, 10, 5, "/Images/Pioneer.jpg");
 		
 		ships.add(Pioneer);
 		ships.add(Defender);
@@ -160,11 +162,11 @@ public class Game {
 		items.add(new Item("Orange", "An orange fruit", "Food", 1, 3)); 
 		items.add(new Item("Pear", "A weird looking fruit", "Food", 1, 7)); 
 		
-		weapons.add(new Weapon("Single Cannon", "Adds 5 to the ships damage multiplier", "Weapon", 7, 60, 5));
-		weapons.add(new Weapon("Double Cannon", "Adds 9 to the ships damage multiplier", "Weapon", 16, 70, 9));
-		weapons.add(new Weapon("Grappling Hook", "Adds 3 to the ships damage multiplier", "Weapon", 5, 35, 3));
-		weapons.add(new Weapon("Prow Armour", "Adds 10 to the ships damage multiplier", "Weapon", 0, 85, 10));
-		weapons.add(new Weapon("Triple Cannon", "Adds 15 to the ships damage multiplier", "Weapon", 35, 95, 15));
+		weapons.add(new Weapon("Single Cannon", "Adds 5 to the ships attack multiplier", "Weapon", 7, 60, 5));
+		weapons.add(new Weapon("Double Cannon", "Adds 9 to the ships attack multiplier", "Weapon", 16, 70, 9));
+		weapons.add(new Weapon("Grappling Hook", "Adds 3 to the ships attack multiplier", "Weapon", 5, 35, 3));
+		weapons.add(new Weapon("Prow Armour", "Adds 10 to the ships attack multiplier", "Weapon", 0, 85, 10));
+		weapons.add(new Weapon("Triple Cannon", "Adds 15 to the ships attack multiplier", "Weapon", 35, 95, 15));
 		 
 		
 	} 

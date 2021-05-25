@@ -1,4 +1,4 @@
-package gui;
+package exceptions;
 
 /**
  * This Exception class shows message when there is no more space for inventory

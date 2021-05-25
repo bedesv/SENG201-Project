@@ -1,4 +1,4 @@
-package gui;
+package exceptions;
 
 @SuppressWarnings("serial")
 public class AttackMultiplierTooHighException extends IllegalStateException {

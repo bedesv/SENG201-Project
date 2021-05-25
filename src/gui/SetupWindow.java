@@ -28,6 +28,10 @@ import javax.swing.SwingConstants;
 import javax.swing.JCheckBox;
 import javax.swing.UIManager;
 
+import backEnd.Game;
+import backEnd.Island;
+import backEnd.Ship;
+
 public class SetupWindow {
 
 	private JFrame frmSetupWindow;
@@ -125,7 +129,7 @@ public class SetupWindow {
 	private void initialize(Game game) {
 		frmSetupWindow = new JFrame();
 		frmSetupWindow.setTitle("Set Up");
-		frmSetupWindow.setBounds(6, -31, 1326, 872);
+		frmSetupWindow.setBounds(6, -31, 1326, 950);
 		frmSetupWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
@@ -200,7 +204,7 @@ public class SetupWindow {
 		lblMap.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Base Map.png")));
 		
 		panelEnterName = new JPanel();
-		panelEnterName.setBounds(213, 98, 209, 63);
+		panelEnterName.setBounds(245, 98, 209, 63);
 		frmSetupWindow.getContentPane().add(panelEnterName);
 		panelEnterName.setLayout(null);
 		
@@ -217,7 +221,7 @@ public class SetupWindow {
 		textYourName.setColumns(10);
 		
 		panelSelectDays = new JPanel();
-		panelSelectDays.setBounds(837, 98, 420, 75);
+		panelSelectDays.setBounds(778, 98, 420, 75);
 		frmSetupWindow.getContentPane().add(panelSelectDays);
 		panelSelectDays.setLayout(null);
 		
@@ -385,7 +389,7 @@ public class SetupWindow {
 		panelWelcomeMessage.add(lblInstructions);
 		
 		btnPlayGame = new JButton("Play Game");
-		btnPlayGame.setBounds(577, 100, 200, 63);
+		btnPlayGame.setBounds(578, 835, 200, 63);
 		frmSetupWindow.getContentPane().add(btnPlayGame);
 		btnPlayGame.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		

@@ -12,6 +12,9 @@ import java.awt.event.ActionEvent;
 import java.awt.Font;
 import javax.swing.JPanel;
 
+import backEnd.Game;
+import backEnd.Player;
+
 public class MainMenuWindow {
 
 	private JFrame frmMainMenuWindow;

@@ -1,4 +1,4 @@
-package gui;
+package backEnd;
 
 import java.util.ArrayList;
 
@@ -136,8 +136,6 @@ public class MapRoute {
 			dangerousRoute = routes.get(0);
 			imageString = "/Images/Arborland Islet and Crosser Peninsula No Label.png";
 			break;
-
-			
 		}
 		MapRoute result = new MapRoute(imageString, safeRoute, dangerousRoute);
 		return result;

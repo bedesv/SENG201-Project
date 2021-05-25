@@ -1,6 +1,12 @@
-package gui;
+package backEnd;
 
 import java.util.ArrayList;
+
+import exceptions.AttackMultiplierTooHighException;
+import exceptions.InsufficientCoinsException;
+import exceptions.InsufficientDaysException;
+import exceptions.InsufficientInventorySpaceException;
+import exceptions.WeaponAlreadyOwnedException;
 
 public class Player { 
 

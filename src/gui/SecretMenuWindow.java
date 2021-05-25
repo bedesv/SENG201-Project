@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import backEnd.Game;
+import backEnd.Player;
+
 public class SecretMenuWindow {
 
 	private JFrame frmSecretMenuWindow;

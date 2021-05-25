@@ -12,6 +12,16 @@ import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
+
+import backEnd.EventInfo;
+import backEnd.Game;
+import backEnd.Island;
+import backEnd.MapRoute;
+import backEnd.Player;
+import backEnd.Route;
+import exceptions.InsufficientCoinsException;
+import exceptions.InsufficientDaysException;
+
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 

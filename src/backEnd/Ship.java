@@ -1,4 +1,4 @@
-package gui;
+package backEnd;
 
 import java.util.*;
 
@@ -40,8 +40,10 @@ public class Ship {
 	private ArrayList<Weapon> soldWeapons = new ArrayList<Weapon>();
 	/** the speed of the ship */
 	private int shipSpeed;
-	/** the wage the player has to pay each crew for a day of a sail */
+	/** wages the player has to pay each crew member for a day of a sail */
 	private final int COSTPERCREW = 5;
+	/** */
+	private String imgString;
 	
 /**
 	 * Constructor of a ship
@@ -52,13 +54,14 @@ public class Ship {
 	 * @param damage The damage multiplier of the ship
 	 * @param speed The speed of the ship
 	 */
-	public Ship(String name, int crew, int capacity, int attack, int damage, int speed) {
-		shipCrew = crew;
-		shipName = name;
-		maxCapacity = capacity;
-		attackMultiplier = attack;
-		defenceMultiplier = damage;
-		shipSpeed = speed;	
+	public Ship(String name, int crew, int capacity, int attack, int damage, int speed, String imgString) {
+		this.shipCrew = crew;
+		this.shipName = name;
+		this.maxCapacity = capacity;
+		this.attackMultiplier = attack;
+		this.defenceMultiplier = damage;
+		this.shipSpeed = speed;	
+		this.imgString = imgString;
 	}
 	
 	/**
@@ -77,6 +80,15 @@ public class Ship {
 	 */
 	public int getRepairCost() {
 		return shipDamage;
+	}
+	
+	//getter
+	/**
+	 * Get the image location string
+	 * @return
+	 */
+	public String getImgString() {
+		return this.imgString;
 	}
 	
 	//getter

@@ -16,6 +16,16 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+
+import backEnd.Game;
+import backEnd.Island;
+import backEnd.Item;
+import backEnd.MapRoute;
+import backEnd.Player;
+import backEnd.Route;
+import backEnd.Store;
+import backEnd.Weapon;
+
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -247,6 +257,7 @@ public class IslandInformationWindow {
 		
 		JRadioButton rdbtnArborlandIslet = new JRadioButton("Arborland Islet");
 		buttonGroupIslandRadioButtons.add(rdbtnArborlandIslet);
+		rdbtnArborlandIslet.setToolTipText("Items are cheap here");
 		rdbtnArborlandIslet.setOpaque(false);
 		rdbtnArborlandIslet.setForeground(Color.WHITE);
 		rdbtnArborlandIslet.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -265,6 +276,7 @@ public class IslandInformationWindow {
 		
 		JRadioButton rdbtnRainingArchipelago = new JRadioButton("Raining Archipelago");
 		buttonGroupIslandRadioButtons.add(rdbtnRainingArchipelago);
+		rdbtnRainingArchipelago.setToolTipText("Items are reasonably priced here");
 		rdbtnRainingArchipelago.setOpaque(false);
 		rdbtnRainingArchipelago.setForeground(Color.WHITE);
 		rdbtnRainingArchipelago.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -273,6 +285,7 @@ public class IslandInformationWindow {
 		
 		JRadioButton rdbtnRemoteRefuge = new JRadioButton("Remote Refuge");
 		buttonGroupIslandRadioButtons.add(rdbtnRemoteRefuge);
+		rdbtnRemoteRefuge.setToolTipText("Items are cheapest here");
 		rdbtnRemoteRefuge.setOpaque(false);
 		rdbtnRemoteRefuge.setForeground(Color.WHITE);
 		rdbtnRemoteRefuge.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -281,6 +294,7 @@ public class IslandInformationWindow {
 		
 		JRadioButton rdbtnBrightwichIsland = new JRadioButton("Brightwich Island");
 		buttonGroupIslandRadioButtons.add(rdbtnBrightwichIsland);
+		rdbtnBrightwichIsland.setToolTipText("Items are most expensive here");
 		rdbtnBrightwichIsland.setOpaque(false);
 		rdbtnBrightwichIsland.setForeground(Color.WHITE);
 		rdbtnBrightwichIsland.setFont(new Font("Tahoma", Font.PLAIN, 13));

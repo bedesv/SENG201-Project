@@ -15,6 +15,18 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+
+import backEnd.Game;
+import backEnd.Item;
+import backEnd.Player;
+import backEnd.Ship;
+import backEnd.Store;
+import backEnd.Weapon;
+import exceptions.AttackMultiplierTooHighException;
+import exceptions.InsufficientCoinsException;
+import exceptions.InsufficientInventorySpaceException;
+import exceptions.WeaponAlreadyOwnedException;
+
 import javax.swing.border.EtchedBorder;
 
 import java.awt.Color;
@@ -260,7 +272,7 @@ public class StoreWindow {
 		
 		// Create a button to buy the selected weapon
 		btnBuyWeapon = new JButton("Buy Weapon");
-		btnBuyWeapon.setBounds(674, 337, 120, 40);
+		btnBuyWeapon.setBounds(674, 337, 130, 40);
 		btnBuyWeapon.setEnabled(false);
 		frmStoreWindow.getContentPane().add(btnBuyWeapon);
 		
@@ -272,7 +284,7 @@ public class StoreWindow {
 		
 		// Create a button to sell the selected weapon
 		btnSellWeapon = new JButton("Sell Weapon");
-		btnSellWeapon.setBounds(674, 648, 120, 40);
+		btnSellWeapon.setBounds(674, 648, 130, 40);
 		btnSellWeapon.setEnabled(false);
 		frmStoreWindow.getContentPane().add(btnSellWeapon);
 		

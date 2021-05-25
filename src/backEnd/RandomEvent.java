@@ -1,4 +1,4 @@
-package gui;
+package backEnd;
 
 /**
  * Super class of random events that can happen during a sail

@@ -1,4 +1,4 @@
-package gui;
+package backEnd;
 
 /**
  * This is a sub class of Item class, a type of item
