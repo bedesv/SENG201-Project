@@ -28,7 +28,7 @@ public class Ship {
 	private int coins=1000;
 	/** the attack multiplier of the ship, the higher the more likely player will win a battle */
 	private int attackMultiplier;
-	/** the defence multiplier, any damage received will be multiplied with this, the lower the better */
+	/** the defence multiplier, any damage received will be divided by this, the lower the better */
 	private int defenceMultiplier;
 	/** the list of items in the inventory on the ship */
 	private ArrayList<Item> shipInventory = new ArrayList<Item>();
@@ -42,7 +42,7 @@ public class Ship {
 	private int shipSpeed;
 	/** wages the player has to pay each crew member for a day of a sail */
 	private final int COSTPERCREW = 5;
-	/** */
+	/** The string for the location of the image of the ship */
 	private String imgString;
 	
 /**

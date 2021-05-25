@@ -8,14 +8,23 @@ import exceptions.InsufficientDaysException;
 import exceptions.InsufficientInventorySpaceException;
 import exceptions.WeaponAlreadyOwnedException;
 
+/**
+ * A player is the captain of the game
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ *
+ */
 public class Player { 
-
+	/** The ship the the player selected */
 	private Ship selectedShip;
+	/** The name of the player */
 	private String name;
+	/** The maximum days the players are allowed to continue playing */
 	private int maxDays;
+	/** The days that have passed */
 	private int daysPlayed=0;
+	/** Instead of choosing a fixed number of days, player can play indefinitely */
 	private boolean unlimitedDays;
-	
+
 	/** event of encountering pirates */
 	private Pirates encounterPirates = new Pirates();
 	/** event of a storm occurring on sail */
@@ -23,9 +32,15 @@ public class Player {
 	/** event of rescuing another sailor */
 	private RescueSailors rescueSailors = new RescueSailors();
 	
-	 
+	
+	/**
+	 * Constructor of a player
+	 * @param ship The ship the player chose
+	 * @param startingLocation The island the ship is currently based
+	 * @param name The name of the player
+	 * @param days The maximum of days that the player chose to play
+	 */
 	public Player(Ship ship, Island startingLocation, String name, int days) {
-		
 		this.selectedShip = ship;
 		this.selectedShip.setLocation(startingLocation);
 		this.name = name;
@@ -38,14 +53,27 @@ public class Player {
 		}
 	}
 	
+	//getter
+	/**
+	 * Get the coins on the ship
+	 * @return coins
+	 */
 	public int getCoins() {
 		return selectedShip.getCoins();
 	}
 	
+	/**
+	 * To repair the ship after the storm hit it
+	 */
 	public void repairShip() {
 		selectedShip.repairShip();
 	}
 	
+	//getter
+	/**
+	 * Get the string to show how much capacity has been used compared to the maximum capacity
+	 * @return current capacity
+	 */
 	public String getShipCapacity() {
 		return selectedShip.getCurrCapacity() + "/" + selectedShip.getMaxCapacity();
 	}
@@ -139,14 +167,28 @@ public class Player {
 		selectedShip.sellWeapon(weapon, price);
 	}
 	
+	/**
+	 * Check if the play mode is unlimited days
+	 * @return true or false
+	 */
 	public boolean unlimitedDays() {
 		return this.unlimitedDays;
 	}
 	
+	//getter
+	/**
+	 * Get the value of the inventory
+	 * @return inventory's value
+	 */
 	public int getInventoryValue() {
 		return selectedShip.inventoryValue();
 	}
 	
+	//getter
+	/**
+	 * Get the island that the ship is currently staying
+	 * @return island
+	 */
 	public Island getCurrLocation() {
 		return selectedShip.getLocation();
 	}
@@ -205,38 +247,83 @@ public class Player {
 		return eventInfo;
 	}
 	
+	//getter
+	/**
+	 * Get maximum days to play
+	 * @return days
+	 */
 	public int getMaxDays() {
 		return this.maxDays;
 	}
 	
+	//getter
+	/**
+	 * Get how many days having passed
+	 * @return days
+	 */
 	public int getCurrDay() {
 		return this.daysPlayed;
 	}
 	
+	//getter
+	/**
+	 * Get the attack multiplier of the ship
+	 * @return attack multiplier
+	 */
 	public int getAttackMultiplier() {
 		return selectedShip.getAttackMultiplier();
 	}
 	
+	//getter
+	/**
+	 * Get the name of the player
+	 * @return name
+	 */
 	public String getName() {
 		return this.name;
 	}
 	
+	//getter
+	/**
+	 * Get the damage of the ship
+	 * @return damage
+	 */
 	public int getShipDamage() {
 		return selectedShip.getCurrentDamage();
 	}
 	
+	//getter
+	/**
+	 * Get the repair cost for the ship
+	 * @return repair cost
+	 */
 	public int getShipRepairCost() {
 		return selectedShip.getRepairCost();
 	}
 	
+	//getter
+	/**
+	 * Get the ship is being used
+	 * @return ship
+	 */
 	public Ship getSelectedShip() {
 		return this.selectedShip;
 	}
 	
+	//getter
+	/**
+	 * Get the capacity has been used up in the ship
+	 * @return current used capacity
+	 */
 	public int getCurrShipCapacity() {
 		return selectedShip.getCurrCapacity();
 	}
 	
+	//getter
+	/**
+	 * Get the maximum capacity on the ship
+	 * @return maximum capacity
+	 */
 	public int getMaxShipCapacity() {
 		return selectedShip.getMaxCapacity();
 	}
