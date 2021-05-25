@@ -9,8 +9,16 @@ package exceptions;
 @SuppressWarnings("serial")
 public class InsufficientCoinsException extends IllegalStateException{
 	
+	/**
+	 * Constructor for InsufficientCoinsException
+	 * Empty
+	 */
 	public InsufficientCoinsException() {}
 	
+	/**
+	 * Constructor for InsufficientCoinsException
+	 * @param message The message showed on screen when the error occurs
+	 */
 	public InsufficientCoinsException(String message) {
 		super(message);
 	}

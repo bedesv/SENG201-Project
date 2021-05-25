@@ -9,8 +9,16 @@ package exceptions;
 @SuppressWarnings("serial")
 public class InsufficientInventorySpaceException extends IllegalStateException {
 	
+	/**
+	 * Constructor of the InsufficientInventorySpaceException
+	 * Empty
+	 */
 	public InsufficientInventorySpaceException() {}
 	
+	/**
+	 * Constructor of the InsufficientInventorySpaceException
+	 * @param message The message showed on screen when the error occurs
+	 */
 	public InsufficientInventorySpaceException(String message) {
 		super(message);
 	}
