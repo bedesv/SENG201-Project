@@ -7,10 +7,10 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import commandLineApplication.Island;
-import commandLineApplication.Route;
-import commandLineApplication.Ship;
-import commandLineApplication.Store;
+import backEnd.Island;
+import backEnd.Route;
+import backEnd.Ship;
+import backEnd.Store;
 
 class RouteTest {
 	Ship testShip;
@@ -18,12 +18,12 @@ class RouteTest {
 	Store testStore2;
 	Island testIsland;
 	Island testIsland2;
-	Route testRoute;
+	Route testRoute = new Route();
 	ArrayList<Island> testIslandsArray = new ArrayList<Island>();
 	
 	@BeforeEach
-	void init() {
-		testShip = new Ship("Test Ship", 10, 100, 10, 10, 5);
+	public void init() {
+		testShip = new Ship("Test Ship", 10, 100, 10, 10, 5, "");
 		testStore = new Store("Test Store", 5);
 		testStore2 = new Store("Test Store 2", 5);
 		testIsland = new Island("Test Island", testStore);
@@ -39,7 +39,7 @@ class RouteTest {
 	public void getDaysTest() {
 		testShip.setLocation(testIsland);
 		
-		assertEquals(2, testRoute.getDays(testShip));
+		assertEquals(2, testRoute.getDaysToTravel(testShip));
 	}
 	
 	@Test
@@ -62,6 +62,10 @@ class RouteTest {
 		assertEquals(100, testRoute.getMultiplier());
 	}
 	
+	@Test
+	public void getCostTest() {
+		assertEquals(100, testRoute.getCost(testShip));
+	}
 
 
 }

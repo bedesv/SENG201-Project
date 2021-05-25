@@ -227,7 +227,7 @@ public class Game {
 	public ArrayList<Island> getIslands() {
 		return this.islands;
 	}
-	
+	 
 	public ArrayList<Store> getStores() {
 		return this.stores;
 	}

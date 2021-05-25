@@ -5,9 +5,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import commandLineApplication.Island;
-import commandLineApplication.Route;
-import commandLineApplication.Store;
+import backEnd.Island;
+import backEnd.Route;
+import backEnd.Store;
 
 class IslandTest {
 	Store testStore;

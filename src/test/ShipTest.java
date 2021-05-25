@@ -12,34 +12,29 @@ import backEnd.Item;
 import backEnd.Route;
 import backEnd.Ship;
 import backEnd.Store;
+import backEnd.Weapon;
 
 class ShipTest {
 	Ship testShip;
-	Store testStore;
-	Store testStore2;
-	Store testStore3;
-	Store testStore4;
-	Store testStore5;
-	Island testIsland;
-	Island testIsland2;
-	Island testIsland3;
-	Island testIsland4;
-	Island testIsland5;
 	Route testRoute;
 	Route testRoute2;
+	Store testStore;
+	Island testIsland;
 	Item testItem;
 	Item testItem2;
+	Item testRum;
+	Weapon testWeapon;
 	ArrayList<Island> testIslandList = new ArrayList<Island>();
 	
 	@BeforeEach
-	void init() {
-		testShip = new Ship("Test Ship", 10, 100, 10, 10, 5, "");
-		testStore = new Store("Test Store", 5);
-
-		testIsland = new Island("Test Island", testStore);
-		
+	public void init() {
+		testStore = new Store();
+		testIsland = new Island();
+		testShip = new Ship("Test Ship", 10, 100, 29, 29, 5, "");
 		testItem = new Item("Item", "A yummy fruit", "Food", 1, 10);
 		testItem2 = new Item("Item", "A yummy fruit", "Food", 101, 5);
+		testRum = new Item("Rum", "Delicous alcohol", "Drink", 5, 15);
+		testWeapon = new Weapon("Weapon", "Testing 123", "Weapon", 5, 10, 5);
 	}
 	
 	@Test
@@ -80,16 +75,64 @@ class ShipTest {
 	}
 	
 	@Test
-	public void takeDamageTest() {
+	public void takeGetDamageTest() {
 		assertEquals(0, testShip.getCurrentDamage());
 		testShip.takeDamage(50);
 		assertEquals(50, testShip.getCurrentDamage());
 	}
 	
 	@Test
+	public void getCrewTest() {
+		assertEquals(10, testShip.getCrew());
+	}
+	
+	@Test
+	public void hasRumTest() {
+		assertTrue(!(testShip.hasRum()));
+		testShip.buyItem(testRum, 0);
+		assertTrue(testShip.hasRum());
+	}
+	
+	@Test
+	public void removeRumTest() {
+		testShip.buyItem(testRum, 0);
+		testShip.removeRum();
+		assertEquals(0, testShip.getInventory().size());
+	}
+	
+	@Test
+	public void getItemsBoughtSoldTest() {
+		testShip.buyItem(testItem, 10);
+		assertEquals(testItem.getName(), testShip.getItemsBought().get(0).getName());
+		testShip.sellItem(testItem, 10);
+		assertEquals(testItem.getName(), testShip.getItemsSold().get(0).getName());
+	}
+	
+	@Test
+	public void getWeaponsBoughtSoldTest() {
+		testShip.buyWeapon(testWeapon, 10);
+		assertEquals(testWeapon.getName(), testShip.getWeaponsBought().get(0).getName());
+		testShip.sellWeapon(testWeapon, 10);
+		assertEquals(testWeapon.getName(), testShip.getWeaponsSold().get(0).getName());
+	}
+	
+	@Test
+	public void getCurrCapacityTest() {
+		assertEquals(0, testShip.getCurrCapacity());
+		testShip.buyItem(testItem, 10);
+		assertEquals(testItem.getSize(), testShip.getCurrCapacity());
+	}
+	
+	@Test
+	public void getMaxCapacityTest() {
+		assertEquals(100, testShip.getMaxCapacity());
+	}
+	
+	
+	@Test
 	public void getMultipliersTest() {
-		assertEquals(10, testShip.getAttackMultiplier());
-		assertEquals(10, testShip.getDefenceMultiplier());
+		assertEquals(29, testShip.getAttackMultiplier());
+		assertEquals(29, testShip.getDefenceMultiplier());
 	}
 	
 	@Test
@@ -103,34 +146,49 @@ class ShipTest {
 	@Test
 	public void sellItemTest() {
 		testShip.buyItem(testItem, 10);
-		
 		testShip.sellItem(testItem, 10);
 		assertEquals(1000, testShip.getCoins());
-		
 		assertEquals(0, testShip.getInventory().size());
-		
-		
 	}
 	
 	@Test
-	public void inventoryTotalTest() {
+	public void inventoryValueTest() {
+		testShip.clearInventory();
 		testShip.buyItem(testItem, 10);
-		assertEquals(10, testShip.inventoryValue());
+		testShip.buyWeapon(testWeapon, 10);
+		assertEquals(20, testShip.inventoryValue());
 	}
 	
 	@Test
 	public void inventoryContainsTest() {
+		assertTrue(!testShip.inventoryContains(testItem));
 		testShip.buyItem(testItem, 10);
-		
 		assertTrue(testShip.inventoryContains(testItem));
+	}
+	
+	@Test
+	public void getWeaponsTest() {
+		testShip.buyWeapon(testWeapon, 10);
+		assertEquals(testWeapon.getName(), testShip.getWeapons().get(0).getName());
+	}
+	
+	@Test
+	public void getWeaponFromInventoryTest() {
+		testShip.buyWeapon(testWeapon, 10);
+		assertEquals(testWeapon.getName(), testShip.getWeaponFromInventory(testWeapon).getName());
+	}
+	
+	@Test
+	public void getCostToSailTest() {
+		assertEquals(50, testShip.getCostToSail(1));
+		assertEquals(350, testShip.getCostToSail(7));
+		assertEquals(500, testShip.getCostToSail(10));
 	}
 	
 	@Test
 	public void clearInventoryTest() {
 		testShip.buyItem(testItem, 10);
-		
 		testShip.clearInventory();
-		
 		assertEquals(0, testShip.getInventory().size());
 	}
 	
@@ -142,8 +200,40 @@ class ShipTest {
 	@Test
 	public void getItemTest() {
 		testShip.buyItem(testItem, 10);
-		
 		assertTrue(testItem.equals(testShip.getItemFromInventory(testItem)));
+	}
+	
+	@Test
+	public void addRemoveCoinsTest() {
+		testShip.addCoins(50);
+		assertEquals(1050, testShip.getCoins());
+		testShip.removeCoins(100);
+		assertEquals(950, testShip.getCoins());
+	}
+	
+	@Test
+	public void increaseAttackMultTest() {
+		assertEquals(29, testShip.getAttackMultiplier());
+		testShip.increaseAttackMult();
+		assertEquals(30, testShip.getAttackMultiplier());
+		testShip.increaseAttackMult();
+		assertEquals(30, testShip.getAttackMultiplier());
+	}
+	
+	@Test
+	public void increaseDefenceMultTest() {
+		assertEquals(29, testShip.getDefenceMultiplier());
+		testShip.increaseDefenceMult();
+		assertEquals(30, testShip.getDefenceMultiplier());
+		testShip.increaseDefenceMult();
+		assertEquals(30, testShip.getDefenceMultiplier());
+	}
+	
+	@Test
+	public void increaseInventoryCapacityTest() {
+		assertEquals(100, testShip.getMaxCapacity());
+		testShip.increaseInventoryCapacity();
+		assertEquals(110, testShip.getMaxCapacity());
 	}
 
 }
