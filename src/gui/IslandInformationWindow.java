@@ -15,6 +15,8 @@ import javax.swing.JTextArea;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.border.EtchedBorder;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import backEnd.Game;
@@ -97,6 +99,7 @@ public class IslandInformationWindow {
 	 * Initialize the contents of the frmIslandInformationWindow.
 	 * @wbp.parser.entryPoint
 	 */
+	@SuppressWarnings("serial")
 	private void initialize(Game game) {
 		frmIslandInformationWindow = new JFrame();
 		frmIslandInformationWindow.setBounds(100, 100, 625, 800);
@@ -133,7 +136,15 @@ public class IslandInformationWindow {
 				.addComponent(weaponsToSellScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		weaponsToSellModel = new DefaultTableModel(weaponTableHeaders, 0);
+		weaponsToSellModel = new DefaultTableModel(weaponTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		weaponsToSellTable = new JTable(weaponsToSellModel);
 		weaponsToSellTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		weaponsToSellScrollPane.setViewportView(weaponsToSellTable);
@@ -167,7 +178,15 @@ public class IslandInformationWindow {
 				.addComponent(weaponsToBuyScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		weaponsToBuyModel = new DefaultTableModel(weaponTableHeaders, 0);
+		weaponsToBuyModel = new DefaultTableModel(weaponTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		weaponsToBuyTable = new JTable(weaponsToBuyModel);
 		weaponsToBuyTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		weaponsToBuyScrollPane.setViewportView(weaponsToBuyTable);
@@ -200,7 +219,15 @@ public class IslandInformationWindow {
 				.addGap(0, 155, Short.MAX_VALUE)
 				.addComponent(itemsToSellScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
-		itemsToSellModel = new DefaultTableModel(itemTableHeaders, 0);
+		itemsToSellModel = new DefaultTableModel(itemTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		itemsToSellTable = new JTable(itemsToSellModel);
 		itemsToSellTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToSellScrollPane.setViewportView(itemsToSellTable);
@@ -232,7 +259,15 @@ public class IslandInformationWindow {
 				.addComponent(itemsToBuyScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		itemsToBuyModel = new DefaultTableModel(itemTableHeaders, 0);
+		itemsToBuyModel = new DefaultTableModel(itemTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		itemsToBuyTable = new JTable(itemsToBuyModel);
 		itemsToBuyTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToBuyScrollPane.setViewportView(itemsToBuyTable);
@@ -335,11 +370,6 @@ public class IslandInformationWindow {
 		panelDangerousRouteLegend.setBounds(0, 3, 20, 20);
 		panelDangerousRoute.add(panelDangerousRouteLegend);
 		
-		JRadioButton rdbtnDangerousRoute = new JRadioButton("");
-		rdbtnDangerousRoute.setOpaque(false);
-		rdbtnDangerousRoute.setBounds(0, 0, 20, 20);
-		panelDangerousRouteLegend.add(rdbtnDangerousRoute);
-		
 		JTextArea textAreaDangerousRoute = new JTextArea();
 		textAreaDangerousRoute.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		textAreaDangerousRoute.setEditable(false);
@@ -357,11 +387,6 @@ public class IslandInformationWindow {
 		panelSafeRouteLegend.setBackground(new Color(0, 100, 0));
 		panelSafeRouteLegend.setBounds(0, 3, 20, 20);
 		panelSafeRoute.add(panelSafeRouteLegend);
-		
-		JRadioButton rdbtnSafeRoute = new JRadioButton("");
-		rdbtnSafeRoute.setOpaque(false);
-		rdbtnSafeRoute.setBounds(0, 0, 20, 20);
-		panelSafeRouteLegend.add(rdbtnSafeRoute);
 		
 		JTextArea textAreaSafeRoute = new JTextArea();
 		textAreaSafeRoute.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -541,6 +566,63 @@ public class IslandInformationWindow {
 			
 			}
 		});
+		
+		itemsToBuyTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	// Check if a valid row is selected in the itemsToBuyTable
+		        if (itemsToBuyTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsToSellTable.clearSelection();
+		        	weaponsToBuyTable.clearSelection();
+		        	weaponsToSellTable.clearSelection();
+		        }
+		    }
+		});
+		
+		weaponsToBuyTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	// Check if a valid row is selected in the weaponsToBuyTable
+		        if (weaponsToBuyTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsToBuyTable.clearSelection();
+		        	itemsToSellTable.clearSelection();
+		        	weaponsToSellTable.clearSelection();
+		        }
+		    }
+		});
+		
+		itemsToSellTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	// Check if a valid row is selected in the itemsToSellTable
+		        if (itemsToSellTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsToBuyTable.clearSelection();
+		        	weaponsToBuyTable.clearSelection();
+		        	weaponsToSellTable.clearSelection();
+		        }
+		    }
+		});
+		
+		weaponsToSellTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	
+		    	// Check if a valid row is selected in the weaponsToSellTable
+		        if (weaponsToSellTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsToBuyTable.clearSelection();
+		        	weaponsToBuyTable.clearSelection();
+		        	itemsToSellTable.clearSelection();
+		        }
+		    }
+		});
 	}
 	
 	
@@ -586,6 +668,7 @@ public class IslandInformationWindow {
 			Object[] temp = {item.getName(), item.getDescription(), item.getSize(), item.getPrice()};
 			itemsToBuyModel.addRow(temp);
 		}
+		
 		
 		// Add items to sell to the table
 		for (Item item: itemsToSellArray) {

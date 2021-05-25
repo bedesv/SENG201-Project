@@ -152,6 +152,26 @@ public class Ship {
 	public int getCrew() {
 		return this.shipCrew;
 	}
+	
+	public boolean hasRum() {
+		for (Item item:shipInventory) {
+			if (item.getName() == "Rum") {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void removeRum() {
+		Item item = new Item();
+		for (int i=0;i<shipInventory.size();i++) {
+			item = shipInventory.get(i);
+			if (item.getName() == "Rum") {
+				shipInventory.remove(i);
+				i--;
+			}
+		}
+	}
 	//getter
 	/**
 	 * Get the list of items bought by the player
@@ -371,6 +391,7 @@ public class Ship {
 	 */
 	public void clearInventory() {
 		this.shipInventory.clear();
+		this.currCapacity = 0;
 	}
 	
 	/**

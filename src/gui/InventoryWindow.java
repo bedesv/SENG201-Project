@@ -9,6 +9,8 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import backEnd.Game;
@@ -86,6 +88,7 @@ public class InventoryWindow {
 	 * Initialize the contents of the frmInventoryWindow.
 	 * @wbp.parser.entryPoint
 	 */
+	@SuppressWarnings("serial")
 	private void initialize(Game game) {
 		frmInventoryWindow = new JFrame();
 		frmInventoryWindow.setBounds(100, 100, 1000, 800);
@@ -126,14 +129,23 @@ public class InventoryWindow {
 				.addComponent(weaponsSoldScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		DefaultTableModel weaponsSoldModel = new DefaultTableModel(weaponsSoldTableHeader, 0);
+		DefaultTableModel weaponsSoldModel = new DefaultTableModel(weaponsSoldTableHeader, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
+	    
 		weaponsSoldTable = new JTable(weaponsSoldModel);
 		weaponsSoldScrollPane.setViewportView(weaponsSoldTable);
 		weaponsSoldPanel.setLayout(gl_weaponsSoldPanel);
 		
-		// Add weapons to sell to the table
+		// Add weapons sold to the table
 		for (Weapon weapon: weaponsSoldArray) {
-			String location = weapon.getIslandSoldOn().getStore().getStoreName() + " on " + weapon.getIslandSoldOn().getName();
+			String location = weapon.getIslandSoldOn().getName();
 			Object[] temp = {weapon.getName(), weapon.getPurchasedPrice(), weapon.getSoldPrice(), location};
 			weaponsSoldModel.addRow(temp);
 		}
@@ -156,12 +168,20 @@ public class InventoryWindow {
 				.addComponent(weaponsBoughtScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		DefaultTableModel weaponsBoughtModel = new DefaultTableModel(weaponsBoughtTableHeader, 0);
+		DefaultTableModel weaponsBoughtModel = new DefaultTableModel(weaponsBoughtTableHeader, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		weaponsBoughtTable = new JTable(weaponsBoughtModel);
 		weaponsBoughtScrollPane.setViewportView(weaponsBoughtTable);
 		weaponsBoughtPanel.setLayout(gl_weaponsBoughtPanel);
 		
-		// Add weapons to buy to the table
+		// Add weapons bought to the table
 		for (Weapon weapon: weaponsBoughtArray) {
 			Object[] temp = {weapon.getName(), weapon.getPrice()};
 			weaponsBoughtModel.addRow(temp);
@@ -184,14 +204,22 @@ public class InventoryWindow {
 				.addGap(0, 155, Short.MAX_VALUE)
 				.addComponent(itemsSoldScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
-		DefaultTableModel itemsSoldModel = new DefaultTableModel(itemsSoldTableHeader, 0);
+		DefaultTableModel itemsSoldModel = new DefaultTableModel(itemsSoldTableHeader, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		itemsSoldTable = new JTable(itemsSoldModel);
 		itemsSoldScrollPane.setViewportView(itemsSoldTable);
 		itemsSoldPanel.setLayout(gl_itemsSoldPanel);
 		
-		// Add items to sell to the table
+		// Add items sold to the table
 		for (Item item: itemsSoldArray) {
-			String location = item.getIslandSoldOn().getStore().getStoreName() + " on " + item.getIslandSoldOn().getName();
+			String location = item.getIslandSoldOn().getName();
 			Object[] temp = {item.getName(), item.getPurchasedPrice(), item.getSoldPrice(), location};
 			itemsSoldModel.addRow(temp);
 		}
@@ -212,7 +240,15 @@ public class InventoryWindow {
 				.addComponent(itemsBoughtScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		DefaultTableModel itemsBoughtModel = new DefaultTableModel(itemsBoughtTableHeader, 0);
+		DefaultTableModel itemsBoughtModel = new DefaultTableModel(itemsBoughtTableHeader, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		itemsBoughtTable = new JTable(itemsBoughtModel);
 		itemsBoughtScrollPane.setViewportView(itemsBoughtTable);
 		itemsBoughtPanel.setLayout(gl_itemsBoughtPanel);
@@ -243,6 +279,63 @@ public class InventoryWindow {
 			public void actionPerformed(ActionEvent e) {
 					game.exitInventory();
 			}
+		});
+		
+		itemsBoughtTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	// Check if a valid row is selected in the itemsToBuyTable
+		        if (itemsBoughtTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsSoldTable.clearSelection();
+		        	weaponsBoughtTable.clearSelection();
+		        	weaponsSoldTable.clearSelection();
+		        }
+		    }
+		});
+		
+		weaponsBoughtTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	// Check if a valid row is selected in the weaponsToBuyTable
+		        if (weaponsBoughtTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsBoughtTable.clearSelection();
+		        	itemsSoldTable.clearSelection();
+		        	weaponsSoldTable.clearSelection();
+		        }
+		    }
+		});
+		
+		itemsSoldTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	// Check if a valid row is selected in the itemsToSellTable
+		        if (itemsSoldTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsBoughtTable.clearSelection();
+		        	weaponsBoughtTable.clearSelection();
+		        	weaponsSoldTable.clearSelection();
+		        }
+		    }
+		});
+		
+		weaponsSoldTable.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+		    @Override
+		    public void valueChanged(ListSelectionEvent event) {
+		    	
+		    	// Check if a valid row is selected in the weaponsToSellTable
+		        if (weaponsSoldTable.getSelectedRow() > -1) {
+		        	
+		        	// Clear selection in all other tables
+		        	itemsBoughtTable.clearSelection();
+		        	weaponsBoughtTable.clearSelection();
+		        	itemsSoldTable.clearSelection();
+		        }
+		    }
 		});
 		
 	}

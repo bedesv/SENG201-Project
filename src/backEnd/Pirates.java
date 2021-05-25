@@ -53,18 +53,23 @@ public class Pirates extends RandomEvent{
 			int pirateRandom = (int) (Math.random() * (7 - 1 + 1) + 1);
 			int pirateWants = 2000 * (30 - randomNum * pirateRandom);
 			
-			// if the inventory satisfies the pirates and they take it all
-			if (shipName.inventoryValue() >= pirateWants) {
-				shipName.clearInventory();
-				messages.add("Your goods satisfy the pirates.\nThey will let you continue your journey.");	
-			}
-			
-			// if the pirates do not satisfy with the inventory
-			else {
-				messages.add("Too bad... Your goods don't satisfy the pirates.\n"
-						+ "They will take your ship and make you and your crew walk the plank.");
-				// the whole game ends here
-				sailSuccess = 1;
+			if (shipName.hasRum()) {
+				messages.add("The pirates found rum in your cargo hold.\nThey drank it all and forgot to take the rest of your items.");	
+				shipName.removeRum();
+			} else {
+				// if the inventory satisfies the pirates and they take it all
+				if (shipName.inventoryValue() >= pirateWants) {
+					shipName.clearInventory();
+					messages.add("Your goods satisfy the pirates.\nThey will let you continue your journey.");	
+				}
+				
+				// if the pirates do not satisfy with the inventory
+				else {
+					messages.add("Too bad... Your goods don't satisfy the pirates.\n"
+							+ "They will take your ship and make you and your crew walk the plank.");
+					// the whole game ends here
+					sailSuccess = 1;
+				}
 			}
 		}
 		// keep playing

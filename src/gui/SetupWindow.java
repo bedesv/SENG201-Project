@@ -158,6 +158,7 @@ public class SetupWindow {
 		
 		rdbtnArborlandIslet = new JRadioButton("Arborland Islet");
 		rdbtnArborlandIslet.setBounds(124, 394, 125, 23);
+		rdbtnArborlandIslet.setToolTipText("Items are cheap here");
 		panelMap.add(rdbtnArborlandIslet);
 		rdbtnArborlandIslet.setForeground(Color.WHITE);
 		rdbtnArborlandIslet.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -166,9 +167,8 @@ public class SetupWindow {
 		
 		rdbtnCrosserPeninsula = new JRadioButton("Crosser Peninsula");
 		rdbtnCrosserPeninsula.setBounds(473, 570, 144, 23);
-		panelMap.add(rdbtnCrosserPeninsula);
-		rdbtnCrosserPeninsula.setHorizontalAlignment(SwingConstants.LEFT);
 		rdbtnCrosserPeninsula.setToolTipText("Items are expensive here");
+		panelMap.add(rdbtnCrosserPeninsula);
 		rdbtnCrosserPeninsula.setForeground(Color.WHITE);
 		rdbtnCrosserPeninsula.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnCrosserPeninsula.setOpaque(false);
@@ -176,6 +176,7 @@ public class SetupWindow {
 		
 		rdbtnRainingArchipelago = new JRadioButton("Raining Archipelago");
 		rdbtnRainingArchipelago.setBounds(328, 236, 158, 23);
+		rdbtnRainingArchipelago.setToolTipText("Items are reasonably priced here");
 		panelMap.add(rdbtnRainingArchipelago);
 		rdbtnRainingArchipelago.setForeground(Color.WHITE);
 		rdbtnRainingArchipelago.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -184,6 +185,7 @@ public class SetupWindow {
 		
 		rdbtnRemoteRefuge = new JRadioButton("Remote Refuge");
 		rdbtnRemoteRefuge.setBounds(94, 117, 161, 23);
+		rdbtnRemoteRefuge.setToolTipText("Items are cheapest here");
 		panelMap.add(rdbtnRemoteRefuge);
 		rdbtnRemoteRefuge.setForeground(Color.WHITE);
 		rdbtnRemoteRefuge.setFont(new Font("Tahoma", Font.PLAIN, 13));
@@ -192,6 +194,7 @@ public class SetupWindow {
 		
 		rdbtnBrightwichIsland = new JRadioButton("Brightwich Island");
 		rdbtnBrightwichIsland.setBounds(438, 125, 140, 23);
+		rdbtnBrightwichIsland.setToolTipText("Items are most expensive here");
 		panelMap.add(rdbtnBrightwichIsland);
 		rdbtnBrightwichIsland.setForeground(Color.WHITE);
 		rdbtnBrightwichIsland.setFont(new Font("Tahoma", Font.PLAIN, 13));

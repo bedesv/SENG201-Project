@@ -65,11 +65,8 @@ public class StoreWindow {
 	
 	private ArrayList<Weapon> weaponsToBuyArray = new ArrayList<Weapon>();
 	private ArrayList<Weapon> weaponsToSellArray = new ArrayList<Weapon>();
-	private StoreWindow storeWindow = this;
 	
 	private boolean purchaseCheck = false;
-	private boolean purchaseSuccess = false;
-	private boolean saleSuccess = false;
 	
 	
 
@@ -94,6 +91,7 @@ public class StoreWindow {
 	 * Initialize the contents of the frame.
 	 * @wbp.parser.entryPoint
 	 */
+	@SuppressWarnings("serial")
 	private void initialize(Game game) {
 		frmStoreWindow = new JFrame();
 		frmStoreWindow.setBounds(100, 100, 1000, 800);
@@ -134,7 +132,15 @@ public class StoreWindow {
 				.addComponent(weaponsToSellScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		DefaultTableModel weaponsToSellModel = new DefaultTableModel(weaponTableHeaders, 0);
+		DefaultTableModel weaponsToSellModel = new DefaultTableModel(weaponTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		weaponsToSellTable = new JTable(weaponsToSellModel);
 		weaponsToSellTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		weaponsToSellScrollPane.setViewportView(weaponsToSellTable);
@@ -172,7 +178,15 @@ public class StoreWindow {
 				.addComponent(weaponsToBuyScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		DefaultTableModel weaponsToBuyModel = new DefaultTableModel(weaponTableHeaders, 0);
+		DefaultTableModel weaponsToBuyModel = new DefaultTableModel(weaponTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		weaponsToBuyTable = new JTable(weaponsToBuyModel);
 		weaponsToBuyTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		weaponsToBuyScrollPane.setViewportView(weaponsToBuyTable);
@@ -209,7 +223,15 @@ public class StoreWindow {
 				.addGap(0, 155, Short.MAX_VALUE)
 				.addComponent(itemsToSellScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
-		DefaultTableModel itemsToSellModel = new DefaultTableModel(itemTableHeaders, 0);
+		DefaultTableModel itemsToSellModel = new DefaultTableModel(itemTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		itemsToSellTable = new JTable(itemsToSellModel);
 		itemsToSellTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToSellScrollPane.setViewportView(itemsToSellTable);
@@ -245,7 +267,15 @@ public class StoreWindow {
 				.addComponent(itemsToBuyScrollPane, GroupLayout.DEFAULT_SIZE, 134, Short.MAX_VALUE)
 		);
 		
-		DefaultTableModel itemsToBuyModel = new DefaultTableModel(itemTableHeaders, 0);
+		DefaultTableModel itemsToBuyModel = new DefaultTableModel(itemTableHeaders, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		itemsToBuyTable = new JTable(itemsToBuyModel);
 		itemsToBuyTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToBuyScrollPane.setViewportView(itemsToBuyTable);
@@ -403,12 +433,7 @@ public class StoreWindow {
 				// Fetch the selected item from the table of items to buy
 				Item item = itemsToBuyArray.get(itemsToBuyTable.getSelectedRow());
 				
-				// Clear the selection  in the table of items to buy and disable the sell weapon button
-				itemsToBuyTable.clearSelection();
-				btnBuyItem.setEnabled(false);
-				
 				purchaseCheck = false;
-				purchaseSuccess = false;
 				
 				try {
 					purchaseCheck = player.checkItemPurchase(item, store.getPurchasePrice(item));
@@ -421,10 +446,6 @@ public class StoreWindow {
 				}
 				
 				if (purchaseCheck) {
-					purchaseSuccess = storeWindow.confirmPurchase(item, store.getPurchasePrice(item));
-				}
-				
-				if (purchaseSuccess) {
 					player.buyItem(item, store.getPurchasePrice(item));
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
@@ -442,7 +463,6 @@ public class StoreWindow {
 						Object[] temp = {i.getName(), i.getDescription(), i.getSize(), store.getSalePrice(i)};
 						itemsToSellModel.addRow(temp);
 					}
-					JOptionPane.showMessageDialog(popup, item.getName() + " purchased successfully");
 				}
 			}
 		});
@@ -455,12 +475,8 @@ public class StoreWindow {
 				// Fetch the selected weapon from the table of weapons to buy
 				Weapon weapon = weaponsToBuyArray.get(weaponsToBuyTable.getSelectedRow());
 				
-				// Clear the selection in the table of weapons to buy and disable the buy weapon button
-				weaponsToBuyTable.clearSelection();
-				btnBuyWeapon.setEnabled(false);
 				
 				purchaseCheck = false;
-				purchaseSuccess = false;
 				
 				try {
 					purchaseCheck = player.checkWeaponPurchase(weapon, store.getPurchasePrice(weapon));
@@ -477,10 +493,6 @@ public class StoreWindow {
 				}
 				
 				if (purchaseCheck) {
-					purchaseSuccess = storeWindow.confirmPurchase(weapon, store.getPurchasePrice(weapon));
-				}
-				
-				if (purchaseSuccess) {
 					player.buyWeapon(weapon, store.getPurchasePrice(weapon));
 					// Update the coins and capacity labels
 					lblCoins.setText("Coins: " + player.getCoins());
@@ -498,7 +510,6 @@ public class StoreWindow {
 						Object[] temp = {w.getName(), w.getDescription(), w.getSize(), store.getSalePrice(w)};
 						weaponsToSellModel.addRow(temp);
 					}
-					JOptionPane.showMessageDialog(popup, weapon.getName() + " purchased successfully");
 				}
 			}
 		});
@@ -508,37 +519,31 @@ public class StoreWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				int selectedRow = itemsToSellTable.getSelectedRow();
 				// Fetch the selected item from the table of items to sell
 				Item item = itemsToSellArray.get(itemsToSellTable.getSelectedRow());
+		
+				player.sellItem(item, store.getSalePrice(item));
+				// Update the coins and capacity labels
+				lblCoins.setText("Coins: " + player.getCoins());
+				lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
 				
-				// Clear the selection in the table of items to sell and disable the sell item button
-				itemsToSellTable.clearSelection();
-				btnSellItem.setEnabled(false);
+				// Update the array of items the player can sell
+				itemsToSellArray = store.getItemsPlayerCanSell(playersShip);
 				
-
+				// Clear all items from the table of items to sell
+				itemsToSellModel.setRowCount(0);
+				itemsToSellTable.removeAll();
 				
-				// Sell the selected item
-				saleSuccess = storeWindow.confirmSale(item, store.getSalePrice(item));
-				
-				if (saleSuccess) {
-					player.sellItem(item, store.getSalePrice(item));
-					// Update the coins and capacity labels
-					lblCoins.setText("Coins: " + player.getCoins());
-					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
-					
-					// Update the array of items the player can sell
-					itemsToSellArray = store.getItemsPlayerCanSell(playersShip);
-					
-					// Clear all items from the table of items to sell
-					itemsToSellModel.setRowCount(0);
-					itemsToSellTable.removeAll();
-					
-					// Add the items the player can sell to the table of items to sell
-					for (Item i: itemsToSellArray) {
-						Object[] temp = {i.getName(), i.getDescription(), i.getSize(), store.getSalePrice(i)};
-						itemsToSellModel.addRow(temp);
-					}
-					JOptionPane.showMessageDialog(popup, item.getName() + " sold successfully");
+				// Add the items the player can sell to the table of items to sell
+				for (Item i: itemsToSellArray) {
+					Object[] temp = {i.getName(), i.getDescription(), i.getSize(), store.getSalePrice(i)};
+					itemsToSellModel.addRow(temp);
+				}
+				if (!(selectedRow >= itemsToSellTable.getRowCount())) {
+					itemsToSellTable.setRowSelectionInterval(selectedRow, selectedRow);
+				} else {
+					btnSellItem.setEnabled(false);
 				}
 			}
 		});
@@ -548,58 +553,36 @@ public class StoreWindow {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+				int selectedRow = weaponsToSellTable.getSelectedRow();
 				// Fetch the selected weapon from the table of weapons to sell
 				Weapon weapon = weaponsToSellArray.get(weaponsToSellTable.getSelectedRow());
+					
+				player.sellWeapon(weapon, store.getSalePrice(weapon));
+				// Update the coins and capacity labels
+				lblCoins.setText("Coins: " + player.getCoins());
+				lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
 				
-				// Clear the selection in the table of weapons to sell and disable the sell weapon button
-				weaponsToSellTable.clearSelection();
-				btnSellWeapon.setEnabled(false);
+				// Update the array of weapons the player can sell
+				weaponsToSellArray = store.getWeaponsPlayerCanSell(playersShip);
 				
-					
-				// Sell the selected weapon
-				saleSuccess = storeWindow.confirmSale(weapon, store.getSalePrice(weapon));
+				// Clear all weapons from the table of weapons to sell
+				weaponsToSellModel.setRowCount(0);
+				weaponsToSellTable.removeAll();
 				
-				if (saleSuccess) {
-					player.sellWeapon(weapon, store.getSalePrice(weapon));
-					// Update the coins and capacity labels
-					lblCoins.setText("Coins: " + player.getCoins());
-					lblCapacity.setText("Ship Capacity: " + player.getShipCapacity());
-					
-					// Update the array of weapons the player can sell
-					weaponsToSellArray = store.getWeaponsPlayerCanSell(playersShip);
-					
-					// Clear all weapons from the table of weapons to sell
-					weaponsToSellModel.setRowCount(0);
-					weaponsToSellTable.removeAll();
-					
-					// Add the weapons the player can sell to the table of weapons to sell
-					for (Weapon w: weaponsToSellArray) {
-						Object[] temp = {w.getName(), w.getDescription(), w.getSize(), store.getSalePrice(w)};
-						weaponsToSellModel.addRow(temp);
-					}
-					JOptionPane.showMessageDialog(popup, weapon.getName() + " sold successfully");
+				// Add the weapons the player can sell to the table of weapons to sell
+				for (Weapon w: weaponsToSellArray) {
+					Object[] temp = {w.getName(), w.getDescription(), w.getSize(), store.getSalePrice(w)};
+					weaponsToSellModel.addRow(temp);
 				}
+				if (!(selectedRow >= weaponsToSellTable.getRowCount())) {
+					weaponsToSellTable.setRowSelectionInterval(selectedRow, selectedRow);
+				} else {
+					btnSellWeapon.setEnabled(false);
+				}
+
 			}
 		});
 		
-	}
-	
-	public boolean confirmPurchase(Item item, int price) {
-		int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to buy" + " a(n) " + item.getName() + " for " + price + " coins?", "Purchase Confirmation",JOptionPane.YES_NO_OPTION);
-		if (choice == JOptionPane.YES_OPTION) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-	
-	public boolean confirmSale(Item item, int price) {
-		int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to sell" + " a(n) " + item.getName() + " for " + price + " coins?", "Sale Confirmation",JOptionPane.YES_NO_OPTION);
-		if (choice == JOptionPane.YES_OPTION) {
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 }

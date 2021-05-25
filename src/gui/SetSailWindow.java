@@ -366,7 +366,8 @@ public class SetSailWindow {
 						showMessage("Error: You don't have enough days left to use this route. Try another or start a new game with unlimited days");
 						setSailSuccess = -1;
 					}
-					if (checkRoute && confirmSailing(island.getName(), selectedRoute.getName(), selectedRoute.getCost(player.getSelectedShip()))) {
+					boolean confirmSailing = confirmSailing(island.getName(), selectedRoute.getName(), selectedRoute.getCost(player.getSelectedShip()));
+					if (checkRoute && confirmSailing) {
 						EventInfo eventInfo = player.setSail(selectedRoute, island);
 						int eventType = eventInfo.getEventType();
 						setSailSuccess = eventInfo.getSailSuccess();
@@ -385,7 +386,7 @@ public class SetSailWindow {
 					}
 					
 					
-					if (setSailSuccess == 0) {
+					if (confirmSailing && setSailSuccess == 0) {
 						game.exitSetSail();
 						showMessage("Successfully sailed to " + island.getName());
 					} else if (setSailSuccess == 1 || setSailSuccess == 2) {

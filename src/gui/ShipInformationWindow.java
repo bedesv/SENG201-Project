@@ -52,6 +52,7 @@ public class ShipInformationWindow {
 	 * Initialize the contents of the frmShipInformationWindow.
 	 * @wbp.parser.entryPoint
 	 */
+	@SuppressWarnings("serial")
 	private void initialize(Game game) {
 		
 		Player player = game.getPlayer();
@@ -85,7 +86,15 @@ public class ShipInformationWindow {
 				.addComponent(weaponsOwnedScrollPane, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
 		);
 		
-		DefaultTableModel weaponsOwnedModel = new DefaultTableModel(weaponTableHeader, 0);
+		DefaultTableModel weaponsOwnedModel = new DefaultTableModel(weaponTableHeader, 0) {
+			/**
+			 * A method that prevents the editing of the table. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
 		JTable weaponsOwnedTable = new JTable(weaponsOwnedModel);
 		weaponsOwnedTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
 		weaponsOwnedScrollPane.setViewportView(weaponsOwnedTable);

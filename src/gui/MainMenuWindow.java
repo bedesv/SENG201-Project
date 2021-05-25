@@ -163,6 +163,7 @@ public class MainMenuWindow {
 					int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to repair your ship for " + player.getShipRepairCost() + " coins?", "Repair Confirmation",JOptionPane.YES_NO_OPTION);
 					if (choice == JOptionPane.YES_OPTION) {
 						player.repairShip();
+						lblCoins.setText("Coins: " + player.getCoins());
 					}
 				}
 			}

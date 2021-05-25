@@ -108,20 +108,48 @@ public class Store {
 	}
 	
 	/**
-	 * Add an item to the store when it is bought by the store
+	 * Add an item to the store that the store buys
+	 * Creates a new item so it can modify the price
 	 * @param item The item that the store bought
 	 */
-	public void addItem(Item item) {
+	public void addItemBought(Item item) {
 		itemsBought.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * boughtMultiplier)));
+	}
+	
+	/**
+	 * Add an item to the store that the store sells
+	 * Creates a new item so it can modify the price
+	 * @param item The item that the store sells
+	 */
+	public void addItemSold(Item item) {
 		itemsSold.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), (item.getPrice() * soldMultiplier)));
 	}
 	
 	/**
+	 * Add a special item to the store that the store buys
+	 * Store buys for a higher price because item is special
+	 * Creates a new item so it can modify the price
+	 * @param item The item that the store bought
+	 */
+	public void addSpecialItemBought(Item item) {
+		itemsBought.add(new Item(item.getName(), item.getDescription(), item.getType(), item.getSize(), ((2+item.getPrice()) * boughtMultiplier)));
+	}
+	
+	/**
 	 * Add an weapon to the store when it is bought by the store
+	 * Creates a new weapon so it can modify the price
 	 * @param weapon The item that the store bought
 	 */
-	public void addWeapon(Weapon weapon) {
+	public void addWeaponBought(Weapon weapon) {
 		weaponsBought.add(new Weapon(weapon.getName(), weapon.getDescription(), weapon.getType(), weapon.getSize(), (weapon.getPrice() * boughtMultiplier), weapon.getMultChanged()));
+	}
+	
+	/**
+	 * Add an weapon to the store when it is bought by the store
+	 * Creates a new weapon so it can modify the price
+	 * @param weapon The item that the store bought
+	 */
+	public void addWeaponSold(Weapon weapon) {
 		weaponsSold.add(new Weapon(weapon.getName(), weapon.getDescription(), weapon.getType(), weapon.getSize(), (weapon.getPrice() * soldMultiplier), weapon.getMultChanged()));
 	}
 	

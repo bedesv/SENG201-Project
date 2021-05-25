@@ -11,6 +11,7 @@ public class Game {
 	private ArrayList<Ship> ships = new ArrayList<Ship>(); 
 	private ArrayList<Island> islands = new ArrayList<Island>(); 
 	private ArrayList<Store> stores = new ArrayList<Store>();
+	private ArrayList<Item> specialItems = new ArrayList<Item>();
 	
 	private Player player;
 	
@@ -161,6 +162,15 @@ public class Game {
 		items.add(new Item("Apple", "A round fruit", "Food", 1, 2)); 
 		items.add(new Item("Orange", "An orange fruit", "Food", 1, 3)); 
 		items.add(new Item("Pear", "A weird looking fruit", "Food", 1, 7)); 
+		items.add(new Item("Rum", "Delicous alcohol", "Drink", 5, 15));
+		items.add(new Item("Ring", "Has an expensive looking diamond", "Jewellery", 1, 10));
+		items.add(new Item("Necklace", "Made of gold", "Jewelery", 1, 12));
+		items.add(new Item("Broach", "Owned by someones grandma","Jewelery", 1, 8));
+		specialItems.add(new Item("Hay", "Could be eaten as a last resort?", "Special", 5, 10));
+		specialItems.add(new Item("Tobacco", "Can be smoked or chewed", "Special", 2, 12));
+		specialItems.add(new Item("Rice", "Good with curries", "Special", 4, 8));
+		specialItems.add(new Item("Tea", "Mix with hot water for a tasy drink", "Special", 5, 10));
+		specialItems.add(new Item("Spices", "Make your meals taste good", "Special", 4, 15));
 		
 		weapons.add(new Weapon("Single Cannon", "Adds 5 to the ships attack multiplier", "Weapon", 7, 60, 5));
 		weapons.add(new Weapon("Double Cannon", "Adds 9 to the ships attack multiplier", "Weapon", 16, 70, 9));
@@ -175,12 +185,20 @@ public class Game {
 		 
 		for (Item i:items) { 
 			for (Store s:stores) {
-				s.addItem(i);
+				s.addItemBought(i);
+				s.addItemSold(i);
 			}
 		} 
 		
 		for (int i=0;i<stores.size();i++) {
-			stores.get(i).addWeapon(weapons.get(i));
+			stores.get(i).addWeaponSold(weapons.get(i));
+			stores.get(i).addItemSold(specialItems.get(i));
+			for (int j=0;j<weapons.size();j++) {
+				if (j!=i) {
+					stores.get(i).addWeaponBought(weapons.get(j));
+					stores.get(i).addSpecialItemBought(specialItems.get(j));
+				}
+			}
 		}
 		 
 		 
@@ -196,10 +214,6 @@ public class Game {
 		islandInformationWindow = new IslandInformationWindow();
 		
 		
-	}
-	
-	public void repairShip() {
-		player.repairShip();
 	}
 	
 	public Player getPlayer() {
@@ -302,6 +316,7 @@ public class Game {
 	}
 	public void endGame() {
 		mainMenuWindow.close();
+		System.exit(0);
 	}
 	
 	public void playGame() {

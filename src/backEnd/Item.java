@@ -21,8 +21,15 @@ public class Item{
 	private int itemPurchasedPrice;
 	/** the price that the player receive when selling the item */
 	private int itemSoldPrice;
-	/** the isalnd on which the stire selling the item is based */
+	/** the island on which the store selling the item is based */
 	private Island islandSoldOn;
+	
+	/**
+	 * Constructor for an item
+	 * Constructs an empty item
+	 */
+	public Item() {
+	}
 	
 	
 	/**
