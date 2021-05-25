@@ -54,6 +54,12 @@ public class Route {
 		return days;
 	}
 	
+	//getter
+	/**
+	 * Get the cost for the travel
+	 * @param ship
+	 * @return
+	 */
 	public int getCost(Ship ship) {
 		return ship.getCostToSail(this.getDaysToTravel(ship));
 	}

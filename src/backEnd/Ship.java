@@ -153,6 +153,10 @@ public class Ship {
 		return this.shipCrew;
 	}
 	
+	/**
+	 * Check if there is rum in the inventory
+	 * @return
+	 */
 	public boolean hasRum() {
 		for (Item item:shipInventory) {
 			if (item.getName() == "Rum") {
@@ -162,6 +166,9 @@ public class Ship {
 		return false;
 	}
 	
+	/**
+	 * Remove rum from the inventory
+	 */
 	public void removeRum() {
 		Item item = new Item();
 		for (int i=0;i<shipInventory.size();i++) {
@@ -358,12 +365,22 @@ public class Ship {
 		this.coins -= coins;
 	}
 	
+	/**
+	 * When player wants to buy an item
+	 * @param item The purchased item
+	 * @param price The cost for the item
+	 */
 	public void buyItem(Item item, int price) {
 		coins -= price;
 		shipInventory.add(item);
 		currCapacity += item.getSize();
 	}
 	
+	/**
+	 * When player wants to sell an item
+	 * @param item The sold item
+	 * @param price The coins received by the player
+	 */
 	public void sellItem(Item item, int price) {
 		coins += price;
 		shipInventory.remove(item);
@@ -371,6 +388,11 @@ public class Ship {
 		currCapacity -= item.getSize();
 	}
 	
+	/**
+	 * When player wants to buy an weapon
+	 * @param weapon The purchased weapon
+	 * @param price The cost for the weapon
+	 */
 	public void buyWeapon(Weapon weapon, int price) {
 		coins -= price;
 		shipWeapons.add(weapon);
@@ -378,6 +400,11 @@ public class Ship {
 		attackMultiplier += weapon.getMultChanged();
 	}
 	
+	/**
+	 * When player wants to sell an weapon
+	 * @param weapon The sold item
+	 * @param price The coins received by the player
+	 */
 	public void sellWeapon(Weapon weapon, int price) {
 		soldWeapons.add(weapon);
 		coins += price;
