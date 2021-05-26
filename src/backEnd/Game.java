@@ -40,8 +40,6 @@ public class Game {
 	private ShipInformationWindow shipInformationWindow;
 	/** The screen that displays the islands' information */
 	private IslandInformationWindow islandInformationWindow;
-	/** The name of the player */
-	public static String name = "";
 	
 	/**
 	 * Creates and adds all the possible ships to an array
@@ -87,7 +85,6 @@ public class Game {
 		Island ArborlandIslet = new Island("Arborland Islet", IronBear); 
 		
 		// Create routes 
-		
 		Route AridTrail = new Route(25, RemoteRefuge, RainingArchipelago, "Arid Trail", 20); 
 		Route DragonfireRoute = new Route(10, RemoteRefuge, RainingArchipelago, "Dragonfire Route", 60); 
 		Route TrepidationPass = new Route(35, RemoteRefuge, BrightwichIsland, "Trepidation Pass", 30); 

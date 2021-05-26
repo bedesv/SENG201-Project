@@ -24,14 +24,12 @@ public class Player {
 	private int daysPlayed=0;
 	/** Instead of choosing a fixed number of days, player can play indefinitely */
 	private boolean unlimitedDays;
-
 	/** event of encountering pirates */
 	private Pirates encounterPirates = new Pirates();
 	/** event of a storm occurring on sail */
 	private Weather unfortunateWeather = new Weather();
 	/** event of rescuing another sailor */
 	private RescueSailors rescueSailors = new RescueSailors();
-	
 	
 	/**
 	 * Constructor of a player

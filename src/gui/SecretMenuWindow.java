@@ -54,13 +54,13 @@ public class SecretMenuWindow {
 	private void initialize(Game game) {
 		Player player = game.getPlayer();
 		frmSecretMenuWindow = new JFrame();
-		frmSecretMenuWindow.setBounds(100, 100, 385, 519);
+		frmSecretMenuWindow.setBounds(100, 100, 343, 519);
 		frmSecretMenuWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmSecretMenuWindow.getContentPane().setLayout(null);
 		frmSecretMenuWindow.setLocationRelativeTo(null);
 		
 		JPanel panelInformation = new JPanel();
-		panelInformation.setBounds(66, 11, 252, 161);
+		panelInformation.setBounds(78, 13, 252, 161);
 		frmSecretMenuWindow.getContentPane().add(panelInformation);
 		panelInformation.setLayout(null);
 		
