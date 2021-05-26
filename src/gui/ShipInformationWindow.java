@@ -33,23 +33,33 @@ public class ShipInformationWindow {
 
 
 	/**
-	 * Create the application.
+	 * Creates the window object.
 	 */
 	public ShipInformationWindow() {
 		
 	}
 	
+	/**
+	 * Initializes the window then sets it to visible
+	 * @param game The current game
+	 */
 	public void open(Game game) {
 		initialize(game);
 		frmShipInformationWindow.setVisible(true);
 	}
 	
+	/**
+	 * Sets the window to invisible
+	 */
 	public void close() {
 		frmShipInformationWindow.setVisible(false);
 	}
 
 	/**
-	 * Initialize the contents of the frmShipInformationWindow.
+	 * Initializes the ship information window
+	 * Shows the ships stats
+	 * Shows the weapons owned by the player
+	 * @param game The current game
 	 * @wbp.parser.entryPoint
 	 */
 	@SuppressWarnings("serial")
@@ -70,52 +80,15 @@ public class ShipInformationWindow {
 		weaponsOwnedPanel.setBounds(33, 353, 428, 119);
 		frmShipInformationWindow.getContentPane().add(weaponsOwnedPanel);
 		
-		String[] weaponTableHeader = {"Weapon", "Description", "Size"};
-		ArrayList<Weapon> weaponsOwnedArray = player.getSelectedShip().getWeaponsBought();
-		
-		JScrollPane weaponsOwnedScrollPane = new JScrollPane();
-		GroupLayout gl_weaponsOwnedPanel = new GroupLayout(weaponsOwnedPanel);
-		gl_weaponsOwnedPanel.setHorizontalGroup(
-			gl_weaponsOwnedPanel.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 450, Short.MAX_VALUE)
-				.addComponent(weaponsOwnedScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
-		);
-		gl_weaponsOwnedPanel.setVerticalGroup(
-			gl_weaponsOwnedPanel.createParallelGroup(Alignment.LEADING)
-				.addGap(0, 250, Short.MAX_VALUE)
-				.addComponent(weaponsOwnedScrollPane, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
-		);
-		
-		DefaultTableModel weaponsOwnedModel = new DefaultTableModel(weaponTableHeader, 0) {
-			/**
-			 * A method that prevents the editing of the table. 
-			 */
-			@Override
-			public boolean isCellEditable(int row, int column) {
-	             return false;
-	          }
-	    };
-		JTable weaponsOwnedTable = new JTable(weaponsOwnedModel);
-		weaponsOwnedTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		weaponsOwnedScrollPane.setViewportView(weaponsOwnedTable);
-		weaponsOwnedPanel.setLayout(gl_weaponsOwnedPanel);
-		
 		JPanel panelMainMenuButton = new JPanel();
 		panelMainMenuButton.setBounds(19, 483, 453, 47);
 		frmShipInformationWindow.getContentPane().add(panelMainMenuButton);
 		panelMainMenuButton.setLayout(null);
 		
-		JButton btnMainMenu = new JButton("Main Menu");
-		btnMainMenu.setBounds(130, 0, 193, 47);
-		panelMainMenuButton.add(btnMainMenu);
-		
-		btnMainMenu.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-					game.exitShipInformation();
-			}
-		});
+		JLabel lblShipImage = new JLabel("");
+		lblShipImage.setBounds(94, 11, 300, 200);
+		frmShipInformationWindow.getContentPane().add(lblShipImage);
+		lblShipImage.setIcon(new ImageIcon(SetupWindow.class.getResource(ship.getImgString())));
 		
 		JTextArea textAreaShipInfo = new JTextArea();
 		textAreaShipInfo.setBackground(UIManager.getColor("Button.background"));
@@ -139,22 +112,64 @@ public class ShipInformationWindow {
 		
 		textAreaShipInfo.setText(shipInfo);
 		
-		JLabel lblShipImage = new JLabel("");
-		lblShipImage.setBounds(94, 11, 300, 200);
-		frmShipInformationWindow.getContentPane().add(lblShipImage);
-		lblShipImage.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Delight.jpg")));
-		//lblShipImage.setIcon(new ImageIcon(SetupWindow.class.getResource(ship.getImgString())));
+		String[] weaponTableHeader = {"Weapon", "Description", "Size"};
+		ArrayList<Weapon> weaponsOwnedArray = player.getSelectedShip().getWeaponsBought();
 		
+		JScrollPane weaponsOwnedScrollPane = new JScrollPane();
+		GroupLayout gl_weaponsOwnedPanel = new GroupLayout(weaponsOwnedPanel);
+		gl_weaponsOwnedPanel.setHorizontalGroup(
+			gl_weaponsOwnedPanel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 450, Short.MAX_VALUE)
+				.addComponent(weaponsOwnedScrollPane, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+		);
+		gl_weaponsOwnedPanel.setVerticalGroup(
+			gl_weaponsOwnedPanel.createParallelGroup(Alignment.LEADING)
+				.addGap(0, 250, Short.MAX_VALUE)
+				.addComponent(weaponsOwnedScrollPane, GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+		);
 		
-		
+		DefaultTableModel weaponsOwnedModel = new DefaultTableModel(weaponTableHeader, 0) {
+			/**
+			 * A method that prevents the editing of the weaponsOwnedTable. 
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+	             return false;
+	          }
+	    };
+	    
+		JTable weaponsOwnedTable = new JTable(weaponsOwnedModel);
+		weaponsOwnedTable.setFont(new Font("Tahoma", Font.PLAIN, 12));
+		weaponsOwnedScrollPane.setViewportView(weaponsOwnedTable);
+		weaponsOwnedPanel.setLayout(gl_weaponsOwnedPanel);
 		weaponsOwnedTable.getColumnModel().getColumn(0).setPreferredWidth(90);
 		weaponsOwnedTable.getColumnModel().getColumn(1).setPreferredWidth(weaponsOwnedPanel.getWidth() - (90 + 35 + 20));
 		weaponsOwnedTable.getColumnModel().getColumn(2).setPreferredWidth(35);
 		
-		// Add weapons to sell to the table
 		for (Weapon weapon: weaponsOwnedArray) {
 			Object[] temp = {weapon.getName(), weapon.getDescription(), weapon.getSize()};
 			weaponsOwnedModel.addRow(temp);
 		}
+		
+		JButton btnMainMenu = new JButton("Main Menu");
+		btnMainMenu.setBounds(130, 0, 193, 47);
+		panelMainMenuButton.add(btnMainMenu);
+		
+		// Return to the main menu on the button click
+		btnMainMenu.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+					game.exitShipInformation();
+			}
+		});
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 }

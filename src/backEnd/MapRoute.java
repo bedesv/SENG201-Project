@@ -67,9 +67,8 @@ public class MapRoute {
 	 * @param player The player of the game
 	 * @param safeRoute The route with a lower chance of random events
 	 * @param dangerousRoute The route with a higher chance of random events
-	 * @return returns a MapRoute with an imgString, safeRoute and dangerousRoute for the given island and players current island
 	 */
-	public MapRoute findMapImage(Island selectedIsland, Player player, Route safeRoute, Route dangerousRoute) {
+	public void findMapImage(Island selectedIsland, Player player, Route safeRoute, Route dangerousRoute) {
 		String imageString = "";
 		Island currentLocation = player.getCurrLocation();
 		ArrayList<Route> routes = currentLocation.getRoutes(selectedIsland);
@@ -178,7 +177,9 @@ public class MapRoute {
 			imageString = "/Images/Arborland Islet and Crosser Peninsula No Label.png";
 			break;
 		}
-		MapRoute result = new MapRoute(imageString, safeRoute, dangerousRoute);
-		return result;
+		this.imgString = imageString;
+		this.safeRoute = safeRoute;
+		this.dangerousRoute = dangerousRoute;
+		
 	}
 }

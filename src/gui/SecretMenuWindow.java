@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -19,38 +17,32 @@ public class SecretMenuWindow {
 	private JFrame frmSecretMenuWindow;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					SecretMenuWindow window = new SecretMenuWindow();
-					window.frmSecretMenuWindow.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the application.
+	 * Creates the window object.
 	 */
 	public SecretMenuWindow() {
 	}
 	
+	/**
+	 * Initializes the window then sets it to visible
+	 * @param game The current game
+	 */
 	public void open(Game game) {
 		initialize(game);
 		frmSecretMenuWindow.setVisible(true);
 	}
 	
+	/**
+	 * Sets the window to invisible
+	 */
 	public void close() {
 		frmSecretMenuWindow.setVisible(false);
 	}
 
 	/**
-	 * Initialize the contents of the frmSecretMenuWindow.
+	 * Initialize secret menu window.
+	 * Displays some buttons to upgrade the ship and give the player more coins
+	 * Used for testing but also good as a hidden way to cheat for the player to find
+	 * @param game The current game
 	 * @wbp.parser.entryPoint
 	 */
 	private void initialize(Game game) {
@@ -118,6 +110,9 @@ public class SecretMenuWindow {
 			btnAddAttackMult.setEnabled(false);
 		}
 		
+		/*
+		 * Button clicked action listeners that implement the relevant action
+		 */
 		btnMainMenu.addActionListener(new ActionListener() {
 			
 			@Override

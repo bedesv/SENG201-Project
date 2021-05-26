@@ -31,53 +31,62 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
 public class SetSailWindow {
-
+	
+	private SetSailWindow setSailWindow = this;
+	
 	private JFrame frmSetSail;
-	private JRadioButton rdbtnCrosserPeninsula;
-	private JPanel panelSelectIsland;
-	private JLabel lblChooseAnIsland;
-	private JPanel panelMap;
-	private JRadioButton rdbtnArborlandIslet;
-	private JRadioButton rdbtnRainingArchipelago;
-	private JRadioButton rdbtnRemoteRefuge;
-	private JRadioButton rdbtnBrightwichIsland;
-	private JLabel lblMap;
-	private final ButtonGroup islandButtonGroup = new ButtonGroup();
 	private JFrame popup;
+	
+	private JLabel lblMap;
+	private JLabel lblSelectedIsland;
+	
 	private JPanel panelSafeRoute;
 	private JPanel panelDangerousRoute;
+	
+	private JTextArea textAreaDangerousRoute;
+	private JTextArea textAreaSafeRoute;
+	
+	private JButton btnSetSail;
+	
+	private final ButtonGroup islandButtonGroup = new ButtonGroup();
+	private final ButtonGroup routeButtonGroup = new ButtonGroup();
+	
 	private Island island;
 	private Route safeRoute;
 	private Route dangerousRoute;
+	
 	private int daysToTravel;
 	private int costToTravel;
-	private JTextArea textAreaDangerousRoute;
-	private JTextArea textAreaSafeRoute;
-	private SetSailWindow setSailWindow = this;
-	private JLabel lblSelectedIsland;
-	private final ButtonGroup routeButtonGroup = new ButtonGroup();
-	private JRadioButton rdbtnDangerousRoute;
-	private JRadioButton rdbtnSafeRoute;
-	private JButton btnSetSail;
-
+	
+	
 	/**
-	 * Create the application.
-	 * 
+	 * Creates the window object.
 	 */
 	public SetSailWindow() {
 	}
 	
-	public void close() {
-		frmSetSail.setVisible(false);
-	}
-	
+	/**
+	 * Initializes the window then sets it to visible
+	 * @param game The current game
+	 */
 	public void open(Game game) {
 		initialize(game);
 		frmSetSail.setVisible(true);
 	}
+	
+	/**
+	 * Sets the window to invisible
+	 */
+	public void close() {
+		frmSetSail.setVisible(false);
+	}
 
 	/**
-	 * Initialize the contents of the frmSetSail.
+	 * Initialize the set sail window
+	 * Shows the islands the player can sail to
+	 * Shows the routes the player can use once an island is selected
+	 * Allows the player to set sail once a destination and route have been selected
+	 * @param game The current game
 	 * @wbp.parser.entryPoint
 	 */
 	private void initialize(Game game) {
@@ -92,12 +101,39 @@ public class SetSailWindow {
 		frmSetSail.getContentPane().setLayout(null);
 		frmSetSail.setLocationRelativeTo(null);
 		
-		panelSelectIsland = new JPanel();
+		JPanel panelSelectIsland = new JPanel();
 		panelSelectIsland.setLayout(null);
 		panelSelectIsland.setBounds(5, 73, 600, 633);
 		frmSetSail.getContentPane().add(panelSelectIsland);
 		
-		lblChooseAnIsland = new JLabel("Select an island to sail to");
+		JPanel panelMap = new JPanel();
+		panelMap.setLayout(null);
+		panelMap.setBounds(0, 33, 600, 600);
+		panelSelectIsland.add(panelMap);
+		
+		panelDangerousRoute = new JPanel();
+		panelDangerousRoute.setBounds(710, 105, 235, 79);
+		frmSetSail.getContentPane().add(panelDangerousRoute);
+		panelDangerousRoute.setLayout(null);
+		
+		panelSafeRoute = new JPanel();
+		panelSafeRoute.setBounds(710, 218, 235, 85);
+		frmSetSail.getContentPane().add(panelSafeRoute);
+		panelSafeRoute.setLayout(null);
+		
+		JPanel panelDangerousRouteLegend = new JPanel();
+		panelDangerousRouteLegend.setLayout(null);
+		panelDangerousRouteLegend.setBackground(Color.RED);
+		panelDangerousRouteLegend.setBounds(0, 3, 20, 20);
+		panelDangerousRoute.add(panelDangerousRouteLegend);
+		
+		JPanel panelSafeRouteLegend = new JPanel();
+		panelSafeRouteLegend.setLayout(null);
+		panelSafeRouteLegend.setBackground(new Color(0, 100, 0));
+		panelSafeRouteLegend.setBounds(0, 3, 20, 20);
+		panelSafeRoute.add(panelSafeRouteLegend);
+		
+		JLabel lblChooseAnIsland = new JLabel("Select an island to sail to");
 		lblChooseAnIsland.setHorizontalAlignment(SwingConstants.CENTER);
 		lblChooseAnIsland.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblChooseAnIsland.setBounds(0, 0, 600, 34);
@@ -108,17 +144,45 @@ public class SetSailWindow {
 		lblCurrLocation.setBounds(12, 12, 600, 31);
 		frmSetSail.getContentPane().add(lblCurrLocation);
 		
+		JLabel lblChooseRoute = new JLabel("Select a route to use");
+		lblChooseRoute.setHorizontalAlignment(SwingConstants.CENTER);
+		lblChooseRoute.setFont(new Font("Tahoma", Font.BOLD, 15));
+		lblChooseRoute.setBounds(710, 72, 235, 34);
+		frmSetSail.getContentPane().add(lblChooseRoute);
+		
+		lblMap = new JLabel("");
+		lblMap.setIcon(new ImageIcon(SetSailWindow.class.getResource("/Images/Base Map.png")));
+		lblMap.setBounds(0, 0, 600, 600);
+		panelMap.add(lblMap);
+		
 		lblSelectedIsland = new JLabel("");
 		lblSelectedIsland.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblSelectedIsland.setBounds(632, 12, 490, 31);
 		frmSetSail.getContentPane().add(lblSelectedIsland);
 		
-		panelMap = new JPanel();
-		panelMap.setLayout(null);
-		panelMap.setBounds(0, 33, 600, 600);
-		panelSelectIsland.add(panelMap);
+		textAreaSafeRoute = new JTextArea();
+		textAreaSafeRoute.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textAreaSafeRoute.setEditable(false);
+		textAreaSafeRoute.setBackground(UIManager.getColor("Button.background"));
+		textAreaSafeRoute.setBounds(26, 0, 209, 85);
+		panelSafeRoute.add(textAreaSafeRoute);
 		
-		rdbtnArborlandIslet = new JRadioButton("Arborland Islet");
+		textAreaDangerousRoute = new JTextArea();
+		textAreaDangerousRoute.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		textAreaDangerousRoute.setEditable(false);
+		textAreaDangerousRoute.setBackground(UIManager.getColor("Button.background"));
+		textAreaDangerousRoute.setBounds(26, 0, 209, 79);
+		panelDangerousRoute.add(textAreaDangerousRoute);
+		
+		JButton btnMainMenu = new JButton("Return to the Main Menu");
+		btnMainMenu.setBounds(10, 711, 248, 43);
+		frmSetSail.getContentPane().add(btnMainMenu);
+		
+		btnSetSail = new JButton("Set Sail");
+		btnSetSail.setBounds(710, 711, 235, 43);
+		frmSetSail.getContentPane().add(btnSetSail);
+		
+		JRadioButton rdbtnArborlandIslet = new JRadioButton("Arborland Islet");
 		islandButtonGroup.add(rdbtnArborlandIslet);
 		rdbtnArborlandIslet.setToolTipText("Items are cheap here");
 		rdbtnArborlandIslet.setOpaque(false);
@@ -127,7 +191,7 @@ public class SetSailWindow {
 		rdbtnArborlandIslet.setBounds(124, 394, 125, 23);
 		panelMap.add(rdbtnArborlandIslet);
 		
-		rdbtnCrosserPeninsula = new JRadioButton("Crosser Peninsula");
+		JRadioButton rdbtnCrosserPeninsula = new JRadioButton("Crosser Peninsula");
 		islandButtonGroup.add(rdbtnCrosserPeninsula);
 		rdbtnCrosserPeninsula.setToolTipText("Items are expensive here");
 		rdbtnCrosserPeninsula.setOpaque(false);
@@ -137,7 +201,7 @@ public class SetSailWindow {
 		rdbtnCrosserPeninsula.setBounds(473, 570, 144, 23);
 		panelMap.add(rdbtnCrosserPeninsula);
 		
-		rdbtnRainingArchipelago = new JRadioButton("Raining Archipelago");
+		JRadioButton rdbtnRainingArchipelago = new JRadioButton("Raining Archipelago");
 		islandButtonGroup.add(rdbtnRainingArchipelago);
 		rdbtnRainingArchipelago.setToolTipText("Items are reasonably priced here");
 		rdbtnRainingArchipelago.setOpaque(false);
@@ -146,7 +210,7 @@ public class SetSailWindow {
 		rdbtnRainingArchipelago.setBounds(328, 236, 158, 23);
 		panelMap.add(rdbtnRainingArchipelago);
 		
-		rdbtnRemoteRefuge = new JRadioButton("Remote Refuge");
+		JRadioButton rdbtnRemoteRefuge = new JRadioButton("Remote Refuge");
 		islandButtonGroup.add(rdbtnRemoteRefuge);
 		rdbtnRemoteRefuge.setToolTipText("Items are cheapest here");
 		rdbtnRemoteRefuge.setOpaque(false);
@@ -155,7 +219,7 @@ public class SetSailWindow {
 		rdbtnRemoteRefuge.setBounds(94, 117, 161, 23);
 		panelMap.add(rdbtnRemoteRefuge);
 		
-		rdbtnBrightwichIsland = new JRadioButton("Brightwich Island");
+		JRadioButton rdbtnBrightwichIsland = new JRadioButton("Brightwich Island");
 		islandButtonGroup.add(rdbtnBrightwichIsland);
 		rdbtnBrightwichIsland.setToolTipText("Items are most expensive here");
 		rdbtnBrightwichIsland.setOpaque(false);
@@ -163,6 +227,18 @@ public class SetSailWindow {
 		rdbtnBrightwichIsland.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnBrightwichIsland.setBounds(438, 125, 140, 23);
 		panelMap.add(rdbtnBrightwichIsland);
+		
+		JRadioButton rdbtnDangerousRoute = new JRadioButton("");
+		routeButtonGroup.add(rdbtnDangerousRoute);
+		rdbtnDangerousRoute.setOpaque(false);
+		rdbtnDangerousRoute.setBounds(0, 0, 20, 20);
+		panelDangerousRouteLegend.add(rdbtnDangerousRoute);
+		
+		JRadioButton rdbtnSafeRoute = new JRadioButton("");
+		routeButtonGroup.add(rdbtnSafeRoute);
+		rdbtnSafeRoute.setOpaque(false);
+		rdbtnSafeRoute.setBounds(0, 0, 20, 20);
+		panelSafeRouteLegend.add(rdbtnSafeRoute);
 		
 		switch (currentLocation) {
 		case "Arborland Islet":
@@ -186,77 +262,11 @@ public class SetSailWindow {
 			rdbtnBrightwichIsland.setToolTipText("You are currently on this island");
 			break;
 		}
-		
-		lblMap = new JLabel("");
-		lblMap.setIcon(new ImageIcon(SetSailWindow.class.getResource("/Images/Base Map.png")));
-		lblMap.setBounds(0, 0, 600, 600);
-		panelMap.add(lblMap);
-		
-		panelDangerousRoute = new JPanel();
-		panelDangerousRoute.setBounds(710, 105, 235, 79);
-		frmSetSail.getContentPane().add(panelDangerousRoute);
-		panelDangerousRoute.setLayout(null);
-		
-		JPanel panelDangerousRouteLegend = new JPanel();
-		panelDangerousRouteLegend.setLayout(null);
-		panelDangerousRouteLegend.setBackground(Color.RED);
-		panelDangerousRouteLegend.setBounds(0, 3, 20, 20);
-		panelDangerousRoute.add(panelDangerousRouteLegend);
-		
-		rdbtnDangerousRoute = new JRadioButton("");
-		routeButtonGroup.add(rdbtnDangerousRoute);
-		rdbtnDangerousRoute.setOpaque(false);
-		rdbtnDangerousRoute.setBounds(0, 0, 20, 20);
-		panelDangerousRouteLegend.add(rdbtnDangerousRoute);
-		
-		textAreaDangerousRoute = new JTextArea();
-		textAreaDangerousRoute.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		textAreaDangerousRoute.setEditable(false);
-		textAreaDangerousRoute.setBackground(UIManager.getColor("Button.background"));
-		textAreaDangerousRoute.setBounds(26, 0, 209, 79);
-		panelDangerousRoute.add(textAreaDangerousRoute);
-		
-		panelSafeRoute = new JPanel();
-		panelSafeRoute.setBounds(710, 218, 235, 85);
-		frmSetSail.getContentPane().add(panelSafeRoute);
-		panelSafeRoute.setLayout(null);
-		
-		JPanel panelSafeRouteLegend = new JPanel();
-		panelSafeRouteLegend.setLayout(null);
-		panelSafeRouteLegend.setBackground(new Color(0, 100, 0));
-		panelSafeRouteLegend.setBounds(0, 3, 20, 20);
-		panelSafeRoute.add(panelSafeRouteLegend);
-		
-		rdbtnSafeRoute = new JRadioButton("");
-		routeButtonGroup.add(rdbtnSafeRoute);
-		rdbtnSafeRoute.setOpaque(false);
-		rdbtnSafeRoute.setBounds(0, 0, 20, 20);
-		panelSafeRouteLegend.add(rdbtnSafeRoute);
-		
-		textAreaSafeRoute = new JTextArea();
-		textAreaSafeRoute.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		textAreaSafeRoute.setEditable(false);
-		textAreaSafeRoute.setBackground(UIManager.getColor("Button.background"));
-		textAreaSafeRoute.setBounds(26, 0, 209, 85);
-		panelSafeRoute.add(textAreaSafeRoute);
-		
+		// Sets the route panels to invisible initially
 		panelSafeRoute.setVisible(false);
 		panelDangerousRoute.setVisible(false);
 		
-		JButton btnMainMenu = new JButton("Return to the Main Menu");
-		btnMainMenu.setBounds(10, 711, 248, 43);
-		frmSetSail.getContentPane().add(btnMainMenu);
-		
-		btnSetSail = new JButton("Set Sail");
-		btnSetSail.setBounds(710, 711, 235, 43);
-		frmSetSail.getContentPane().add(btnSetSail);
-		
-		JLabel lblChooseRoute = new JLabel("Select a route to use");
-		lblChooseRoute.setHorizontalAlignment(SwingConstants.CENTER);
-		lblChooseRoute.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblChooseRoute.setBounds(710, 72, 235, 34);
-		frmSetSail.getContentPane().add(lblChooseRoute);
-		
+		// Return to the main menu on the button click
 		btnMainMenu.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -264,6 +274,10 @@ public class SetSailWindow {
 			}
 		});
 		
+		/*
+		 * Radio button selected events that set the island variable to the correct island 
+		 * and updates the window with the relevant information
+		 */
 		rdbtnArborlandIslet.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -272,7 +286,7 @@ public class SetSailWindow {
 						island = i;
 					}
 				}
-				setSailWindow.updatePage(player);
+				setSailWindow.updatePage(player, island);
 			}
 		}); 
 		
@@ -284,7 +298,7 @@ public class SetSailWindow {
 						island = i;
 					}
 				}
-				setSailWindow.updatePage(player);
+				setSailWindow.updatePage(player, island);
 			}
 		}); 
 		
@@ -296,7 +310,7 @@ public class SetSailWindow {
 						island = i;
 					}
 				}
-				setSailWindow.updatePage(player);
+				setSailWindow.updatePage(player, island);
 			}
 		}); 
 		
@@ -308,7 +322,7 @@ public class SetSailWindow {
 						island = i;
 					}
 				}
-				setSailWindow.updatePage(player);
+				setSailWindow.updatePage(player, island);
 			}
 		}); 
 		
@@ -320,7 +334,7 @@ public class SetSailWindow {
 						island = i;
 					}
 				}
-				setSailWindow.updatePage(player);
+				setSailWindow.updatePage(player, island);
 			}
 		}); 
 		
@@ -338,6 +352,11 @@ public class SetSailWindow {
 			}
 		}); 
 		
+		/*
+		 * Checks if the player has selected a route
+		 * Checks if the player can use the selected route
+		 * Confirms the route with the player and sets sail if the player says yes
+		 */
 		btnSetSail.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent f) {
@@ -348,8 +367,10 @@ public class SetSailWindow {
 				
 				if (rdbtnSafeRoute.isSelected()) {
 					selectedRoute = safeRoute;
+					
 				} else if (rdbtnDangerousRoute.isSelected()) {
 					selectedRoute = dangerousRoute;
+					
 				} else {
 					showMessage("Please select a route to use");
 					routeSelectSuccess = false;
@@ -359,21 +380,23 @@ public class SetSailWindow {
 				if (routeSelectSuccess) {
 					try {
 						checkRoute = player.checkRoute(selectedRoute);
+						
 					} catch (InsufficientCoinsException e) {
 						showMessage("Error: You don't have enough coins to use this route. Sell some items or weapons to get more");
 						setSailSuccess = -1;
+						
 					} catch (InsufficientDaysException e) {
 						showMessage("Error: You don't have enough days left to use this route. Try another or start a new game with unlimited days");
 						setSailSuccess = -1;
 					}
 					boolean confirmSailing = confirmSailing(island.getName(), selectedRoute.getName(), selectedRoute.getCost(player.getSelectedShip()));
+					
 					if (checkRoute && confirmSailing) {
 						EventInfo eventInfo = player.setSail(selectedRoute, island);
 						int eventType = eventInfo.getEventType();
 						setSailSuccess = eventInfo.getSailSuccess();
 						ArrayList<String> messages = eventInfo.getMessages();
 						if (eventType == 1) {
-							
 							setSailWindow.rollDice(messages.get(0));
 							for (int i=1; i < messages.size(); i++) {
 								setSailWindow.showMessage(messages.get(i));
@@ -384,11 +407,10 @@ public class SetSailWindow {
 							}
 						}
 					}
-					
-					
 					if (confirmSailing && setSailSuccess == 0) {
 						game.exitSetSail();
 						showMessage("Successfully sailed to " + island.getName());
+						
 					} else if (setSailSuccess == 1 || setSailSuccess == 2) {
 						showMessage(game.gameOver(setSailSuccess)); 
 					}
@@ -399,7 +421,13 @@ public class SetSailWindow {
 	}
 		
 		
-		
+	/**
+	 * Prompts the player to confirm if they want to sail to the selected island along the selected route
+	 * @param island The island the player has selected
+	 * @param route The route the player has selected
+	 * @param cost The cost for the player to travel along that route
+	 * @return true (if the player clicks yes) or false (if the player clicks no)
+	 */
 	private boolean confirmSailing(String island, String route, int cost) {
 		int choice = JOptionPane.showConfirmDialog(popup, "Are you sure you want to sail to " + island + " along " + route + " for " + cost + " coins?", "Sailing Confirmation",JOptionPane.YES_NO_OPTION);
 		if (choice == JOptionPane.YES_OPTION) {
@@ -409,16 +437,30 @@ public class SetSailWindow {
 		}
 	}
 	
+	/**
+	 * Shows the player the given message in a popup box
+	 * @param message The message to show the player
+	 */
 	private void showMessage(String message) {
 		JOptionPane.showMessageDialog(popup, message);
 	}
 	
-	private void rollDice(String string) {
+	/**
+	 * Prompts the player to roll the dice in a pirate battle
+	 * @param message A string containing the information about the pirate battle, including the number they have to beat
+	 */
+	private void rollDice(String message) {
 		String[] options = {"Roll Dice"};
-		JOptionPane.showOptionDialog(popup, string, "Pirates!", JOptionPane.DEFAULT_OPTION, JOptionPane.OK_OPTION, null, options, "");
+		JOptionPane.showOptionDialog(popup, message, "Pirates!", JOptionPane.DEFAULT_OPTION, JOptionPane.OK_OPTION, null, options, "");
 	}
 	
-	private void updatePage(Player player) {
+	/**
+	 * Updates the page when a new island is selected
+	 * Shows the routes between the players current island and the selected island
+	 * @param player The player
+	 * @param island The island the player wants to sail to
+	 */
+	private void updatePage(Player player, Island island) {
 		if (!panelSafeRoute.isVisible() && !panelDangerousRoute.isVisible()) {
 			frmSetSail.setBounds(100, 100, 1050, 800);
 			frmSetSail.setLocationRelativeTo(null);
@@ -429,7 +471,7 @@ public class SetSailWindow {
 		routeButtonGroup.clearSelection();
 		btnSetSail.setEnabled(false);
 		MapRoute mapRoute = new MapRoute();
-		mapRoute = mapRoute.findMapImage(island, player, safeRoute, dangerousRoute);
+		mapRoute.findMapImage(island, player, safeRoute, dangerousRoute);
 		String imageString = mapRoute.getImgString();
 		safeRoute = mapRoute.getSafeRoute();
 		dangerousRoute = mapRoute.getDangerousRoute();

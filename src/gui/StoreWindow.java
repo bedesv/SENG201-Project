@@ -40,29 +40,23 @@ import javax.swing.UIManager;
 public class StoreWindow {
 
 	private JFrame frmStoreWindow;
+	private JFrame popup;
+	
 	private JTable itemsToBuyTable;
 	private JTable itemsToSellTable;
 	private JTable weaponsToBuyTable;
 	private JTable weaponsToSellTable;
-	private JPanel itemsToSellPanel;
-	private JScrollPane itemsToSellScrollPane;
-	private JPanel weaponsToBuyPanel;
-	private JScrollPane weaponsToBuyScrollPane;
-	private JPanel weaponsToSellPanel;
-	private JScrollPane weaponsToSellScrollPane;
+	
 	private JButton btnBuyItem;
 	private JButton btnBuyWeapon;
 	private JButton btnSellItem;
 	private JButton btnSellWeapon;
-	private JButton btnExitStore;
+	
 	private JLabel lblCapacity;
 	private JLabel lblCoins;
-	private JTextArea lblWelcomeMessage;
-	private JFrame popup;
 	
 	private ArrayList<Item> itemsToBuyArray = new ArrayList<Item>();
 	private ArrayList<Item> itemsToSellArray = new ArrayList<Item>();
-	
 	private ArrayList<Weapon> weaponsToBuyArray = new ArrayList<Weapon>();
 	private ArrayList<Weapon> weaponsToSellArray = new ArrayList<Weapon>();
 	
@@ -72,17 +66,24 @@ public class StoreWindow {
 
 
 	/**
-	 * Create the application.
+	 * Creates the window object.
 	 */
 	public StoreWindow() {
 		
 	}
 	
+	/**
+	 * Initializes the window then sets it to visible
+	 * @param game The current game
+	 */
 	public void open(Game game) {
 		initialize(game);
 		frmStoreWindow.setVisible(true);
 	}
 	
+	/**
+	 * Sets the window to invisible
+	 */
 	public void close() {
 		frmStoreWindow.setVisible(false);
 	}
@@ -113,12 +114,12 @@ public class StoreWindow {
 		weaponsToSellArray = store.getWeaponsPlayerCanSell(playersShip);
 		
 		
-		weaponsToSellPanel = new JPanel();
+		JPanel weaponsToSellPanel = new JPanel();
 		weaponsToSellPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Available to Sell", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsToSellPanel.setBounds(509, 387, 450, 250);
 		frmStoreWindow.getContentPane().add(weaponsToSellPanel);
 		
-		weaponsToSellScrollPane = new JScrollPane();
+		JScrollPane weaponsToSellScrollPane = new JScrollPane();
 		weaponsToSellScrollPane.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_weaponsToSellPanel = new GroupLayout(weaponsToSellPanel);
 		gl_weaponsToSellPanel.setHorizontalGroup(
@@ -134,7 +135,7 @@ public class StoreWindow {
 		
 		DefaultTableModel weaponsToSellModel = new DefaultTableModel(weaponTableHeaders, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the weaponsToSellTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -159,12 +160,12 @@ public class StoreWindow {
 			weaponsToSellModel.addRow(temp);
 		}
 		
-		weaponsToBuyPanel = new JPanel();
+		JPanel weaponsToBuyPanel = new JPanel();
 		weaponsToBuyPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Weapons Available to Buy", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		weaponsToBuyPanel.setBounds(509, 76, 450, 250);
 		frmStoreWindow.getContentPane().add(weaponsToBuyPanel);
 		
-		weaponsToBuyScrollPane = new JScrollPane();
+		JScrollPane weaponsToBuyScrollPane = new JScrollPane();
 		weaponsToBuyScrollPane.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_weaponsToBuyPanel = new GroupLayout(weaponsToBuyPanel);
 		gl_weaponsToBuyPanel.setHorizontalGroup(
@@ -180,7 +181,7 @@ public class StoreWindow {
 		
 		DefaultTableModel weaponsToBuyModel = new DefaultTableModel(weaponTableHeaders, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the weaponsToBuyTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -205,12 +206,12 @@ public class StoreWindow {
 			weaponsToBuyModel.addRow(temp);
 		}
 		
-		itemsToSellPanel = new JPanel();
+		JPanel itemsToSellPanel = new JPanel();
 		itemsToSellPanel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Items Available to Sell", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		itemsToSellPanel.setBounds(24, 387, 450, 250);
 		frmStoreWindow.getContentPane().add(itemsToSellPanel);
 		
-		itemsToSellScrollPane = new JScrollPane();
+		JScrollPane itemsToSellScrollPane = new JScrollPane();
 		itemsToSellScrollPane.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		GroupLayout gl_itemsToSellPanel = new GroupLayout(itemsToSellPanel);
 		gl_itemsToSellPanel.setHorizontalGroup(
@@ -225,19 +226,19 @@ public class StoreWindow {
 		);
 		DefaultTableModel itemsToSellModel = new DefaultTableModel(itemTableHeaders, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the itemsToSellTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
 	             return false;
 	          }
 	    };
+	    
 		itemsToSellTable = new JTable(itemsToSellModel);
 		itemsToSellTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToSellScrollPane.setViewportView(itemsToSellTable);
 		itemsToSellPanel.setLayout(gl_itemsToSellPanel);
 		
-		// Set column widths for the items to sell table
 		itemsToSellTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		itemsToSellTable.getColumnModel().getColumn(0).setPreferredWidth(50);
 		itemsToSellTable.getColumnModel().getColumn(1).setPreferredWidth((int)itemsToSellPanel.getWidth() - (50 + 35 + 40 + 15));
@@ -269,7 +270,7 @@ public class StoreWindow {
 		
 		DefaultTableModel itemsToBuyModel = new DefaultTableModel(itemTableHeaders, 0) {
 			/**
-			 * A method that prevents the editing of the table. 
+			 * A method that prevents the editing of the itemsToBuyTable. 
 			 */
 			@Override
 			public boolean isCellEditable(int row, int column) {
@@ -328,13 +329,13 @@ public class StoreWindow {
 		lblCapacity.setBounds(509, 30, 285, 35);
 		frmStoreWindow.getContentPane().add(lblCapacity);
 		
-		lblWelcomeMessage = new JTextArea("Welcome to the " + store.getStoreName() + ".\nSelect an item or weapon to buy or sell");
+		JTextArea lblWelcomeMessage = new JTextArea("Welcome to the " + store.getStoreName() + ".\nSelect an item or weapon to buy or sell");
 		lblWelcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblWelcomeMessage.setBackground(UIManager.getColor("Button.background"));
 		lblWelcomeMessage.setBounds(24, 11, 376, 59);
 		frmStoreWindow.getContentPane().add(lblWelcomeMessage);
 		
-		btnExitStore = new JButton("Exit Store");
+		JButton btnExitStore = new JButton("Exit Store");
 		btnExitStore.setBounds(434, 710, 120, 40);
 		frmStoreWindow.getContentPane().add(btnExitStore);
 		
