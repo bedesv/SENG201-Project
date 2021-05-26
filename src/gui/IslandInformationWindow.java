@@ -37,6 +37,12 @@ import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 import javax.swing.UIManager;
 
+/**
+ * The GUI window for the island information. 
+ * Shows the items and weapons available to buy and sell 
+ * on other islands and the routes to other islands
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ */
 public class IslandInformationWindow {
 
 	private IslandInformationWindow islandInformationWindow = this;
@@ -283,16 +289,16 @@ public class IslandInformationWindow {
 	          }
 	    };
 	    
-		itemsToBuyTable.getColumnModel().getColumn(0).setPreferredWidth(50);
-		itemsToBuyTable.getColumnModel().getColumn(1).setPreferredWidth(panelItemsToBuy.getWidth() - (50 + 35 + 40 + 15));
-		itemsToBuyTable.getColumnModel().getColumn(2).setPreferredWidth(35);
-		itemsToBuyTable.getColumnModel().getColumn(3).setPreferredWidth(40);
-		
-		itemsToBuyTable = new JTable(itemsToBuyModel);
+	    itemsToBuyTable = new JTable(itemsToBuyModel);
 		itemsToBuyTable.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		itemsToBuyScrollPane.setViewportView(itemsToBuyTable);
 		panelItemsToBuy.setLayout(gl_itemsToBuyPanel);
 		itemsToBuyTable.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+	    
+		itemsToBuyTable.getColumnModel().getColumn(0).setPreferredWidth(50);
+		itemsToBuyTable.getColumnModel().getColumn(1).setPreferredWidth(panelItemsToBuy.getWidth() - (50 + 35 + 40 + 15));
+		itemsToBuyTable.getColumnModel().getColumn(2).setPreferredWidth(35);
+		itemsToBuyTable.getColumnModel().getColumn(3).setPreferredWidth(40);
 		
 		JPanel panelSelectIsland = new JPanel();
 		panelSelectIsland.setLayout(null);

@@ -25,8 +25,6 @@ class IslandTest {
 		testIsland2 = new Island("Test Island 2", testStore2);	
 		testRoute = new Route(10, testIsland, testIsland2, "Test Route", 100); 
 	}
-	
-	
 
 	@Test
 	public void getNameTest() {

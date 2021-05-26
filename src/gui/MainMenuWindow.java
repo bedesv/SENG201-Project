@@ -15,6 +15,11 @@ import javax.swing.JPanel;
 import backEnd.Game;
 import backEnd.Player;
 
+/**
+ * The GUI window for the main menu. 
+ * The main screen of the game, all other windows are accessed from here
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ */
 public class MainMenuWindow {
 
 	private JFrame frmMainMenuWindow;

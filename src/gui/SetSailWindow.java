@@ -30,6 +30,12 @@ import javax.swing.ImageIcon;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 
+/**
+ * The GUI window for setting sail. 
+ * Shows the islands the player can sail to and then the routes they can use
+ * The player must select a destination and a route before setting sail
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ */
 public class SetSailWindow {
 	
 	private SetSailWindow setSailWindow = this;
@@ -150,11 +156,6 @@ public class SetSailWindow {
 		lblChooseRoute.setBounds(710, 72, 235, 34);
 		frmSetSail.getContentPane().add(lblChooseRoute);
 		
-		lblMap = new JLabel("");
-		lblMap.setIcon(new ImageIcon(SetSailWindow.class.getResource("/Images/Base Map.png")));
-		lblMap.setBounds(0, 0, 600, 600);
-		panelMap.add(lblMap);
-		
 		lblSelectedIsland = new JLabel("");
 		lblSelectedIsland.setFont(new Font("Tahoma", Font.BOLD, 20));
 		lblSelectedIsland.setBounds(632, 12, 490, 31);
@@ -228,6 +229,23 @@ public class SetSailWindow {
 		rdbtnBrightwichIsland.setBounds(438, 125, 140, 23);
 		panelMap.add(rdbtnBrightwichIsland);
 		
+		rdbtnBrightwichIsland.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				for (Island i: islands) {
+					if (i.getName() == "Brightwich Island") {
+						island = i;
+					}
+				}
+				setSailWindow.updatePage(player, island);
+			}
+		}); 
+		
+		lblMap = new JLabel("");
+		lblMap.setIcon(new ImageIcon(SetSailWindow.class.getResource("/Images/Base Map.png")));
+		lblMap.setBounds(0, 0, 600, 600);
+		panelMap.add(lblMap);
+		
 		JRadioButton rdbtnDangerousRoute = new JRadioButton("");
 		routeButtonGroup.add(rdbtnDangerousRoute);
 		rdbtnDangerousRoute.setOpaque(false);
@@ -295,18 +313,6 @@ public class SetSailWindow {
 			public void actionPerformed(ActionEvent e) {
 				for (Island i: islands) {
 					if (i.getName() == "Remote Refuge") {
-						island = i;
-					}
-				}
-				setSailWindow.updatePage(player, island);
-			}
-		}); 
-		
-		rdbtnBrightwichIsland.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				for (Island i: islands) {
-					if (i.getName() == "Brightwich Island") {
 						island = i;
 					}
 				}

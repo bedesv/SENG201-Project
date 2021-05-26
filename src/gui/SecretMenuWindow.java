@@ -12,6 +12,12 @@ import javax.swing.JPanel;
 import backEnd.Game;
 import backEnd.Player;
 
+/**
+ * The GUI window for the secret menu. 
+ * Contains buttons to cheat at the game
+ * The button to open this window is hidden so players would be lucky to find it without being shown
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ */
 public class SecretMenuWindow {
 
 	private JFrame frmSecretMenuWindow;

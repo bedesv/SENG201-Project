@@ -27,6 +27,12 @@ import java.awt.Font;
 import javax.swing.UIManager;
 import javax.swing.JLabel;
 
+/**
+ * The GUI window for the ship information. 
+ * Shows the weapons owned by the ship and some other 
+ * information about the ship
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ */
 public class ShipInformationWindow {
 
 	private JFrame frmShipInformationWindow;

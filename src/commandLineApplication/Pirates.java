@@ -7,14 +7,18 @@ package commandLineApplication;
  */
 public class Pirates extends RandomEvent{
 	
+	
+	/**
+	 * Constructor of pirate event
+	 */
+	public Pirates() {
+	}
+	
 	/**
 	 * Player meets pirates and needs to play a dice game to battle with them
 	 * @param shipName The name of the ship the player is using
 	 * @return true (if the player overcomes the battle) or false (if the player loses the entire game)
 	 */
-	public Pirates() {
-	}
-	
 	public boolean pirateBattle(Ship shipName) {
 		int shipAttackMultiplier = shipName.getAttackMultiplier();
 		// the player has to get a greater number from the dice than this to win

@@ -28,6 +28,12 @@ import java.awt.event.ActionListener;
 
 import java.util.ArrayList;
 
+/**
+ * The GUI window for the inventory. 
+ * Shows the items and weapons the player has purchased, and 
+ * where they sold them, if they've been sold
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ */
 public class InventoryWindow {
 
 	private JFrame frmInventoryWindow;

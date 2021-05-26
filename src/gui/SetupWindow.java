@@ -32,6 +32,11 @@ import backEnd.Game;
 import backEnd.Island;
 import backEnd.Ship;
 
+/**
+ * The GUI window for the setup. 
+ * The player must enter their name and choose a ship and starting island before they can start.
+ * @author Aerinn Nguyen, Bede Skinner-Vennell
+ */
 public class SetupWindow {
 
 	private JFrame frmSetupWindow;
@@ -156,11 +161,6 @@ public class SetupWindow {
 		lblChooseStartingIslandText.setFont(new Font("Tahoma", Font.BOLD, 15));
 		lblChooseStartingIslandText.setBounds(0, 0, 600, 34);
 		panelSelectIsland.add(lblChooseStartingIslandText);
-		
-		JLabel lblMap = new JLabel("");
-		lblMap.setBounds(0, 0, 600, 600);
-		panelMap.add(lblMap);
-		lblMap.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Base Map.png")));
 		
 		JLabel lblYourName = new JLabel("Enter your name:");
 		lblYourName.setHorizontalAlignment(SwingConstants.CENTER);
@@ -295,6 +295,11 @@ public class SetupWindow {
 		rdbtnBrightwichIsland.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		rdbtnBrightwichIsland.setOpaque(false);
 		IslandRadioButtonGroup.add(rdbtnBrightwichIsland);
+		
+		JLabel lblMap = new JLabel("");
+		lblMap.setBounds(0, 0, 600, 600);
+		panelMap.add(lblMap);
+		lblMap.setIcon(new ImageIcon(SetupWindow.class.getResource("/Images/Base Map.png")));
 		
 		rdbtnMantis = new JRadioButton("Mantis");
 		rdbtnMantis.setBounds(115, 207, 78, 23);
